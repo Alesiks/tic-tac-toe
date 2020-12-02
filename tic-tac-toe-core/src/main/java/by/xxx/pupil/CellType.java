@@ -1,6 +1,6 @@
 package by.xxx.pupil;
 
-public enum Cell {
+public enum CellType {
 
     CROSS('x'),
     NOUGHT('0'),
@@ -8,7 +8,7 @@ public enum Cell {
 
     private char symbol;
 
-    Cell(char symbol) {
+    CellType(char symbol) {
         this.symbol = symbol;
     }
 

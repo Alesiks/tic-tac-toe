@@ -24,7 +24,7 @@ public class GameStrategy {
                 int sequenceLength = 0;
                 while (j + 1 < board.getWidth()
                         && board.getCellValue(i, j) == board.getCellValue(i, j + 1)
-                        && board.getCellValue(i, j) != Cell.EMPTY) {
+                        && board.getCellValue(i, j) != CellType.EMPTY) {
                     sequenceLength++;
                     j++;
                     if (sequenceLength == board.getWinSequenceLength() - 1) {
@@ -54,7 +54,7 @@ public class GameStrategy {
                 int sequenceLength = 0;
                 while (i + 1 < board.getHeight()
                         && board.getCellValue(i, j) == board.getCellValue(i + 1, j)
-                        && board.getCellValue(i, j) != Cell.EMPTY) {
+                        && board.getCellValue(i, j) != CellType.EMPTY) {
                     sequenceLength++;
                     i++;
                     if (sequenceLength == board.getWinSequenceLength() - 1) {
@@ -80,10 +80,10 @@ public class GameStrategy {
         return GameResult.NOUGHT_WIN == gameResult || GameResult.CROSS_WIN == gameResult;
     }
 
-    private GameResult getResultFromCell(Cell cell) {
-        if (cell == Cell.CROSS) {
+    private GameResult getResultFromCell(CellType cellType) {
+        if (cellType == CellType.CROSS) {
             return GameResult.CROSS_WIN;
-        } else if (cell == Cell.NOUGHT) {
+        } else if (cellType == CellType.NOUGHT) {
             return GameResult.NOUGHT_WIN;
         } else {
             return GameResult.GAME_CONTINUES;

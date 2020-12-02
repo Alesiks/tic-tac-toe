@@ -20,7 +20,7 @@ public class Board {
     private final int width;
     private final int height;
     private final int winSequenceLength;
-    private final Cell[][] board;
+    private final CellType[][] board;
 
     public Board(int height, int width, int winSequenceLength) {
         Validate.isTrue(height > 0, "height is less or equal than zero");
@@ -31,14 +31,14 @@ public class Board {
         this.width = width;
         this.winSequenceLength = winSequenceLength;
 
-        this.board = new Cell[height][width];
+        this.board = new CellType[height][width];
         for (int i = 0; i < this.board.length; i++) {
-            this.board[i] = new Cell[width];
-            Arrays.fill(this.board[i], Cell.EMPTY);
+            this.board[i] = new CellType[width];
+            Arrays.fill(this.board[i], CellType.EMPTY);
         }
     }
 
-    public Board(Cell[][] board, int winSequenceLength) {
+    public Board(CellType[][] board, int winSequenceLength) {
         Validate.notNull(board, "board is null");
         this.height = board.length;
         for (int i = 0; i < board.length - 1; i++) {
@@ -61,27 +61,27 @@ public class Board {
         return winSequenceLength;
     }
 
-    public Cell getCellValue(int i, int j) {
+    public CellType getCellValue(int i, int j) {
         return board[i][j];
     }
 
-    public void updateCellToPossibleValue(int i, int j, Cell cell) {
+    public void updateCellToPossibleValue(int i, int j, CellType cellType) {
         Validate.isTrue(i >= 0 && i < height, "i coordinate is less than 0 or greater than possible height");
         Validate.isTrue(j >= 0 && j < width, "j coordinate is less than 0 or greater than possible width");
-        Validate.isTrue(cell != null && Cell.EMPTY != cell, "Cell is null or empty");
+        Validate.isTrue(cellType != null && CellType.EMPTY != cellType, "Cell is null or empty");
 
-        if (board[i][j] != Cell.EMPTY) {
+        if (board[i][j] != CellType.EMPTY) {
             logger.error("Cell [{}][{}] is not empty", i, j);
         } else {
-            board[i][j] = cell;
+            board[i][j] = cellType;
         }
     }
 
-    public void updateCellValue(int i, int j, Cell cell) {
+    public void updateCellValue(int i, int j, CellType cellType) {
         Validate.isTrue(i >= 0 && i < height, "i coordinate is less than 0 or greater than possible height");
         Validate.isTrue(j >= 0 && j < width, "j coordinate is less than 0 or greater than possible width");
 
-        board[i][j] = cell;
+        board[i][j] = cellType;
     }
 
 }

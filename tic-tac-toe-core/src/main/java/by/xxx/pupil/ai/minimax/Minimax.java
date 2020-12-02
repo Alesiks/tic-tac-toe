@@ -43,9 +43,9 @@ public class Minimax {
             for (int i = 0; i < board.getHeight(); i++) {
                 for (int j = 0; j < board.getWidth(); j++) {
                     if (isCellValueEmpty(board, i, j)) {
-                        board.updateCellToPossibleValue(i, j, Cell.NOUGHT);
+                        board.updateCellToPossibleValue(i, j, CellType.NOUGHT);
                         int value = minimax(board, currDepth + 1, false, alpha, beta);
-                        board.updateCellValue(i, j, Cell.EMPTY);
+                        board.updateCellValue(i, j, CellType.EMPTY);
                         bestValue = Math.max(bestValue, value);
                         alpha = Math.max(alpha, bestValue);
                         if(beta <= alpha) {
@@ -64,9 +64,9 @@ public class Minimax {
             for (int i = 0; i < board.getHeight(); i++) {
                 for (int j = 0; j < board.getWidth(); j++) {
                     if (isCellValueEmpty(board, i, j)) {
-                        board.updateCellToPossibleValue(i, j, Cell.CROSS);
+                        board.updateCellToPossibleValue(i, j, CellType.CROSS);
                         int value = minimax(board, currDepth + 1, true, alpha, beta);
-                        board.updateCellValue(i, j, Cell.EMPTY);
+                        board.updateCellValue(i, j, CellType.EMPTY);
                         bestValue = Math.min(bestValue, value);
                         beta = Math.min(beta, bestValue);
                         if(beta <= alpha) {
