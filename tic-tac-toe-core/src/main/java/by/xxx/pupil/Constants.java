@@ -1,5 +1,7 @@
 package by.xxx.pupil;
 
+import by.xxx.pupil.model.CellType;
+
 public class Constants {
 
     public static final int DEFAULT_BOARD_WIDTH = 20;

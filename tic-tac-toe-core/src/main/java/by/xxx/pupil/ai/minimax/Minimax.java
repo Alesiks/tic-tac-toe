@@ -1,6 +1,10 @@
 package by.xxx.pupil.ai.minimax;
 
 import by.xxx.pupil.*;
+import by.xxx.pupil.model.GameResult;
+import by.xxx.pupil.model.Move;
+import by.xxx.pupil.model.Board;
+import by.xxx.pupil.model.CellType;
 
 import static by.xxx.pupil.BoardUtils.isCellValueEmpty;
 import static by.xxx.pupil.Constants.DRAW_STRATEGY_SCORE;
@@ -9,7 +13,7 @@ import static by.xxx.pupil.Constants.DRAW_STRATEGY_SCORE;
 public class Minimax {
 
     private final int depthLimit;
-    private final GameStrategy gameStrategy = new GameStrategy();
+    private final WinnerFinder winnerFinder = new WinnerFinder();
 
     public Minimax(int depthLimit) {
         this.depthLimit = depthLimit;
@@ -25,16 +29,14 @@ public class Minimax {
      * @return
      */
     public int minimax(Board board, int currDepth, boolean isMaximizingPlayer, int alpha, int beta) {
-        GameResult gameResult = gameStrategy.gameResult(board);
-        if (isBoardInTerminalState(gameResult)) {
-            return mapResultToScore(gameResult);
-        }
+//        GameResult gameResult = winnerFinder.gameResult(board);
+//        if (isBoardInTerminalState(gameResult)) {
+//            return GameResult.mapResultToScore(gameResult);
+//        }
 
         if (currDepth > depthLimit) {
             return DRAW_STRATEGY_SCORE;
         }
-
-
 
         int bestValue;
         if (isMaximizingPlayer) {
@@ -44,7 +46,13 @@ public class Minimax {
                 for (int j = 0; j < board.getWidth(); j++) {
                     if (isCellValueEmpty(board, i, j)) {
                         board.updateCellToPossibleValue(i, j, CellType.NOUGHT);
-                        int value = minimax(board, currDepth + 1, false, alpha, beta);
+                        int value;
+                        if(winnerFinder.isMoveLeadToWin(board, new Move(i, j))) {
+                            GameResult gameResult = GameResult.NOUGHT_WIN;
+                            value = GameResult.mapResultToScore(gameResult);
+                        } else {
+                            value = minimax(board, currDepth + 1, false, alpha, beta);
+                        }
                         board.updateCellValue(i, j, CellType.EMPTY);
                         bestValue = Math.max(bestValue, value);
                         alpha = Math.max(alpha, bestValue);
@@ -65,7 +73,14 @@ public class Minimax {
                 for (int j = 0; j < board.getWidth(); j++) {
                     if (isCellValueEmpty(board, i, j)) {
                         board.updateCellToPossibleValue(i, j, CellType.CROSS);
-                        int value = minimax(board, currDepth + 1, true, alpha, beta);
+                        int value;
+                        if(winnerFinder.isMoveLeadToWin(board, new Move(i, j))) {
+                            GameResult gameResult = GameResult.CROSS_WIN;
+                            value = GameResult.mapResultToScore(gameResult);
+                        } else {
+                            value = minimax(board, currDepth + 1, true, alpha, beta);
+
+                        }
                         board.updateCellValue(i, j, CellType.EMPTY);
                         bestValue = Math.min(bestValue, value);
                         beta = Math.min(beta, bestValue);
@@ -87,18 +102,5 @@ public class Minimax {
     public boolean isBoardInTerminalState(GameResult gameResult) {
         return GameResult.GAME_CONTINUES != gameResult;
     }
-
-    public int mapResultToScore(GameResult gameResult) {
-        if (GameResult.NOUGHT_WIN == gameResult) {
-            return Constants.WIN_STRATEGY_SCORE;
-        } else if (GameResult.CROSS_WIN == gameResult) {
-            return Constants.LOSE_STRATEGY_SCORE;
-        } else if (GameResult.DRAW == gameResult) {
-            return DRAW_STRATEGY_SCORE;
-        } else {
-            throw new RuntimeException("Game not in terminal state");
-        }
-    }
-
 
 }

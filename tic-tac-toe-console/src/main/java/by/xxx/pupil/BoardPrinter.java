@@ -1,5 +1,7 @@
 package by.xxx.pupil;
 
+import by.xxx.pupil.model.Board;
+
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;

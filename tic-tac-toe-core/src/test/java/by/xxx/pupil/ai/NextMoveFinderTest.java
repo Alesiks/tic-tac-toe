@@ -1,7 +1,9 @@
 package by.xxx.pupil.ai;
 
-import by.xxx.pupil.Board;
-import by.xxx.pupil.CellType;
+import by.xxx.pupil.NextMoveFinder;
+import by.xxx.pupil.model.Board;
+import by.xxx.pupil.model.CellType;
+import by.xxx.pupil.model.Move;
 import by.xxx.pupil.ai.minimax.MinimaxAlgorithmBasedAI;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,9 @@
 package by.xxx.pupil;
 
-import by.xxx.pupil.ai.Move;
-import by.xxx.pupil.ai.NextMoveFinder;
 import by.xxx.pupil.ai.minimax.MinimaxAlgorithmBasedAI;
+import by.xxx.pupil.model.Board;
+import by.xxx.pupil.model.CellType;
+import by.xxx.pupil.model.Move;
 
 import java.io.*;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ public class Runner {
         );
 
         NextMoveFinder nextMoveFinder = new MinimaxAlgorithmBasedAI();
-        GameStrategy gameStrategy = new GameStrategy();
+        WinnerFinder winnerFinder = new WinnerFinder();
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -37,12 +38,9 @@ public class Runner {
             board.updateCellValue(h - 1, w - 1, CellType.CROSS);
             printer.print(board);
 
-            GameResult currState = gameStrategy.gameResult(board);
-            if (GameResult.CROSS_WIN == currState) {
+            boolean crossWin = winnerFinder.isMoveLeadToWin(board, new Move(h - 1, w - 1));
+            if (crossWin) {
                 System.out.println("Crosses win!");
-                break;
-            } else if (GameResult.DRAW == currState) {
-                System.out.println("It's a draw!");
                 break;
             }
 
@@ -50,12 +48,9 @@ public class Runner {
             board.updateCellValue(aiMove.getI(), aiMove.getJ(), CellType.NOUGHT);
             printer.print(board);
 
-            currState = gameStrategy.gameResult(board);
-            if (GameResult.NOUGHT_WIN == currState) {
+            boolean noughtWin = winnerFinder.isMoveLeadToWin(board, aiMove);
+            if (noughtWin) {
                 System.out.println("Noughts win!");
-                break;
-            } else if (GameResult.DRAW == currState) {
-                System.out.println("It's a draw!");
                 break;
             }
         }

@@ -1,4 +1,4 @@
-package by.xxx.pupil.ai;
+package by.xxx.pupil.model;
 
 public class Move {
 

@@ -1,4 +1,4 @@
-package by.xxx.pupil;
+package by.xxx.pupil.model;
 
 public enum CellType {
 

@@ -1,8 +1,9 @@
-package by.xxx.pupil.ai;
+package by.xxx.pupil;
 
 
-import by.xxx.pupil.Board;
-import by.xxx.pupil.CellType;
+import by.xxx.pupil.model.Board;
+import by.xxx.pupil.model.CellType;
+import by.xxx.pupil.model.Move;
 
 import static by.xxx.pupil.Constants.DEFAULT_AI_CELL_TYPE_TYPE;
 
