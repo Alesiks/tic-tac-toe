@@ -1,6 +1,7 @@
 package by.xxx.pupil;
 
-import by.xxx.pupil.ai.minimax.MinimaxAlgorithmBasedAI;
+import by.xxx.pupil.ai.AIPlayer;
+import by.xxx.pupil.ai.minimax.MinimaxBasedAI;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.Move;
@@ -17,7 +18,7 @@ public class Runner {
                 Constants.DEFAULT_WIN_SEQUENCE_LENGTH
         );
 
-        NextMoveFinder nextMoveFinder = new MinimaxAlgorithmBasedAI();
+        AIPlayer AIPlayer = new MinimaxBasedAI();
         WinnerFinder winnerFinder = new WinnerFinder();
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -44,7 +45,7 @@ public class Runner {
                 break;
             }
 
-            Move aiMove = nextMoveFinder.findNextMove(board);
+            Move aiMove = AIPlayer.nextMove(board);
             board.updateCellValue(aiMove.getI(), aiMove.getJ(), CellType.NOUGHT);
             printer.print(board);
 
