@@ -13,5 +13,26 @@
 
     <artifactId>tic-tac-toe-web</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>by.xxx.pupil</groupId>
+            <artifactId>tic-tac-toe-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
