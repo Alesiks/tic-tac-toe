@@ -2,7 +2,7 @@ package by.xxx.pupil;
 
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
-import by.xxx.pupil.model.GameResult;
+import by.xxx.pupil.model.GameState;
 import by.xxx.pupil.model.Move;
 import org.junit.jupiter.api.Test;
 
@@ -18,9 +18,9 @@ public class WinnerFinderTest {
     public void emptyBoardTest() {
         Board board = new Board(DEFAULT_BOARD_HEIGHT, DEFAULT_BOARD_WIDTH, DEFAULT_WIN_SEQUENCE_LENGTH);
 
-        GameResult result = winnerFinder.gameResult(board);
+        GameState result = winnerFinder.gameResult(board);
 
-        assertEquals(result, GameResult.GAME_CONTINUES);
+        assertEquals(result, GameState.GAME_CONTINUES);
     }
 
 
@@ -41,9 +41,9 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes, DEFAULT_WIN_SEQUENCE_LENGTH);
 
-        GameResult result = winnerFinder.gameResult(board);
+        GameState result = winnerFinder.gameResult(board);
 
-        assertEquals(result, GameResult.CROSS_WIN);
+        assertEquals(result, GameState.CROSS_WIN);
     }
 
 
@@ -64,9 +64,9 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes, DEFAULT_WIN_SEQUENCE_LENGTH);
 
-        GameResult result = winnerFinder.gameResult(board);
+        GameState result = winnerFinder.gameResult(board);
 
-        assertEquals(result, GameResult.NOUGHT_WIN);
+        assertEquals(result, GameState.NOUGHT_WIN);
     }
 
     @Test
@@ -86,9 +86,9 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes, DEFAULT_WIN_SEQUENCE_LENGTH);
 
-        GameResult result = winnerFinder.gameResult(board);
+        GameState result = winnerFinder.gameResult(board);
 
-        assertEquals(result, GameResult.CROSS_WIN);
+        assertEquals(result, GameState.CROSS_WIN);
     }
 
     @Test
@@ -108,9 +108,9 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes, DEFAULT_WIN_SEQUENCE_LENGTH);
 
-        GameResult result = winnerFinder.gameResult(board);
+        GameState result = winnerFinder.gameResult(board);
 
-        assertEquals(result, GameResult.NOUGHT_WIN);
+        assertEquals(result, GameState.NOUGHT_WIN);
     }
 
     @Test
