@@ -1,5 +1,6 @@
-package by.xxx.pupil.ai.minimax;
+package by.xxx.pupil.ai.minimax.impl;
 
+import by.xxx.pupil.ai.minimax.PossibleMovesFinder;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.Move;
@@ -42,9 +43,9 @@ public class DefaultMovesFinder implements PossibleMovesFinder {
             for (int j = 0; j <= AVAILABILITY_RADIUS; j++) {
                 if (i != 0 || j != 0) {
                     allMoves.add(new Move(y + i, x + j));
-                    allMoves.add(new Move(y + i, x - i));
-                    allMoves.add(new Move(y - i, x + i));
-                    allMoves.add(new Move(y - i, x - i));
+                    allMoves.add(new Move(y + i, x - j));
+                    allMoves.add(new Move(y - i, x + j));
+                    allMoves.add(new Move(y - i, x - j));
                 }
             }
         }
