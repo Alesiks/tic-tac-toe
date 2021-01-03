@@ -9,20 +9,27 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.7.RELEASE</version>
+        <relativePath/>
+    </parent>
+
     <modules>
         <module>tic-tac-toe-core</module>
         <module>tic-tac-toe-web</module>
         <module>tic-tac-toe-console</module>
     </modules>
 
-
     <properties>
         <apache.commons-lang3.version>3.11</apache.commons-lang3.version>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
     <dependencies>
 
     </dependencies>
-
 
 </project>
