@@ -1,6 +1,7 @@
-package by.xxx.pupil.ai.minimax;
+package by.xxx.pupil.ai.minimax.impl;
 
 import by.xxx.pupil.BoardUtils;
+import by.xxx.pupil.ai.minimax.PossibleMovesFinder;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.Move;
 

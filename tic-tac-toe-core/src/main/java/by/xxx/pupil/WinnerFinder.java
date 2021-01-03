@@ -2,7 +2,7 @@ package by.xxx.pupil;
 
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
-import by.xxx.pupil.model.GameResult;
+import by.xxx.pupil.model.GameState;
 import by.xxx.pupil.model.Move;
 import org.apache.commons.lang3.Validate;
 
@@ -108,19 +108,19 @@ public class WinnerFinder {
         return sequenceLength == DEFAULT_WIN_SEQUENCE_LENGTH;
     }
 
-    public GameResult gameResult(Board board) {
+    public GameState gameResult(Board board) {
         Validate.notNull(board, "board is null");
 
-        GameResult gameResult = checkWinnerHorizontalLines(board);
-        if (gameResult == GameResult.GAME_CONTINUES) {
-            gameResult = checkWinnerVerticalLines(board);
+        GameState gameState = checkWinnerHorizontalLines(board);
+        if (gameState == GameState.GAME_CONTINUES) {
+            gameState = checkWinnerVerticalLines(board);
         }
 
-        return gameResult;
+        return gameState;
     }
 
-    private GameResult checkWinnerHorizontalLines(Board board) {
-        GameResult gameResult = GameResult.GAME_CONTINUES;
+    private GameState checkWinnerHorizontalLines(Board board) {
+        GameState gameState = GameState.GAME_CONTINUES;
 
         for (int i = 0; i < board.getHeight(); i++) {
             int j = 0;
@@ -132,25 +132,25 @@ public class WinnerFinder {
                     sequenceLength++;
                     j++;
                     if (sequenceLength == board.getWinSequenceLength() - 1) {
-                        gameResult = getResultFromCell(board.getCellValue(i, j));
+                        gameState = getResultFromCell(board.getCellValue(i, j));
                         break;
                     }
                 }
                 j++;
-                if (isGameEnded(gameResult)) {
+                if (isGameEnded(gameState)) {
                     break;
                 }
             }
-            if (isGameEnded(gameResult)) {
+            if (isGameEnded(gameState)) {
                 break;
             }
         }
 
-        return gameResult;
+        return gameState;
     }
 
-    private GameResult checkWinnerVerticalLines(Board board) {
-        GameResult gameResult = GameResult.GAME_CONTINUES;
+    private GameState checkWinnerVerticalLines(Board board) {
+        GameState gameState = GameState.GAME_CONTINUES;
 
         for (int j = 0; j < board.getWidth(); j++) {
             int i = 0;
@@ -162,35 +162,35 @@ public class WinnerFinder {
                     sequenceLength++;
                     i++;
                     if (sequenceLength == board.getWinSequenceLength() - 1) {
-                        gameResult = getResultFromCell(board.getCellValue(i, j));
+                        gameState = getResultFromCell(board.getCellValue(i, j));
                         break;
                     }
                 }
                 i++;
-                if (isGameEnded(gameResult)) {
+                if (isGameEnded(gameState)) {
                     break;
                 }
             }
-            if (isGameEnded(gameResult)) {
+            if (isGameEnded(gameState)) {
                 break;
             }
         }
 
-        return gameResult;
+        return gameState;
     }
 
 
-    private boolean isGameEnded(GameResult gameResult) {
-        return GameResult.NOUGHT_WIN == gameResult || GameResult.CROSS_WIN == gameResult;
+    private boolean isGameEnded(GameState gameState) {
+        return GameState.NOUGHT_WIN == gameState || GameState.CROSS_WIN == gameState;
     }
 
-    private GameResult getResultFromCell(CellType cellType) {
+    private GameState getResultFromCell(CellType cellType) {
         if (cellType == CellType.CROSS) {
-            return GameResult.CROSS_WIN;
+            return GameState.CROSS_WIN;
         } else if (cellType == CellType.NOUGHT) {
-            return GameResult.NOUGHT_WIN;
+            return GameState.NOUGHT_WIN;
         } else {
-            return GameResult.GAME_CONTINUES;
+            return GameState.GAME_CONTINUES;
         }
     }
 
