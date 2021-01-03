@@ -1,28 +1,49 @@
 package by.xxx.pupil;
 
 import by.xxx.pupil.ai.AIPlayer;
-import by.xxx.pupil.ai.minimax.MinimaxBasedAI;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.Move;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.Banner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class Runner {
+@Import(Cfg.class)
+@SpringBootApplication
+public class Runner implements ApplicationRunner {
+
+    @Autowired
+    private WinnerFinder winnerFinder;
+
+    @Autowired
+    private AIPlayer aiPlayer;
 
     public static void main(String[] args) throws IOException {
+        SpringApplication app = new SpringApplication(Runner.class);
+        app.setBannerMode(Banner.Mode.OFF);
+        app.run(args);
+    }
+
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         Board board = new Board(
                 10,
                 10,
                 Constants.DEFAULT_WIN_SEQUENCE_LENGTH
         );
 
-        AIPlayer AIPlayer = new MinimaxBasedAI();
-        WinnerFinder winnerFinder = new WinnerFinder();
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
         BoardPrinter printer = new BoardPrinter();
 
         System.out.println("The tic-tac-toe game starts, enjoy!");
@@ -45,7 +66,7 @@ public class Runner {
                 break;
             }
 
-            Move aiMove = AIPlayer.nextMove(board);
+            Move aiMove = aiPlayer.nextMove(board);
             board.updateCellValue(aiMove.getI(), aiMove.getJ(), CellType.NOUGHT);
             printer.print(board);
 
@@ -55,9 +76,5 @@ public class Runner {
                 break;
             }
         }
-
-
     }
-
-
 }
