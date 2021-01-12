@@ -12,23 +12,24 @@ import java.util.List;
 public class Minimax {
 
     private final int depthLimit;
-    private final WinnerFinder winnerFinder = new WinnerFinder();
+    private final WinnerFinder winnerFinder;
     private final PossibleMovesFinder possibleMovesFinder;
     private final Evaluator evaluator;
 
-    public Minimax(int depthLimit, PossibleMovesFinder possibleMovesFinder, Evaluator evaluator) {
+    public Minimax(int depthLimit, PossibleMovesFinder possibleMovesFinder, Evaluator evaluator, WinnerFinder winnerFinder) {
         this.depthLimit = depthLimit;
         this.possibleMovesFinder = possibleMovesFinder;
         this.evaluator = evaluator;
+        this.winnerFinder = winnerFinder;
     }
 
     /**
-     * @param board
-     * @param currDepth
-     * @param isMaximizingPlayer
-     * @param alpha              is the best value that the maximizer currently can guarantee at that level or above.
-     * @param beta               is the best value that the minimizer currently can guarantee at that level or above.
-     * @return
+     * @param board - presents current game state
+     * @param currDepth - current level in game tree which is build using minimax algorithm
+     * @param isMaximizingPlayer - is current player maximize score or minimize
+     * @param alpha - the best value that the maximizer currently can guarantee at that level or above.
+     * @param beta - the best value that the minimizer currently can guarantee at that level or above.
+     * @return min or max (depends on player type) value that minimax can achieve on that level
      */
     public int minimax(Board board, int currDepth, boolean isMaximizingPlayer, int alpha, int beta) {
         if (currDepth > depthLimit) {
@@ -54,7 +55,6 @@ public class Minimax {
                     break;
                 }
             }
-
         } else {
             bestValue = Integer.MAX_VALUE;
             List<Move> possibleMoves = possibleMovesFinder.getAvailableMoves(board);

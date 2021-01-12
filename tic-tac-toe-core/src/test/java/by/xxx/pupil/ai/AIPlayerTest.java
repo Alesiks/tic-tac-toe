@@ -29,7 +29,7 @@ public class AIPlayerTest {
                 {CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY},
         };
 
-        Board board = new Board(cellTypes, DEFAULT_WIN_SEQUENCE_LENGTH);
+        Board board = new Board(cellTypes);
 
         Move move = AIPlayer.nextMove(board);
         System.out.println(move);

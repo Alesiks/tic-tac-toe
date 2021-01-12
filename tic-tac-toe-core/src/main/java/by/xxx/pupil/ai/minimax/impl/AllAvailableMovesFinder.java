@@ -15,7 +15,7 @@ public class AllAvailableMovesFinder implements PossibleMovesFinder {
         List<Move> availableMoves = new ArrayList<>();
         for (int i = 0; i < board.getHeight(); i++) {
             for (int j = 0; j < board.getWidth(); j++) {
-                if (BoardUtils.isCellValueEmpty(board, i, j)) {
+                if (BoardUtils.isCellEmpty(board, i, j)) {
                     availableMoves.add(new Move(i, j));
                 }
             }

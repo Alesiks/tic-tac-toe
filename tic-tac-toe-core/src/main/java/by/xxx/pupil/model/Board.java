@@ -19,17 +19,14 @@ public class Board {
 
     private final int width;
     private final int height;
-    private final int winSequenceLength;
     private final CellType[][] board;
 
-    public Board(int height, int width, int winSequenceLength) {
+    public Board(int height, int width) {
         Validate.isTrue(height > 0, "height is less or equal than zero");
         Validate.isTrue(width > 0, "width is less or equal than zero");
-        Validate.isTrue(winSequenceLength > 0, "winSequenceLength is less or equal than zero");
 
         this.height = height;
         this.width = width;
-        this.winSequenceLength = winSequenceLength;
 
         this.board = new CellType[height][width];
         for (int i = 0; i < this.board.length; i++) {
@@ -38,7 +35,7 @@ public class Board {
         }
     }
 
-    public Board(CellType[][] board, int winSequenceLength) {
+    public Board(CellType[][] board) {
         Validate.notNull(board, "board is null");
         this.height = board.length;
         for (int i = 0; i < board.length - 1; i++) {
@@ -46,7 +43,6 @@ public class Board {
         }
         this.width = board[0].length;
         this.board = board;
-        this.winSequenceLength = winSequenceLength;
     }
 
     public int getWidth() {
@@ -55,10 +51,6 @@ public class Board {
 
     public int getHeight() {
         return height;
-    }
-
-    public int getWinSequenceLength() {
-        return winSequenceLength;
     }
 
     public CellType getCellValue(int i, int j) {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class RequestConverter {
 
     public Board convert(Request request) {
-        Board board = new Board(request.getHeight(), request.getWidth(), request.getWinSequenceLength());
+        Board board = new Board(request.getHeight(), request.getWidth());
         request.getBoard().forEach(cell -> board.updateCellToPossibleValue(cell.getY(), cell.getX(), cell.getCellType()));
         return board;
     }

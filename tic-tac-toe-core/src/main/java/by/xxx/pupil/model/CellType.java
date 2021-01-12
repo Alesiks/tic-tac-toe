@@ -6,7 +6,7 @@ public enum CellType {
     NOUGHT('0'),
     EMPTY(' ');
 
-    private char symbol;
+    private final char symbol;
 
     CellType(char symbol) {
         this.symbol = symbol;

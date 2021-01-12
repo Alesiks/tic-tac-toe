@@ -4,8 +4,6 @@ package by.xxx.pupil.ai.minimax;
 import by.xxx.pupil.Constants;
 import by.xxx.pupil.WinnerFinder;
 import by.xxx.pupil.ai.AIPlayer;
-import by.xxx.pupil.ai.minimax.impl.DefaultEvaluator;
-import by.xxx.pupil.ai.minimax.impl.DefaultMovesFinder;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.GameState;
@@ -24,12 +22,12 @@ public class MinimaxBasedAI implements AIPlayer {
             PossibleMovesFinder possibleMovesFinder,
             Evaluator evaluator,
             WinnerFinder winnerFinder,
-            int minimaxDepth
+            Minimax minimax
     ) {
         this.possibleMovesFinder = possibleMovesFinder;
         this.evaluator = evaluator;
         this.winnerFinder = winnerFinder;
-        this.minimax = new Minimax(minimaxDepth, new DefaultMovesFinder(), new DefaultEvaluator());
+        this.minimax = minimax;
     }
 
     @Override
@@ -53,7 +51,6 @@ public class MinimaxBasedAI implements AIPlayer {
                 bestMove = currentMove;
                 bestValue = value;
             }
-
 
         }
 

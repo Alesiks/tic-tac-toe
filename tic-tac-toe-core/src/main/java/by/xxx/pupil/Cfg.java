@@ -2,6 +2,7 @@ package by.xxx.pupil;
 
 import by.xxx.pupil.ai.AIPlayer;
 import by.xxx.pupil.ai.minimax.Evaluator;
+import by.xxx.pupil.ai.minimax.Minimax;
 import by.xxx.pupil.ai.minimax.MinimaxBasedAI;
 import by.xxx.pupil.ai.minimax.PossibleMovesFinder;
 import by.xxx.pupil.ai.minimax.impl.DefaultEvaluator;
@@ -28,8 +29,13 @@ public class Cfg {
     }
 
     @Bean
+    public Minimax minimax() {
+        return new Minimax(Constants.DEFAULT_MINIMAX_DEPTH_LIMIT, possibleMovesFinder(), evaluator(), winnerFinder());
+    }
+
+    @Bean
     public AIPlayer aiPlayer() {
-        return new MinimaxBasedAI(possibleMovesFinder(), evaluator(), winnerFinder(), Constants.DEFAULT_MINIMAX_DEPTH_LIMIT);
+        return new MinimaxBasedAI(possibleMovesFinder(), evaluator(), winnerFinder(), minimax());
     }
 
 }

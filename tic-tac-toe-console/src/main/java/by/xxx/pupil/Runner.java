@@ -33,15 +33,9 @@ public class Runner implements ApplicationRunner {
         app.run(args);
     }
 
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Board board = new Board(
-                10,
-                10,
-                Constants.DEFAULT_WIN_SEQUENCE_LENGTH
-        );
-
+        Board board = new Board(10, 10);
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BoardPrinter printer = new BoardPrinter();

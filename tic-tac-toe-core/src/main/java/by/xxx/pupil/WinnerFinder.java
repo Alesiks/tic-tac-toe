@@ -66,7 +66,6 @@ public class WinnerFinder {
         return isSequenceContainWinCombination(possibleWinSequence);
     }
 
-    // todo fix method
     private boolean isWinRightToLeftDiagonally(Board board, Move move) {
         int delta = move.getI() + 4 < board.getHeight() && move.getJ() - 4 >= 0
                 ? 4
@@ -105,93 +104,7 @@ public class WinnerFinder {
             }
         }
 
-        return sequenceLength == DEFAULT_WIN_SEQUENCE_LENGTH;
-    }
-
-    public GameState gameResult(Board board) {
-        Validate.notNull(board, "board is null");
-
-        GameState gameState = checkWinnerHorizontalLines(board);
-        if (gameState == GameState.GAME_CONTINUES) {
-            gameState = checkWinnerVerticalLines(board);
-        }
-
-        return gameState;
-    }
-
-    private GameState checkWinnerHorizontalLines(Board board) {
-        GameState gameState = GameState.GAME_CONTINUES;
-
-        for (int i = 0; i < board.getHeight(); i++) {
-            int j = 0;
-            while (j + 1 < board.getWidth()) {
-                int sequenceLength = 0;
-                while (j + 1 < board.getWidth()
-                        && board.getCellValue(i, j) == board.getCellValue(i, j + 1)
-                        && board.getCellValue(i, j) != CellType.EMPTY) {
-                    sequenceLength++;
-                    j++;
-                    if (sequenceLength == board.getWinSequenceLength() - 1) {
-                        gameState = getResultFromCell(board.getCellValue(i, j));
-                        break;
-                    }
-                }
-                j++;
-                if (isGameEnded(gameState)) {
-                    break;
-                }
-            }
-            if (isGameEnded(gameState)) {
-                break;
-            }
-        }
-
-        return gameState;
-    }
-
-    private GameState checkWinnerVerticalLines(Board board) {
-        GameState gameState = GameState.GAME_CONTINUES;
-
-        for (int j = 0; j < board.getWidth(); j++) {
-            int i = 0;
-            while (i + 1 < board.getHeight()) {
-                int sequenceLength = 0;
-                while (i + 1 < board.getHeight()
-                        && board.getCellValue(i, j) == board.getCellValue(i + 1, j)
-                        && board.getCellValue(i, j) != CellType.EMPTY) {
-                    sequenceLength++;
-                    i++;
-                    if (sequenceLength == board.getWinSequenceLength() - 1) {
-                        gameState = getResultFromCell(board.getCellValue(i, j));
-                        break;
-                    }
-                }
-                i++;
-                if (isGameEnded(gameState)) {
-                    break;
-                }
-            }
-            if (isGameEnded(gameState)) {
-                break;
-            }
-        }
-
-        return gameState;
-    }
-
-
-    private boolean isGameEnded(GameState gameState) {
-        return GameState.NOUGHT_WIN == gameState || GameState.CROSS_WIN == gameState;
-    }
-
-    private GameState getResultFromCell(CellType cellType) {
-        if (cellType == CellType.CROSS) {
-            return GameState.CROSS_WIN;
-        } else if (cellType == CellType.NOUGHT) {
-            return GameState.NOUGHT_WIN;
-        } else {
-            return GameState.GAME_CONTINUES;
-        }
+        return false;
     }
 
 }

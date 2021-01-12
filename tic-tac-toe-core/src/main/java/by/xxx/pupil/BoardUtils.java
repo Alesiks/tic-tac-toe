@@ -5,7 +5,7 @@ import by.xxx.pupil.model.CellType;
 
 public class BoardUtils {
 
-    public static boolean isCellValueEmpty(Board board, int i, int j) {
+    public static boolean isCellEmpty(Board board, int i, int j) {
         return CellType.EMPTY == board.getCellValue(i, j);
     }
 
