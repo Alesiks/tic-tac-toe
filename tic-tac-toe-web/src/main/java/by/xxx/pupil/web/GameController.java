@@ -32,7 +32,7 @@ public class GameController {
     @PostMapping("/play")
     public Response play(@RequestBody Request request) {
         Board board = requestConverter.convert(request);
-        Move playerMove = new Move(request.getLatestPlayerMove().getY(), request.getLatestPlayerMove().getX());
+        Move playerMove = new Move(request.getLatestPlayerMove().getY(), request.getLatestPlayerMove().getX(), true);
 
         if (winnerFinder.isMoveLeadToWin(board, playerMove)) {
             return new Response(GameState.CROSS_WIN, null);

@@ -13,12 +13,12 @@ public class Minimax {
 
     private final int depthLimit;
     private final WinnerFinder winnerFinder;
-    private final PossibleMovesFinder possibleMovesFinder;
+    private final MovesFinder movesFinder;
     private final Evaluator evaluator;
 
-    public Minimax(int depthLimit, PossibleMovesFinder possibleMovesFinder, Evaluator evaluator, WinnerFinder winnerFinder) {
+    public Minimax(int depthLimit, MovesFinder movesFinder, Evaluator evaluator, WinnerFinder winnerFinder) {
         this.depthLimit = depthLimit;
-        this.possibleMovesFinder = possibleMovesFinder;
+        this.movesFinder = movesFinder;
         this.evaluator = evaluator;
         this.winnerFinder = winnerFinder;
     }
@@ -32,19 +32,17 @@ public class Minimax {
      * @return min or max (depends on player type) value that minimax can achieve on that level
      */
     public int minimax(Board board, int currDepth, boolean isMaximizingPlayer, int alpha, int beta) {
-        if (currDepth > depthLimit) {
-            return evaluator.evaluate(board, GameState.GAME_CONTINUES);
-        }
-
         int bestValue;
         if (isMaximizingPlayer) {
             bestValue = Integer.MIN_VALUE;
-            List<Move> possibleMoves = possibleMovesFinder.getAvailableMoves(board);
+            List<Move> possibleMoves = movesFinder.getMoves(board, false);
             for (Move currentMove : possibleMoves) {
                 board.updateCellToPossibleValue(currentMove.getI(), currentMove.getJ(), CellType.NOUGHT);
                 int value;
                 if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
-                    value = evaluator.evaluate(board, GameState.NOUGHT_WIN);
+                    value = evaluator.evaluate(board, GameState.NOUGHT_WIN, currentMove);
+                } else if(currDepth + 1 > depthLimit) {
+                    value = evaluator.evaluate(board, GameState.GAME_CONTINUES, currentMove);
                 } else {
                     value = minimax(board, currDepth + 1, false, alpha, beta);
                 }
@@ -57,13 +55,15 @@ public class Minimax {
             }
         } else {
             bestValue = Integer.MAX_VALUE;
-            List<Move> possibleMoves = possibleMovesFinder.getAvailableMoves(board);
+            List<Move> possibleMoves = movesFinder.getMoves(board, true);
             for (Move currentMove : possibleMoves) {
                 board.updateCellToPossibleValue(currentMove.getI(), currentMove.getJ(), CellType.CROSS);
                 int value;
                 if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
-                    value = evaluator.evaluate(board, GameState.CROSS_WIN);
-                } else {
+                    value = evaluator.evaluate(board, GameState.CROSS_WIN, currentMove);
+                } else if(currDepth + 1 > depthLimit) {
+                    value = evaluator.evaluate(board, GameState.GAME_CONTINUES, currentMove);
+                }else {
                     value = minimax(board, currDepth + 1, true, alpha, beta);
                 }
                 board.updateCellValue(currentMove.getI(), currentMove.getJ(), CellType.EMPTY);

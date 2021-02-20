@@ -7,3 +7,9 @@ The AI algorithm is build on minimax algorithm and alpha-beta pruning.
 
 ## How to build project and play?
 There is one game mode: Person vs AI. <br>
+
+## Thoughts about AI
+
+### possible combinations on a board:
+straight four: -xxxx-
+four: 0xxxx- || -xxxx0

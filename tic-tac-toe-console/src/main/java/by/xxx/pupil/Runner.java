@@ -54,7 +54,7 @@ public class Runner implements ApplicationRunner {
             board.updateCellValue(h - 1, w - 1, CellType.CROSS);
             printer.print(board);
 
-            boolean crossWin = winnerFinder.isMoveLeadToWin(board, new Move(h - 1, w - 1));
+            boolean crossWin = winnerFinder.isMoveLeadToWin(board, new Move(h - 1, w - 1, true));
             if (crossWin) {
                 System.out.println("Crosses win!");
                 break;

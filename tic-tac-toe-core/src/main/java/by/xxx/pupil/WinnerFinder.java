@@ -2,9 +2,7 @@ package by.xxx.pupil;
 
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
-import by.xxx.pupil.model.GameState;
 import by.xxx.pupil.model.Move;
-import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
 import java.util.List;

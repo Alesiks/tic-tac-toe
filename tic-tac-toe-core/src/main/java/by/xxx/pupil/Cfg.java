@@ -4,24 +4,43 @@ import by.xxx.pupil.ai.AIPlayer;
 import by.xxx.pupil.ai.minimax.Evaluator;
 import by.xxx.pupil.ai.minimax.Minimax;
 import by.xxx.pupil.ai.minimax.MinimaxBasedAI;
-import by.xxx.pupil.ai.minimax.PossibleMovesFinder;
+import by.xxx.pupil.ai.minimax.MovesFinder;
 import by.xxx.pupil.ai.minimax.impl.DefaultEvaluator;
-import by.xxx.pupil.ai.minimax.impl.DefaultMovesFinder;
+import by.xxx.pupil.ai.minimax.impl.InRadiusMovesFinder;
+import by.xxx.pupil.ai.minimax.impl.ThreatMovesFinder;
+import by.xxx.pupil.ai.minimax.impl.TrickyEvaluator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import static by.xxx.pupil.Constants.AVAILABILITY_RADIUS;
 
 @Configuration
 public class Cfg {
 
+//    @Bean
+//    public Evaluator evaluator() {
+//        return new DefaultEvaluator();
+//    }
+
     @Bean
-    public Evaluator evaluator() {
-        return new DefaultEvaluator();
+    public CombinationsFinder combinationsFinder() {
+        return new CombinationsFinder();
     }
 
     @Bean
-    public PossibleMovesFinder possibleMovesFinder() {
-        return new DefaultMovesFinder();
+    public Evaluator evaluator() {
+        return new TrickyEvaluator(combinationsFinder());
     }
+
+    @Bean
+    public InRadiusMovesFinder inRadiusMovesFinder() {
+        return new InRadiusMovesFinder(AVAILABILITY_RADIUS);
+    }
+
+//    @Bean
+//    public MovesFinder threatMovesFinder() {
+//        return new ThreatMovesFinder(inRadiusMovesFinder(), combinationsFinder());
+//    }
 
     @Bean
     public WinnerFinder winnerFinder() {
@@ -30,12 +49,12 @@ public class Cfg {
 
     @Bean
     public Minimax minimax() {
-        return new Minimax(Constants.DEFAULT_MINIMAX_DEPTH_LIMIT, possibleMovesFinder(), evaluator(), winnerFinder());
+        return new Minimax(Constants.DEFAULT_MINIMAX_DEPTH_LIMIT, inRadiusMovesFinder(), evaluator(), winnerFinder());
     }
 
     @Bean
     public AIPlayer aiPlayer() {
-        return new MinimaxBasedAI(possibleMovesFinder(), evaluator(), winnerFinder(), minimax());
+        return new MinimaxBasedAI(inRadiusMovesFinder(), evaluator(), winnerFinder(), minimax());
     }
 
 }

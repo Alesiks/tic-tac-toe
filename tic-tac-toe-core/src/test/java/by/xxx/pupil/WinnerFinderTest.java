@@ -31,7 +31,7 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes);
 
-        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(5, 5));
+        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(5, 5, false));
 
         assertTrue(result);
     }
@@ -53,7 +53,7 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes);
 
-        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(5, 3));
+        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(5, 3, true));
 
         assertTrue(result);
     }
@@ -75,7 +75,7 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes);
 
-        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(4, 4));
+        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(4, 4, false));
 
         assertTrue(result);
     }
@@ -97,7 +97,7 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes);
 
-        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(2, 2));
+        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(2, 2, true));
 
         assertTrue(result);
     }

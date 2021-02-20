@@ -5,8 +5,8 @@ import by.xxx.pupil.model.Move;
 
 import java.util.List;
 
-public interface PossibleMovesFinder {
+public interface MovesFinder {
 
-    List<Move> getAvailableMoves(Board board);
+    List<Move> getMoves(Board board, boolean isPerson);
 
 }
