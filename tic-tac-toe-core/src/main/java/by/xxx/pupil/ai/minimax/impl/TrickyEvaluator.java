@@ -2,9 +2,10 @@ package by.xxx.pupil.ai.minimax.impl;
 
 import by.xxx.pupil.CombinationsFinder;
 import by.xxx.pupil.GeneralCombinationNames;
+import by.xxx.pupil.WinnerFinder;
+import by.xxx.pupil.ai.hashing.ScoreCache;
 import by.xxx.pupil.ai.minimax.Evaluator;
 import by.xxx.pupil.model.Board;
-import by.xxx.pupil.model.GameState;
 import by.xxx.pupil.model.Move;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -14,8 +15,8 @@ import java.util.stream.Collectors;
 
 public class TrickyEvaluator implements Evaluator {
 
-    private static final int AI_WIN_SCORE = 1000000;
-    private static final int PERSON_WIN_SCORE = -1000000;
+    private static final int AI_WIN_SCORE = 10000000;
+    private static final int PERSON_WIN_SCORE = -10000000;
     private static final int DRAW_SCORE = 0;
 
     private static final int AI_FOUR_OPEN_IN_A_ROW = 950000;  // *0000*
@@ -30,28 +31,47 @@ public class TrickyEvaluator implements Evaluator {
     // *x*xx* - broken three
 
     private final CombinationsFinder combinationsFinder;
+    private final ScoreCache scoreCache;
+    private final WinnerFinder winnerFinder;
 
-    public TrickyEvaluator(CombinationsFinder combinationsFinder) {
+    public TrickyEvaluator(
+            CombinationsFinder combinationsFinder,
+            ScoreCache scoreCache,
+            WinnerFinder winnerFinder
+    ) {
         Validate.notNull(combinationsFinder, "combinationsFinder is null");
+        Validate.notNull(scoreCache, "scoreCache");
+        Validate.notNull(winnerFinder, "winnerFinder");
 
         this.combinationsFinder = combinationsFinder;
+        this.scoreCache = scoreCache;
+        this.winnerFinder = winnerFinder;
     }
 
     @Override
-    public int evaluate(Board board, GameState gameState, Move lastMove) {
-        if (gameState == GameState.NOUGHT_WIN) {
-            return AI_WIN_SCORE;
-        } else if (gameState == GameState.CROSS_WIN) {
-            return PERSON_WIN_SCORE;
-        } else {
-            int score = DRAW_SCORE;
+    public int evaluate(Board board, Move lastMove) {
+        if (winnerFinder.isMoveLeadToWin(board, lastMove)) {
+            if (lastMove.isPerson()) {
+                return PERSON_WIN_SCORE;
+            } else {
+                return AI_WIN_SCORE;
+            }
+        }
+
+        Integer score = scoreCache.getScore(board);
+
+
+        if (score == null) {
+
             List<String> lines = board.getAllLines().stream()
                     .filter(StringUtils::isNotBlank)
                     .collect(Collectors.toList());
             int aiScore = lines.stream()
                     .flatMap(line -> combinationsFinder.findAICombination(line).stream())
                     .mapToInt(generalCombination -> {
-                        if (GeneralCombinationNames.STRAIGHT_FOUR.equals(generalCombination)) {
+                        if(GeneralCombinationNames.FIVE.equals(generalCombination)) {
+                            return AI_WIN_SCORE;
+                        } else if (GeneralCombinationNames.STRAIGHT_FOUR.equals(generalCombination)) {
                             return AI_FOUR_OPEN_IN_A_ROW;
                         } else if (GeneralCombinationNames.FOUR.equals(generalCombination)) {
                             return AI_FOUR_PARTLY_OPEN_IN_A_ROW;
@@ -68,7 +88,9 @@ public class TrickyEvaluator implements Evaluator {
             int personScore = lines.stream()
                     .flatMap(line -> combinationsFinder.findAICombination(line).stream())
                     .mapToInt(generalCombination -> {
-                        if (GeneralCombinationNames.STRAIGHT_FOUR.equals(generalCombination)) {
+                        if(GeneralCombinationNames.FIVE.equals(generalCombination)) {
+                          return PERSON_WIN_SCORE;
+                        } else if (GeneralCombinationNames.STRAIGHT_FOUR.equals(generalCombination)) {
                             return PERSON_FOUR_OPEN_IN_A_ROW;
                         } else if (GeneralCombinationNames.FOUR.equals(generalCombination)) {
                             return PERSON_FOUR_PARTLY_OPEN_IN_A_ROW;
@@ -81,9 +103,20 @@ public class TrickyEvaluator implements Evaluator {
                         }
                     })
                     .sum();
+//
+//            if(lastMove.isPerson()) {
+//
+//            } else {
+//
+//            }
 
-            return aiScore + personScore;
+            score = aiScore + personScore;
+            scoreCache.putScore(board, score);
         }
+
+
+        return score;
+
     }
 
 }

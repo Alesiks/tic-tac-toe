@@ -1,6 +1,9 @@
 package by.xxx.pupil;
 
 import by.xxx.pupil.ai.AIPlayer;
+import by.xxx.pupil.ai.hashing.InMemoryCache;
+import by.xxx.pupil.ai.hashing.ScoreCache;
+import by.xxx.pupil.ai.hashing.ZobristHashing;
 import by.xxx.pupil.ai.minimax.Evaluator;
 import by.xxx.pupil.ai.minimax.Minimax;
 import by.xxx.pupil.ai.minimax.MinimaxBasedAI;
@@ -28,8 +31,18 @@ public class Cfg {
     }
 
     @Bean
+    public ZobristHashing zobristHashing() {
+        return new ZobristHashing(10, 10);
+    }
+
+    @Bean
+    public ScoreCache scoreCache() {
+        return new InMemoryCache(zobristHashing());
+    }
+
+    @Bean
     public Evaluator evaluator() {
-        return new TrickyEvaluator(combinationsFinder());
+        return new TrickyEvaluator(combinationsFinder(), scoreCache(), winnerFinder());
     }
 
     @Bean

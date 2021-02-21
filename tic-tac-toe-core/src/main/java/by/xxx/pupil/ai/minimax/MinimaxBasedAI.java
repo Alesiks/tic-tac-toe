@@ -41,7 +41,7 @@ public class MinimaxBasedAI implements AIPlayer {
             int value;
 //                    int value = minimax.minimax(board, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
-                value = evaluator.evaluate(board, GameState.NOUGHT_WIN, currentMove);
+                value = evaluator.evaluate(board, currentMove);
             } else {
                 value = minimax.minimax(board, 0, false, Constants.LOSE_STRATEGY_SCORE, Constants.WIN_STRATEGY_SCORE);
             }

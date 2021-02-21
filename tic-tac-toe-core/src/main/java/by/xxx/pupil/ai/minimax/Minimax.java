@@ -3,7 +3,6 @@ package by.xxx.pupil.ai.minimax;
 import by.xxx.pupil.WinnerFinder;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
-import by.xxx.pupil.model.GameState;
 import by.xxx.pupil.model.Move;
 
 import java.util.List;
@@ -40,9 +39,9 @@ public class Minimax {
                 board.updateCellToPossibleValue(currentMove.getI(), currentMove.getJ(), CellType.NOUGHT);
                 int value;
                 if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
-                    value = evaluator.evaluate(board, GameState.NOUGHT_WIN, currentMove);
+                    value = evaluator.evaluate(board, currentMove);
                 } else if(currDepth + 1 > depthLimit) {
-                    value = evaluator.evaluate(board, GameState.GAME_CONTINUES, currentMove);
+                    value = evaluator.evaluate(board, currentMove);
                 } else {
                     value = minimax(board, currDepth + 1, false, alpha, beta);
                 }
@@ -60,9 +59,9 @@ public class Minimax {
                 board.updateCellToPossibleValue(currentMove.getI(), currentMove.getJ(), CellType.CROSS);
                 int value;
                 if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
-                    value = evaluator.evaluate(board, GameState.CROSS_WIN, currentMove);
+                    value = evaluator.evaluate(board, currentMove);
                 } else if(currDepth + 1 > depthLimit) {
-                    value = evaluator.evaluate(board, GameState.GAME_CONTINUES, currentMove);
+                    value = evaluator.evaluate(board, currentMove);
                 }else {
                     value = minimax(board, currDepth + 1, true, alpha, beta);
                 }
