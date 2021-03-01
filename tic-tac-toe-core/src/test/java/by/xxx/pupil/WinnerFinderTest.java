@@ -4,6 +4,7 @@ import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.GameState;
 import by.xxx.pupil.model.Move;
+import by.xxx.pupil.model.Player;
 import org.junit.jupiter.api.Test;
 
 import static by.xxx.pupil.Constants.*;
@@ -31,7 +32,7 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes);
 
-        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(5, 5, false));
+        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(5, 5, Player.NOUGHTS));
 
         assertTrue(result);
     }
@@ -53,7 +54,7 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes);
 
-        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(5, 3, true));
+        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(5, 3, Player.CROSSES));
 
         assertTrue(result);
     }
@@ -75,7 +76,7 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes);
 
-        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(4, 4, false));
+        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(4, 4, Player.NOUGHTS));
 
         assertTrue(result);
     }
@@ -97,7 +98,7 @@ public class WinnerFinderTest {
 
         Board board = new Board(cellTypes);
 
-        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(2, 2, true));
+        boolean result = winnerFinder.isMoveLeadToWin(board, new Move(2, 2, Player.CROSSES));
 
         assertTrue(result);
     }

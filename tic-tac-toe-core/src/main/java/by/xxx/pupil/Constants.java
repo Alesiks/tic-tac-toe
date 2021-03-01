@@ -1,6 +1,8 @@
 package by.xxx.pupil;
 
 import by.xxx.pupil.model.CellType;
+import by.xxx.pupil.model.Player;
+import javafx.print.PageLayout;
 
 public class Constants {
 
@@ -15,7 +17,7 @@ public class Constants {
     public static final int DRAW_STRATEGY_SCORE = 0;
 
 
-    public static final CellType DEFAULT_AI_CELL_TYPE_TYPE = CellType.NOUGHT;
+    public static final Player DEFAULT_AI_TYPE = Player.NOUGHTS;
 
     public static final int AVAILABILITY_RADIUS = 2;
 

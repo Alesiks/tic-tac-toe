@@ -2,6 +2,7 @@ package by.xxx.pupil;
 
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.Move;
+import by.xxx.pupil.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,46 +13,51 @@ import static java.util.stream.Collectors.toList;
 
 public class CombinationsFinder {
 
-    private CombinationPatterns patterns;
+    private CombinationPatterns combinationPatterns;
 
-    public List<GeneralCombinationNames> findAICombination(String line) {
-        return CombinationPatterns.aiPatterns.stream()
+    public CombinationsFinder(CombinationPatterns combinationPatterns) {
+        this.combinationPatterns = combinationPatterns;
+    }
+
+    public List<GeneralCombination> findNoughtsCombinations(String line) {
+        return combinationPatterns.getNoughtsPatternsToCombinations().keySet()
+                .stream()
                 .filter(pattern -> pattern.matcher(line).find())
-                .map(CombinationPatterns.aiPatternsToCombinations::get)
+                .map(combinationPatterns.getNoughtsPatternsToCombinations()::get)
                 .collect(Collectors.toList());
     }
 
-    public List<GeneralCombinationNames> findPersonCombination(String line) {
-        return CombinationPatterns.personPatterns.stream()
+    public List<GeneralCombination> findCrossesCombinations(String line) {
+        return combinationPatterns.getCrossesPatternsToCombinations().keySet().stream()
                 .filter(pattern -> pattern.matcher(line).find())
-                .map(CombinationPatterns.personPatternsToCombinations::get)
+                .map(combinationPatterns.getCrossesPatternsToCombinations()::get)
                 .collect(Collectors.toList());
     }
 
-    public List<GeneralCombinationNames> getCombinations(Board board, Move move) {
+    public List<GeneralCombination> getCombinations(Board board, Move move) {
         List<String> lines = getPossibleLinesForCombinations(board, move);
 
-        List<GeneralCombinationNames> resultCombinations = new ArrayList<>();
+        List<GeneralCombination> resultCombinations = new ArrayList<>();
         for (String line : lines) {
-            if(move.isPerson()) {
-                if (CombinationPatterns.straightFourPatternPerson.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombinationNames.STRAIGHT_FOUR);
-                } else if (CombinationPatterns.fourPatternPerson.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombinationNames.FOUR);
-                } else if (CombinationPatterns.threePatternPerson.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombinationNames.THREE);
-                } else if (CombinationPatterns.brokenThreePatternPerson.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombinationNames.BROKEN_THREE);
+            if(Player.CROSSES.equals(move.getPlayer())) {
+                if (CombinationPatterns.STRAIGHT_FOUR_CROSSES_PATTERN.matcher(line).find()) {
+                    resultCombinations.add(GeneralCombination.STRAIGHT_FOUR);
+                } else if (CombinationPatterns.FOUR_CROSSES_PATTERN.matcher(line).find()) {
+                    resultCombinations.add(GeneralCombination.FOUR);
+                } else if (CombinationPatterns.THREE_CROSSES_PATTERN.matcher(line).find()) {
+                    resultCombinations.add(GeneralCombination.THREE);
+                } else if (CombinationPatterns.BROKEN_THREE_CROSSES_PATTERN.matcher(line).find()) {
+                    resultCombinations.add(GeneralCombination.BROKEN_THREE);
                 }
             } else {
-                if (CombinationPatterns.straightFourPatternAI.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombinationNames.STRAIGHT_FOUR);
-                } else if (CombinationPatterns.fourPatternAI.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombinationNames.FOUR);
-                } else if (CombinationPatterns.threePatternAI.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombinationNames.THREE);
-                } else if (CombinationPatterns.brokenThreePatternAI.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombinationNames.BROKEN_THREE);
+                if (CombinationPatterns.STRAIGHT_FOUR_NOUGHTS_PATTERN.matcher(line).find()) {
+                    resultCombinations.add(GeneralCombination.STRAIGHT_FOUR);
+                } else if (CombinationPatterns.FOUR_NOUGHTS_PATTERN.matcher(line).find()) {
+                    resultCombinations.add(GeneralCombination.FOUR);
+                } else if (CombinationPatterns.THREE_NOUGHTS_PATTERN.matcher(line).find()) {
+                    resultCombinations.add(GeneralCombination.THREE);
+                } else if (CombinationPatterns.BROKEN_THREE_NOUGHTS_PATTERN.matcher(line).find()) {
+                    resultCombinations.add(GeneralCombination.BROKEN_THREE);
                 }
             }
         }

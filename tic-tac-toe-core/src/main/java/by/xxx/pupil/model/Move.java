@@ -6,12 +6,12 @@ public class Move {
 
     private final int i;
     private final int j;
-    private final boolean isPerson;
+    private final Player player;
 
-    public Move(int i, int j, boolean isPerson) {
+    public Move(int i, int j, Player player) {
         this.i = i;
         this.j = j;
-        this.isPerson = isPerson;
+        this.player = player;
     }
 
     public int getI() {
@@ -22,8 +22,8 @@ public class Move {
         return j;
     }
 
-    public boolean isPerson() {
-        return isPerson;
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
@@ -33,12 +33,12 @@ public class Move {
         Move move = (Move) o;
         return i == move.i &&
                 j == move.j &&
-                isPerson == move.isPerson;
+                player == move.player;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(i, j, isPerson);
+        return Objects.hash(i, j, player);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Move {
         return "Move{" +
                 "i=" + i +
                 ", j=" + j +
-                ", isPerson=" + isPerson +
+                ", player=" + player +
                 '}';
     }
 }

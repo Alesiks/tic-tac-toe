@@ -11,5 +11,9 @@ There is one game mode: Person vs AI. <br>
 ## Thoughts about AI
 
 ### possible combinations on a board:
-straight four: -xxxx-
-four: 0xxxx- || -xxxx0
+straight four: -xxxx- <br>
+four: 0xxxx- || -xxxx0 <br>
+three: -xxx- <br>
+broken three: -x-xx- || -xx-x- <br>
+
+### minimax

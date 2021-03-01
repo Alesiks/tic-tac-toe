@@ -2,11 +2,14 @@ package by.xxx.pupil.ai.hashing;
 
 import by.xxx.pupil.model.Board;
 import org.apache.commons.lang3.Validate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryCache implements ScoreCache {
+    private Logger logger = LogManager.getLogger(InMemoryCache.class);
 
     private final ZobristHashing zobristHashing;
 
@@ -21,6 +24,11 @@ public class InMemoryCache implements ScoreCache {
     @Override
     public Integer getScore(Board board) {
         long hash = zobristHashing.hash(board);
+        if(scoreCache.containsKey(hash)) {
+//            logger.info("cache hit");
+        } else {
+//            logger.info("missed in cache");
+        }
         return scoreCache.get(hash);
     }
 

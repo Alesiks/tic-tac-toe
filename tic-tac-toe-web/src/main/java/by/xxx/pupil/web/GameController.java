@@ -8,6 +8,7 @@ import by.xxx.pupil.model.Cell;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.GameState;
 import by.xxx.pupil.model.Move;
+import by.xxx.pupil.model.Player;
 import by.xxx.pupil.model.Request;
 import by.xxx.pupil.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class GameController {
     @PostMapping("/play")
     public Response play(@RequestBody Request request) {
         Board board = requestConverter.convert(request);
-        Move playerMove = new Move(request.getLatestPlayerMove().getY(), request.getLatestPlayerMove().getX(), true);
+        Move playerMove = new Move(request.getLatestPlayerMove().getY(), request.getLatestPlayerMove().getX(), Player.CROSSES);
 
         if (winnerFinder.isMoveLeadToWin(board, playerMove)) {
             return new Response(GameState.CROSS_WIN, null);

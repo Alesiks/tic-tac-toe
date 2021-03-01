@@ -2,6 +2,7 @@ package by.xxx.pupil.ai.hashing;
 
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.Move;
+import by.xxx.pupil.model.Player;
 
 import java.util.Random;
 
@@ -44,7 +45,7 @@ public class ZobristHashing {
     }
 
     public long updateHash(long hash, Move move) {
-        if(move.isPerson()) {
+        if(Player.CROSSES.equals(move.getPlayer())) {
             hash ^= transpositionTable[move.getI()][move.getJ()][0];
         } else {
             hash ^= transpositionTable[move.getI()][move.getJ()][1];

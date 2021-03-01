@@ -4,7 +4,8 @@ public enum CellType {
 
     CROSS('x'),
     NOUGHT('0'),
-    EMPTY(' ');
+    EMPTY(' '),
+    OBSTACLE('#');
 
     private final char symbol;
 

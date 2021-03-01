@@ -1,9 +1,10 @@
-package by.xxx.pupil.ai.minimax.impl;
+package by.xxx.pupil.ai.minimax.evaluate;
 
 import by.xxx.pupil.WinnerFinder;
-import by.xxx.pupil.ai.minimax.Evaluator;
+import by.xxx.pupil.ai.minimax.evaluate.Evaluator;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.Move;
+import by.xxx.pupil.model.Player;
 import org.apache.commons.lang3.Validate;
 
 public class DefaultEvaluator implements Evaluator {
@@ -23,7 +24,7 @@ public class DefaultEvaluator implements Evaluator {
     @Override
     public int evaluate(Board board, Move lastMove) {
         if (winnerFinder.isMoveLeadToWin(board, lastMove)) {
-            if (lastMove.isPerson()) {
+            if (Player.CROSSES.equals(lastMove.getPlayer())) {
                 return PERSON_WIN_SCORE;
             } else {
                 return AI_WIN_SCORE;
@@ -31,6 +32,11 @@ public class DefaultEvaluator implements Evaluator {
         }
 
         return DRAW_SCORE;
+    }
+
+    @Override
+    public int evaluate(Board board, Move lastMove, long hash) {
+        return evaluate(board, lastMove);
     }
 
 }

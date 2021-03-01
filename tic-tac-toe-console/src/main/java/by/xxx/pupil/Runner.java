@@ -4,6 +4,7 @@ import by.xxx.pupil.ai.AIPlayer;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.Move;
+import by.xxx.pupil.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -54,7 +55,7 @@ public class Runner implements ApplicationRunner {
             board.updateCellValue(h - 1, w - 1, CellType.CROSS);
             printer.print(board);
 
-            boolean crossWin = winnerFinder.isMoveLeadToWin(board, new Move(h - 1, w - 1, true));
+            boolean crossWin = winnerFinder.isMoveLeadToWin(board, new Move(h - 1, w - 1, Player.CROSSES));
             if (crossWin) {
                 System.out.println("Crosses win!");
                 break;

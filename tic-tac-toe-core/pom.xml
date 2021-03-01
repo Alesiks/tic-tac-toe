@@ -13,9 +13,16 @@
 
     <properties>
         <apache.commons-lang3.version>3.11</apache.commons-lang3.version>
+        <guava.version>30.1-jre</guava.version>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>

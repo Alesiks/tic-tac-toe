@@ -1,9 +1,9 @@
-package by.xxx.pupil.ai.minimax.impl;
+package by.xxx.pupil.ai.minimax.findmoves;
 
-import by.xxx.pupil.ai.minimax.MovesFinder;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.Move;
+import by.xxx.pupil.model.Player;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayDeque;
@@ -12,6 +12,8 @@ import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static by.xxx.pupil.BoardUtils.isCellEmpty;
 
 public class InRadiusMovesFinder implements MovesFinder {
 
@@ -24,7 +26,7 @@ public class InRadiusMovesFinder implements MovesFinder {
     }
 
     @Override
-    public List<Move> getMoves(Board board, boolean isPerson) {
+    public List<Move> getMoves(Board board, Player player) {
         Set<Move> visited = new HashSet<>();
         Deque<Move> movesBFSQueue = new ArrayDeque<>();
 
@@ -32,8 +34,8 @@ public class InRadiusMovesFinder implements MovesFinder {
 
         for (int i = 0; i < board.getHeight(); i++) {
             for (int j = 0; j < board.getWidth(); j++) {
-                if(board.getCellValue(i, j) == CellType.CROSS || board.getCellValue(i, j) == CellType.NOUGHT) {
-                    List<Move> allMoves = generateAllMoves(i, j, isPerson);
+                if (board.getCellValue(i, j) == CellType.CROSS || board.getCellValue(i, j) == CellType.NOUGHT) {
+                    List<Move> allMoves = generateAllMoves(i, j, player);
                     allMoves.stream()
                             .filter(m -> isMovePossible(m, board))
                             .forEach(m -> addMove(m, visited, movesBFSQueue, availableMoves));
@@ -44,15 +46,15 @@ public class InRadiusMovesFinder implements MovesFinder {
         return availableMoves;
     }
 
-    private List<Move> generateAllMoves(int y, int x, boolean isPerson) {
+    private List<Move> generateAllMoves(int y, int x, Player player) {
         List<Move> allMoves = new ArrayList<>();
         for (int i = 0; i <= availabilityRadius; i++) {
             for (int j = 0; j <= availabilityRadius; j++) {
                 if (i != 0 || j != 0) {
-                    allMoves.add(new Move(y + i, x + j, isPerson));
-                    allMoves.add(new Move(y + i, x - j, isPerson));
-                    allMoves.add(new Move(y - i, x + j, isPerson));
-                    allMoves.add(new Move(y - i, x - j, isPerson));
+                    allMoves.add(new Move(y + i, x + j, player));
+                    allMoves.add(new Move(y + i, x - j, player));
+                    allMoves.add(new Move(y - i, x + j, player));
+                    allMoves.add(new Move(y - i, x - j, player));
                 }
             }
         }
@@ -64,7 +66,7 @@ public class InRadiusMovesFinder implements MovesFinder {
                 && move.getJ() >= 0
                 && move.getI() < board.getHeight()
                 && move.getJ() < board.getWidth()
-                && board.getCellValue(move.getI(), move.getJ()) == CellType.EMPTY;
+                && isCellEmpty(board, move.getI(), move.getJ());
     }
 
     private void addMove(Move move, Set<Move> visited, Deque<Move> movesBFSQueue, List<Move> availableMoves) {

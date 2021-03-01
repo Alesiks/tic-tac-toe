@@ -1,77 +1,60 @@
 package by.xxx.pupil;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 
 public class CombinationPatterns {
 
-    private static final String FIVE_AI = "00000";
-    private static final Pattern fivePatternAi = Pattern.compile(FIVE_AI);
+    public static final Pattern FIVE_NOUGHTS_PATTERN = Pattern.compile("00000");
+    public static final Pattern STRAIGHT_FOUR_NOUGHTS_PATTERN = Pattern.compile(" 0000 ");
+    public static final Pattern FOUR_NOUGHTS_PATTERN = Pattern.compile("( 0000x)|(x0000 )|(^0000 )|( 0000$)");
+    public static final Pattern THREE_NOUGHTS_PATTERN = Pattern.compile(" 000 ");
+    public static final Pattern BROKEN_THREE_NOUGHTS_PATTERN = Pattern.compile("( 0 00 )|( 00 0 )");
+    public static final Pattern TWO_NOUGHTS_PATTERN = Pattern.compile(" 00 ");
+    public static final Pattern ONE_NOUGHT_PATTERN = Pattern.compile(" 0 ");
 
-    private static final String STRAIGHT_FOUR_AI = " 0000 ";
-    public static final Pattern straightFourPatternAI = Pattern.compile(STRAIGHT_FOUR_AI);
+    public static final Pattern FIVE_CROSSES_PATTERN = Pattern.compile("xxxxx");
+    public static final Pattern STRAIGHT_FOUR_CROSSES_PATTERN = Pattern.compile(" xxxx ");
+    public static final Pattern FOUR_CROSSES_PATTERN = Pattern.compile("( xxxx0)|(0xxxx )|(^xxxx )|( xxxx$)");
+    public static final Pattern THREE_CROSSES_PATTERN = Pattern.compile(" xxx ");
+    public static final Pattern BROKEN_THREE_CROSSES_PATTERN = Pattern.compile("( x xx )|( xx x )");
+    public static final Pattern TWO_CROSSES_PATTERN = Pattern.compile(" xx ");
+    public static final Pattern ONE_CROSS_PATTERN = Pattern.compile(" x ");
 
-    private static final String FOUR_AI = "( 0000x)|(x0000 )|(^0000 )|( 0000$)";
-    public static final Pattern fourPatternAI = Pattern.compile(FOUR_AI);
+    private final Map<Pattern, GeneralCombination> noughtsPatternsToCombinations;
+    private final Map<Pattern, GeneralCombination> crossesPatternsToCombinations;
 
-    private static final String THREE_AI = " 000 ";
-    public static final Pattern threePatternAI = Pattern.compile(THREE_AI);
+    public CombinationPatterns() {
+        Map<Pattern, GeneralCombination> noughtsMap = new HashMap<>();
+        noughtsMap.put(FIVE_NOUGHTS_PATTERN, GeneralCombination.FIVE);
+        noughtsMap.put(STRAIGHT_FOUR_NOUGHTS_PATTERN, GeneralCombination.STRAIGHT_FOUR);
+        noughtsMap.put(FOUR_NOUGHTS_PATTERN, GeneralCombination.FOUR);
+        noughtsMap.put(THREE_NOUGHTS_PATTERN, GeneralCombination.THREE);
+        noughtsMap.put(BROKEN_THREE_NOUGHTS_PATTERN, GeneralCombination.BROKEN_THREE);
+        noughtsMap.put(TWO_NOUGHTS_PATTERN, GeneralCombination.TWO);
+        noughtsMap.put(ONE_NOUGHT_PATTERN, GeneralCombination.ONE);
 
-    private static final String BROKEN_THREE_AI = "( 0 00 )|( 00 0 )";
-    public static final Pattern brokenThreePatternAI = Pattern.compile(BROKEN_THREE_AI);
+        Map<Pattern, GeneralCombination> crossesMap = new HashMap<>();
+        crossesMap.put(FIVE_CROSSES_PATTERN, GeneralCombination.FIVE);
+        crossesMap.put(STRAIGHT_FOUR_CROSSES_PATTERN, GeneralCombination.STRAIGHT_FOUR);
+        crossesMap.put(FOUR_CROSSES_PATTERN, GeneralCombination.FOUR);
+        crossesMap.put(THREE_CROSSES_PATTERN, GeneralCombination.THREE);
+        crossesMap.put(BROKEN_THREE_CROSSES_PATTERN, GeneralCombination.BROKEN_THREE);
+        crossesMap.put(TWO_CROSSES_PATTERN, GeneralCombination.TWO);
+        crossesMap.put(ONE_CROSS_PATTERN, GeneralCombination.ONE);
 
+        this.noughtsPatternsToCombinations = Collections.unmodifiableMap(noughtsMap);
+        this.crossesPatternsToCombinations = Collections.unmodifiableMap(crossesMap);
+    }
 
-    private static final String FIVE_PERSON = "xxxxx";
-    private static final Pattern fivePatternPerson = Pattern.compile(FIVE_PERSON);
+    public Map<Pattern, GeneralCombination> getNoughtsPatternsToCombinations() {
+        return noughtsPatternsToCombinations;
+    }
 
-    private static final String STRAIGHT_FOUR_PERSON = " xxxx ";
-    public static final Pattern straightFourPatternPerson = Pattern.compile(STRAIGHT_FOUR_PERSON);
-
-    private static final String FOUR_PERSON = "( xxxx0)|(0xxxx )|(^xxxx )|( xxxx$)";
-    public static final Pattern fourPatternPerson = Pattern.compile(FOUR_PERSON);
-
-    private static final String THREE_PERSON = " xxx ";
-    public static final Pattern threePatternPerson = Pattern.compile(THREE_PERSON);
-
-    private static final String BROKEN_THREE_PERSON = "( x xx )|( xx x )";
-    public static final Pattern brokenThreePatternPerson = Pattern.compile(BROKEN_THREE_PERSON);
-
-    public static final Map<Pattern, GeneralCombinationNames> aiPatternsToCombinations = Stream.of(new Object[][]{
-            {fivePatternAi, GeneralCombinationNames.FIVE},
-            {straightFourPatternAI, GeneralCombinationNames.STRAIGHT_FOUR},
-            {fourPatternAI, GeneralCombinationNames.FOUR},
-            {threePatternAI, GeneralCombinationNames.THREE},
-            {brokenThreePatternAI, GeneralCombinationNames.BROKEN_THREE}
-    }).collect(toMap(data -> (Pattern) data[0], data -> (GeneralCombinationNames) data[1]));
-
-    public static final Map<Pattern, GeneralCombinationNames> personPatternsToCombinations = Stream.of(new Object[][]{
-            {fivePatternPerson, GeneralCombinationNames.FIVE},
-            {straightFourPatternPerson, GeneralCombinationNames.STRAIGHT_FOUR},
-            {fourPatternPerson, GeneralCombinationNames.FOUR},
-            {threePatternPerson, GeneralCombinationNames.THREE},
-            {brokenThreePatternPerson, GeneralCombinationNames.BROKEN_THREE}
-    }).collect(toMap(data -> (Pattern) data[0], data -> (GeneralCombinationNames) data[1]));
-
-
-    public static final List<Pattern> aiPatterns = Stream.of(
-            fivePatternAi,
-            straightFourPatternAI,
-            fourPatternAI,
-            threePatternAI,
-            brokenThreePatternAI
-    ).collect(toList());
-
-    public static final List<Pattern> personPatterns = Stream.of(
-            fivePatternPerson,
-            straightFourPatternPerson,
-            fourPatternPerson,
-            threePatternPerson,
-            brokenThreePatternPerson
-    ).collect(toList());
+    public Map<Pattern, GeneralCombination> getCrossesPatternsToCombinations() {
+        return crossesPatternsToCombinations;
+    }
 
 }

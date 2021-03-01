@@ -1,12 +1,11 @@
-package by.xxx.pupil.ai.minimax.impl;
+package by.xxx.pupil.ai.minimax.findmoves;
 
-import by.xxx.pupil.CombinationPatterns;
 import by.xxx.pupil.CombinationsFinder;
-import by.xxx.pupil.GeneralCombinationNames;
-import by.xxx.pupil.ai.minimax.MovesFinder;
+import by.xxx.pupil.GeneralCombination;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.Move;
+import by.xxx.pupil.model.Player;
 import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
@@ -29,19 +28,19 @@ public class ThreatMovesFinder implements MovesFinder {
     }
 
     @Override
-    public List<Move> getMoves(Board board, boolean isPerson) {
-        List<Move> moves = inRadiusMovesFinder.getMoves(board, isPerson);
+    public List<Move> getMoves(Board board, Player player) {
+        List<Move> moves = inRadiusMovesFinder.getMoves(board, player);
 
         List<Move> threatSpaceMoves = new ArrayList<>();
 
         for (Move move : moves) {
-            board.updateCellValue(move.getI(), move.getJ(), move.isPerson() ? CellType.CROSS : CellType.NOUGHT);
-            List<GeneralCombinationNames> patternsList = combinationsFinder.getCombinations(board, move);
+            board.updateCellValue(move.getI(), move.getJ(), Player.CROSSES.equals(player) ? CellType.CROSS : CellType.NOUGHT);
+            List<GeneralCombination> patternsList = combinationsFinder.getCombinations(board, move);
             if (
-                    patternsList.contains(GeneralCombinationNames.STRAIGHT_FOUR) ||
-                            patternsList.contains(GeneralCombinationNames.FOUR) ||
-                            patternsList.contains(GeneralCombinationNames.THREE) ||
-                            patternsList.contains(GeneralCombinationNames.BROKEN_THREE)
+                    patternsList.contains(GeneralCombination.STRAIGHT_FOUR) ||
+                            patternsList.contains(GeneralCombination.FOUR) ||
+                            patternsList.contains(GeneralCombination.THREE) ||
+                            patternsList.contains(GeneralCombination.BROKEN_THREE)
             ) {
                 threatSpaceMoves.add(move);
             }
