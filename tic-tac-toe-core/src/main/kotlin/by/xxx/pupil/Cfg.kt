@@ -62,11 +62,11 @@ open class Cfg {
 
     @Bean
     open fun minimax(): Minimax {
-        return Minimax(Constants.DEFAULT_MINIMAX_DEPTH_LIMIT, shallowSearchMovesFinder(), evaluator(), winnerFinder(), zobristHashing())
+        return Minimax(shallowSearchMovesFinder(), evaluator(), winnerFinder(), zobristHashing())
     }
 
     @Bean
     open fun aiPlayer(): AIPlayer {
-        return MinimaxBasedAI(shallowSearchMovesFinder(), evaluator(), winnerFinder(), minimax(), zobristHashing())
+        return MinimaxBasedAI(shallowSearchMovesFinder(), winnerFinder(), minimax(), zobristHashing())
     }
 }

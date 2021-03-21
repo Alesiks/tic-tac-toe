@@ -9,7 +9,11 @@ import by.xxx.pupil.model.Player
 import com.google.common.collect.MultimapBuilder
 import java.util.stream.Collectors
 
-class ShallowSearchMovesFinder(private val baseMovesFinder: MovesFinder, private val evaluator: Evaluator, private val zobristHashing: ZobristHashing) : MovesFinder {
+class ShallowSearchMovesFinder(
+        private val baseMovesFinder: MovesFinder,
+        private val evaluator: Evaluator,
+        private val zobristHashing: ZobristHashing
+) : MovesFinder {
 
     override fun getMoves(board: Board, player: Player): List<Move> {
         val moves = baseMovesFinder.getMoves(board, player)
@@ -22,6 +26,10 @@ class ShallowSearchMovesFinder(private val baseMovesFinder: MovesFinder, private
             scoreToMovesMap.put(currScore, currMove)
             board.updateCellValue(currMove.i, currMove.j, CellType.EMPTY)
         }
-        return scoreToMovesMap.keySet().stream().flatMap { k: Int? -> scoreToMovesMap[k].stream() }.collect(Collectors.toList())
+        return scoreToMovesMap.keySet()
+                .stream()
+                .flatMap { k: Int? -> scoreToMovesMap[k].stream() }
+                .collect(Collectors.toList())
     }
+
 }

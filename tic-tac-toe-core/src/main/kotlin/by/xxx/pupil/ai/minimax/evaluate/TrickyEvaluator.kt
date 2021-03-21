@@ -39,7 +39,7 @@ class TrickyEvaluator(
                 .flatMap { line -> combinationsFinder.findCrossesCombinations(line)!!.asSequence() }
                 .sumBy { generalCombination -> evaluationScores.get(generalCombination)!! }
 
-        return aiScore + personScore
+        return aiScore + personScore * (-1)
     }
 
     override fun evaluate(board: Board, lastMove: Move, hash: Long): Int {

@@ -17,7 +17,6 @@ import java.util.*
 
 class MinimaxBasedAI(
         private val movesFinder: MovesFinder,
-        private val evaluator: Evaluator,
         private val winnerFinder: WinnerFinder,
         private val minimax: Minimax,
         private val zobristHashing: ZobristHashing
@@ -25,11 +24,14 @@ class MinimaxBasedAI(
 
     private val logger = LogManager.getLogger(MinimaxBasedAI::class.java)
 
-    override fun nextMove(board: Board, player: Player): Move {
+    override fun nextMove(board: Board, player: Player, maxDepth: Int): Move {
         val bestMoves: MutableList<Move> = ArrayList()
         var bestValue = Int.MIN_VALUE
-        val possibleMoves = movesFinder.getMoves(board, player)
+        var possibleMoves = movesFinder.getMoves(board, player)
+
         Collections.reverse(possibleMoves)
+        possibleMoves = possibleMoves.take(10);
+
         val hash = zobristHashing.hash(board)
         for (currentMove in possibleMoves) {
             board.updateCellToPossibleValue(currentMove.i, currentMove.j, getCorrespondingCellType(player))
@@ -39,7 +41,7 @@ class MinimaxBasedAI(
                 return currentMove
             } else {
                 val newHash = zobristHashing.updateHash(hash, currentMove)
-                minimax.minimax(board, 0, false, Constants.LOSE_STRATEGY_SCORE, Constants.WIN_STRATEGY_SCORE, getRival(player), newHash)
+                minimax.minimax(board, 0, maxDepth, false, Constants.LOSE_STRATEGY_SCORE, Constants.WIN_STRATEGY_SCORE, getRival(player), newHash)
                 //                logger.debug("score for move[{},{}]: [{}]", currentMove.getI(), currentMove.getJ(), value);
             }
             board.updateCellValue(currentMove.i, currentMove.j, CellType.EMPTY)
