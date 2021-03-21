@@ -42,7 +42,9 @@ public class Runner implements ApplicationRunner {
         BoardPrinter printer = new BoardPrinter();
 
         System.out.println("The tic-tac-toe game starts, enjoy!");
-        System.out.println("The difficulty level was: 5");
+        System.out.println("Chose difficulty level, number from 1 to 10: ");
+
+        int difficulty = Integer.parseInt(bufferedReader.readLine().replaceAll("\\s+$", ""));
         printer.print(board);
 
 
@@ -61,7 +63,7 @@ public class Runner implements ApplicationRunner {
                 break;
             }
 
-            Move aiMove = aiPlayer.nextMove(board);
+            Move aiMove = aiPlayer.nextMove(board, Player.NOUGHTS, difficulty);
             board.updateCellValue(aiMove.getI(), aiMove.getJ(), CellType.NOUGHT);
             printer.print(board);
 

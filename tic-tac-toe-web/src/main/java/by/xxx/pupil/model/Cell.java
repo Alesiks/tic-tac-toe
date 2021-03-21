@@ -6,12 +6,10 @@ public class Cell {
 
     private final int y;
     private final int x;
-    private final CellType cellType;
 
-    public Cell(int y, int x, CellType cellType) {
+    public Cell(int y, int x) {
         this.y = y;
         this.x = x;
-        this.cellType = cellType;
     }
 
     public int getY() {
@@ -22,23 +20,18 @@ public class Cell {
         return x;
     }
 
-    public CellType getCellType() {
-        return cellType;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cell cell = (Cell) o;
         return y == cell.y &&
-                x == cell.x &&
-                cellType == cell.cellType;
+                x == cell.x;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(y, x, cellType);
+        return Objects.hash(y, x);
     }
 
     @Override
@@ -46,7 +39,7 @@ public class Cell {
         return "Cell{" +
                 "y=" + y +
                 ", x=" + x +
-                ", cellType=" + cellType +
                 '}';
     }
+
 }

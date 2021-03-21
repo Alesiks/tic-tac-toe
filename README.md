@@ -2,6 +2,13 @@
 
 tic-tac-toe or 5 in a row game. 
 
+## Modules
+
+- tic-tac-toe-core
+- tic-tac-core-console
+- tic-tac-toe-web
+
+
 ## AI
 The AI algorithm is build on minimax algorithm and alpha-beta pruning.
 
