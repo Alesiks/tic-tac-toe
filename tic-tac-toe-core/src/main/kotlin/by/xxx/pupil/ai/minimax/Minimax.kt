@@ -4,11 +4,7 @@ import by.xxx.pupil.WinnerFinder
 import by.xxx.pupil.ai.hashing.ZobristHashing
 import by.xxx.pupil.ai.minimax.evaluate.Evaluator
 import by.xxx.pupil.ai.minimax.findmoves.MovesFinder
-import by.xxx.pupil.model.Board
-import by.xxx.pupil.model.CellType
-import by.xxx.pupil.model.Player
-import by.xxx.pupil.model.PlayerUtils.getCorrespondingCellType
-import by.xxx.pupil.model.PlayerUtils.getRival
+import by.xxx.pupil.model.*
 import java.util.*
 
 class Minimax(
