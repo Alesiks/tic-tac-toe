@@ -5,15 +5,15 @@ import java.util.Objects;
 
 public class GameRequest {
 
-    private final CellType[][] board;
+    private final char[][] board;
     private final Cell lastPlayerMove;
 
-    public GameRequest(CellType[][] board, Cell lastPlayerMove) {
+    public GameRequest(char[][] board, Cell lastPlayerMove) {
         this.board = board;
         this.lastPlayerMove = lastPlayerMove;
     }
 
-    public CellType[][] getBoard() {
+    public char[][] getBoard() {
         return board;
     }
 

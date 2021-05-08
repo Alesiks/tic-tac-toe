@@ -6,10 +6,10 @@ import java.util.Objects;
 public class GameResponse {
 
     private final GameState gameState;
-    private final CellType[][] board;
+    private final char[][] board;
     private final Cell aiMove;
 
-    public GameResponse(GameState gameState, CellType[][] board, Cell aiMove) {
+    public GameResponse(GameState gameState, char[][] board, Cell aiMove) {
         this.gameState = gameState;
         this.board = board;
         this.aiMove = aiMove;
@@ -23,7 +23,7 @@ public class GameResponse {
         return aiMove;
     }
 
-    public CellType[][] getBoard() {
+    public char[][] getBoard() {
         return board;
     }
 

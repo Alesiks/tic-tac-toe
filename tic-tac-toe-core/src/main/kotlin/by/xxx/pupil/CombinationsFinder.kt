@@ -10,18 +10,18 @@ import java.util.stream.Stream
 
 class CombinationsFinder(private val combinationPatterns: CombinationPatterns) {
 
-    fun findNoughtsCombinations(line: String?): MutableList<GeneralCombination?>? {
+    fun findNoughtsCombinations(line: String): MutableList<GeneralCombination>? {
         return combinationPatterns.noughtsPatternsToCombinations.keys
                 .stream()
-                .filter { pattern: Pattern? -> pattern!!.matcher(line).find() }
-                .map { key: Pattern? -> combinationPatterns.noughtsPatternsToCombinations[key] }
+                .filter { pattern: Pattern -> pattern.matcher(line).find() }
+                .map { key: Pattern -> combinationPatterns.noughtsPatternsToCombinations[key] }
                 .collect(Collectors.toList())
     }
 
-    fun findCrossesCombinations(line: String?): MutableList<GeneralCombination?>? {
+    fun findCrossesCombinations(line: String): MutableList<GeneralCombination>? {
         return combinationPatterns.crossesPatternsToCombinations.keys.stream()
-                .filter { pattern: Pattern? -> pattern!!.matcher(line).find() }
-                .map { key: Pattern? -> combinationPatterns.crossesPatternsToCombinations[key] }
+                .filter { pattern: Pattern -> pattern.matcher(line).find() }
+                .map { key: Pattern -> combinationPatterns.crossesPatternsToCombinations[key] }
                 .collect(Collectors.toList())
     }
 
@@ -30,24 +30,34 @@ class CombinationsFinder(private val combinationPatterns: CombinationPatterns) {
         val resultCombinations: MutableList<GeneralCombination> = ArrayList()
         for (line in lines) {
             if (Player.CROSSES == move.player) {
-                if (CombinationPatterns.STRAIGHT_FOUR_CROSSES_PATTERN.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombination.STRAIGHT_FOUR)
-                } else if (CombinationPatterns.FOUR_CROSSES_PATTERN.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombination.FOUR)
-                } else if (CombinationPatterns.THREE_CROSSES_PATTERN.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombination.THREE)
-                } else if (CombinationPatterns.BROKEN_THREE_CROSSES_PATTERN.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombination.BROKEN_THREE)
+                when {
+                    CombinationPatterns.STRAIGHT_FOUR_CROSSES_PATTERN.matcher(line).find() -> {
+                        resultCombinations.add(GeneralCombination.STRAIGHT_FOUR)
+                    }
+                    CombinationPatterns.FOUR_CROSSES_PATTERN.matcher(line).find() -> {
+                        resultCombinations.add(GeneralCombination.FOUR)
+                    }
+                    CombinationPatterns.THREE_CROSSES_PATTERN.matcher(line).find() -> {
+                        resultCombinations.add(GeneralCombination.THREE)
+                    }
+                    CombinationPatterns.BROKEN_THREE_CROSSES_PATTERN.matcher(line).find() -> {
+                        resultCombinations.add(GeneralCombination.BROKEN_THREE)
+                    }
                 }
             } else {
-                if (CombinationPatterns.STRAIGHT_FOUR_NOUGHTS_PATTERN.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombination.STRAIGHT_FOUR)
-                } else if (CombinationPatterns.FOUR_NOUGHTS_PATTERN.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombination.FOUR)
-                } else if (CombinationPatterns.THREE_NOUGHTS_PATTERN.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombination.THREE)
-                } else if (CombinationPatterns.BROKEN_THREE_NOUGHTS_PATTERN.matcher(line).find()) {
-                    resultCombinations.add(GeneralCombination.BROKEN_THREE)
+                when {
+                    CombinationPatterns.STRAIGHT_FOUR_NOUGHTS_PATTERN.matcher(line).find() -> {
+                        resultCombinations.add(GeneralCombination.STRAIGHT_FOUR)
+                    }
+                    CombinationPatterns.FOUR_NOUGHTS_PATTERN.matcher(line).find() -> {
+                        resultCombinations.add(GeneralCombination.FOUR)
+                    }
+                    CombinationPatterns.THREE_NOUGHTS_PATTERN.matcher(line).find() -> {
+                        resultCombinations.add(GeneralCombination.THREE)
+                    }
+                    CombinationPatterns.BROKEN_THREE_NOUGHTS_PATTERN.matcher(line).find() -> {
+                        resultCombinations.add(GeneralCombination.BROKEN_THREE)
+                    }
                 }
             }
         }

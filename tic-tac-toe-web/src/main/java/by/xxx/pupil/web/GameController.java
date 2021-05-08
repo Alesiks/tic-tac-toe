@@ -12,7 +12,10 @@ import by.xxx.pupil.model.GameState;
 import by.xxx.pupil.model.Move;
 import by.xxx.pupil.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +34,13 @@ public class GameController {
     @Autowired
     private RequestConverter requestConverter;
 
-    @GetMapping("/hi")
-    public String play() {
+    @CrossOrigin
+    @GetMapping(value = "/hi", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String play(@PathVariable("cell") CellType cell) {
         return "Hello world";
     }
 
+    @CrossOrigin
     @PostMapping("/play")
     public GameResponse play(@RequestBody GameRequest request) {
         Board board = requestConverter.toBoard(request);
@@ -45,8 +50,8 @@ public class GameController {
             return new GameResponse(GameState.CROSS_WIN, request.getBoard(), null);
         } else {
             Move aiMove = aiPlayer.nextMove(board);
-            CellType[][] boardCells = request.getBoard();
-            boardCells[aiMove.getI()][aiMove.getJ()] = CellType.NOUGHT;
+            char[][] boardCells = request.getBoard();
+            boardCells[aiMove.getI()][aiMove.getJ()] = CellType.NOUGHT.getSymbol();
             if (winnerFinder.isMoveLeadToWin(board, aiMove)) {
                 return new GameResponse(GameState.NOUGHT_WIN, boardCells, new Cell(aiMove.getI() + 1, aiMove.getJ() + 1));
             } else {
