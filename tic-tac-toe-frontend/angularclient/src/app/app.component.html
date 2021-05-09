@@ -1,0 +1,7 @@
+<p>{{gameService.result}}</p>
+<table>
+  <tr *ngFor="let row of numbers">
+    <td class="cell" *ngFor="let column of numbers" (click)="makeMove(row, column)">{{gameService.board[row][column]}}</td>
+  </tr>
+
+</table>

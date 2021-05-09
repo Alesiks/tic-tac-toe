@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,17 +35,15 @@ public class GameController {
     @Autowired
     private RequestConverter requestConverter;
 
-    @CrossOrigin
     @GetMapping(value = "/hi", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String play(@PathVariable("cell") CellType cell) {
-        return "Hello world";
+    public String play() {
+        return "Hello world!";
     }
 
-    @CrossOrigin
     @PostMapping("/play")
     public GameResponse play(@RequestBody GameRequest request) {
         Board board = requestConverter.toBoard(request);
-        Move playerMove = new Move(request.getLatestPlayerMove().getY() - 1, request.getLatestPlayerMove().getX() - 1, Player.CROSSES);
+        Move playerMove = new Move(request.getLatestPlayerMove().getY(), request.getLatestPlayerMove().getX(), Player.CROSSES);
 
         if (winnerFinder.isMoveLeadToWin(board, playerMove)) {
             return new GameResponse(GameState.CROSS_WIN, request.getBoard(), null);
@@ -53,9 +52,9 @@ public class GameController {
             char[][] boardCells = request.getBoard();
             boardCells[aiMove.getI()][aiMove.getJ()] = CellType.NOUGHT.getSymbol();
             if (winnerFinder.isMoveLeadToWin(board, aiMove)) {
-                return new GameResponse(GameState.NOUGHT_WIN, boardCells, new Cell(aiMove.getI() + 1, aiMove.getJ() + 1));
+                return new GameResponse(GameState.NOUGHT_WIN, boardCells, new Cell(aiMove.getI(), aiMove.getJ()));
             } else {
-                return new GameResponse(GameState.GAME_CONTINUES, boardCells, new Cell(aiMove.getI() + 1, aiMove.getJ() + 1));
+                return new GameResponse(GameState.GAME_CONTINUES, boardCells, new Cell(aiMove.getI(), aiMove.getJ()));
             }
         }
     }
