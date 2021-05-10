@@ -1,6 +1,6 @@
 package by.xxx.pupil.ai.minimax
 
-import by.xxx.pupil.WinnerFinder
+import by.xxx.pupil.winning.WinnerFinder
 import by.xxx.pupil.ai.hashing.ZobristHashing
 import by.xxx.pupil.ai.minimax.evaluate.Evaluator
 import by.xxx.pupil.ai.minimax.findmoves.MovesFinder

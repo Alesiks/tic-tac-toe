@@ -1,8 +1,8 @@
 package by.xxx.pupil.ai.minimax.evaluate
 
-import by.xxx.pupil.CombinationsFinder
-import by.xxx.pupil.GeneralCombination
-import by.xxx.pupil.WinnerFinder
+import by.xxx.pupil.ai.combinations.CombinationsFinder
+import by.xxx.pupil.ai.combinations.GeneralCombination
+import by.xxx.pupil.winning.WinnerFinder
 import by.xxx.pupil.ai.hashing.ScoreCache
 import by.xxx.pupil.model.Board
 import by.xxx.pupil.model.Move

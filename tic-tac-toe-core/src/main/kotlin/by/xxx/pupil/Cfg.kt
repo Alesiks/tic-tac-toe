@@ -10,6 +10,9 @@ import by.xxx.pupil.ai.minimax.evaluate.Evaluator
 import by.xxx.pupil.ai.minimax.evaluate.TrickyEvaluator
 import by.xxx.pupil.ai.minimax.findmoves.InRadiusMovesFinder
 import by.xxx.pupil.ai.minimax.findmoves.ShallowSearchMovesFinder
+import by.xxx.pupil.ai.combinations.CombinationPatterns
+import by.xxx.pupil.ai.combinations.CombinationsFinder
+import by.xxx.pupil.winning.WinnerFinder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 

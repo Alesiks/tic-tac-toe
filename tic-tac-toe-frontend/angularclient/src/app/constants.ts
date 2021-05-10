@@ -1,0 +1,6 @@
+export const constants = {
+    DEFAULT_DIFFICULTY_LEVEL: 3,
+    DEFAULT_BOARD_WIDTH: 10,
+    DEFAULT_BOARD_HEIGHT: 10,
+
+};

@@ -1,5 +1,5 @@
 package by.xxx.pupil.model
 
-enum class GameState {
+enum class GameStatus {
     CROSS_WIN, NOUGHT_WIN, GAME_CONTINUES, DRAW
 }

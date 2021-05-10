@@ -1,12 +1,11 @@
 package by.xxx.pupil.ai.minimax.findmoves
 
-import by.xxx.pupil.CombinationsFinder
-import by.xxx.pupil.GeneralCombination
+import by.xxx.pupil.ai.combinations.CombinationsFinder
+import by.xxx.pupil.ai.combinations.GeneralCombination
 import by.xxx.pupil.model.Board
 import by.xxx.pupil.model.CellType
 import by.xxx.pupil.model.Move
 import by.xxx.pupil.model.Player
-import org.apache.commons.lang3.Validate
 import java.util.*
 
 class ThreatMovesFinder(

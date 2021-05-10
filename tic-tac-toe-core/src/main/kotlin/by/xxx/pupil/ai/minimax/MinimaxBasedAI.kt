@@ -1,7 +1,7 @@
 package by.xxx.pupil.ai.minimax
 
 import by.xxx.pupil.Constants
-import by.xxx.pupil.WinnerFinder
+import by.xxx.pupil.winning.WinnerFinder
 import by.xxx.pupil.ai.AIPlayer
 import by.xxx.pupil.ai.hashing.ZobristHashing
 import by.xxx.pupil.ai.minimax.findmoves.MovesFinder

@@ -2,12 +2,11 @@ package by.xxx.pupil;
 
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
-import by.xxx.pupil.model.GameState;
 import by.xxx.pupil.model.Move;
 import by.xxx.pupil.model.Player;
+import by.xxx.pupil.winning.WinnerFinder;
 import org.junit.jupiter.api.Test;
 
-import static by.xxx.pupil.Constants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

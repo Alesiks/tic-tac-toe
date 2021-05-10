@@ -3,7 +3,6 @@ package by.xxx.pupil.model
 import org.apache.commons.lang3.Validate
 import org.apache.logging.log4j.LogManager
 import java.util.*
-import java.util.stream.Collectors
 import java.util.stream.IntStream
 import kotlin.streams.asSequence
 
@@ -50,8 +49,8 @@ class Board {
     }
 
     fun updateCellToPossibleValue(i: Int, j: Int, cellType: CellType?) {
-        Validate.isTrue(i >= 0 && i < height, "i coordinate is less than 0 or greater than possible height")
-        Validate.isTrue(j >= 0 && j < width, "j coordinate is less than 0 or greater than possible width")
+        Validate.isTrue(i in 0 until height, "i coordinate is less than 0 or greater than possible height")
+        Validate.isTrue(j in 0 until width, "j coordinate is less than 0 or greater than possible width")
         Validate.isTrue(cellType != null && CellType.EMPTY !== cellType, "Cell is null or empty")
 
         if (board[i][j] !== CellType.EMPTY) {
@@ -62,8 +61,8 @@ class Board {
     }
 
     fun updateCellValue(i: Int, j: Int, cellType: CellType?) {
-        Validate.isTrue(i >= 0 && i < height, "i coordinate is less than 0 or greater than possible height")
-        Validate.isTrue(j >= 0 && j < width, "j coordinate is less than 0 or greater than possible width")
+        Validate.isTrue(i in 0 until height, "i coordinate is less than 0 or greater than possible height")
+        Validate.isTrue(j in 0 until width, "j coordinate is less than 0 or greater than possible width")
 
         board[i][j] = cellType
     }

@@ -1,4 +1,4 @@
-package by.xxx.pupil
+package by.xxx.pupil.ai.combinations
 
 import by.xxx.pupil.model.Board
 import by.xxx.pupil.model.Move

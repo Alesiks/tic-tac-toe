@@ -1,7 +1,12 @@
 <p>{{gameService.result}}</p>
 <table>
   <tr *ngFor="let row of numbers">
-    <td class="cell" *ngFor="let column of numbers" (click)="makeMove(row, column)">{{gameService.board[row][column]}}</td>
+    <td class="cell"
+      *ngFor="let column of numbers" 
+      (click)="makeMove(row, column)" 
+      [ngClass]="{lastAiMove:gameService.lastMove[row][column] == 'ai'}"
+      [ngClass]="{lastPlayerMove:gameService.lastMove[row][column] == 'player'}"
+      >{{gameService.board[row][column]}}</td>
   </tr>
 
 </table>

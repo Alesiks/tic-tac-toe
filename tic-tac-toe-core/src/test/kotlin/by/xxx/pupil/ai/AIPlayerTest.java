@@ -3,11 +3,8 @@ package by.xxx.pupil.ai;
 import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.Move;
-import by.xxx.pupil.ai.minimax.MinimaxBasedAI;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Test;
-
-import static by.xxx.pupil.Constants.DEFAULT_WIN_SEQUENCE_LENGTH;
 
 @Ignore
 public class AIPlayerTest {

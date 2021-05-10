@@ -1,10 +1,6 @@
 package by.xxx.pupil.ai.minimax.findmoves
 
-import by.xxx.pupil.BoardUtils.isCellEmpty
-import by.xxx.pupil.model.Board
-import by.xxx.pupil.model.CellType
-import by.xxx.pupil.model.Move
-import by.xxx.pupil.model.Player
+import by.xxx.pupil.model.*
 import java.util.*
 
 class InRadiusMovesFinder(private val availabilityRadius: Int) : MovesFinder {

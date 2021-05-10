@@ -6,19 +6,25 @@ import java.util.Objects;
 public class GameRequest {
 
     private final char[][] board;
-    private final Cell lastPlayerMove;
+    private final Cell playerMove;
+    private final Integer difficultyLevel;
 
-    public GameRequest(char[][] board, Cell lastPlayerMove) {
+    public GameRequest(char[][] board, Cell playerMove, Integer difficultyLevel) {
         this.board = board;
-        this.lastPlayerMove = lastPlayerMove;
+        this.playerMove = playerMove;
+        this.difficultyLevel = difficultyLevel;
     }
 
     public char[][] getBoard() {
         return board;
     }
 
-    public Cell getLatestPlayerMove() {
-        return lastPlayerMove;
+    public Cell getPlayerMove() {
+        return playerMove;
+    }
+
+    public Integer getDifficultyLevel() {
+        return difficultyLevel;
     }
 
     @Override
@@ -26,15 +32,15 @@ public class GameRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GameRequest that = (GameRequest) o;
-        return Arrays.equals(board, that.board) &&
-                Objects.equals(lastPlayerMove, that.lastPlayerMove);
+        return difficultyLevel.equals(that.difficultyLevel) &&
+                Arrays.equals(board, that.board) &&
+                Objects.equals(playerMove, that.playerMove);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(lastPlayerMove);
+        int result = Objects.hash(playerMove, difficultyLevel);
         result = 31 * result + Arrays.hashCode(board);
         return result;
     }
-
 }

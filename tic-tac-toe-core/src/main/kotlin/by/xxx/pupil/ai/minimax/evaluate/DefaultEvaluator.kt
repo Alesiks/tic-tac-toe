@@ -1,6 +1,6 @@
 package by.xxx.pupil.ai.minimax.evaluate
 
-import by.xxx.pupil.WinnerFinder
+import by.xxx.pupil.winning.WinnerFinder
 import by.xxx.pupil.model.Board
 import by.xxx.pupil.model.Move
 import by.xxx.pupil.model.Player

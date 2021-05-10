@@ -5,6 +5,7 @@ import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.Move;
 import by.xxx.pupil.model.Player;
+import by.xxx.pupil.winning.WinnerFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
