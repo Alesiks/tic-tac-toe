@@ -5,6 +5,7 @@ import by.xxx.pupil.model.Player
 object Constants {
     const val WIN_SEQUENCE_LENGTH = 5
 
+
     const val DEFAULT_MINIMAX_DEPTH_LIMIT = 3
     const val WIN_STRATEGY_SCORE = 100
     const val LOSE_STRATEGY_SCORE = -100

@@ -9,7 +9,7 @@ class CombinationPatterns {
     companion object {
         val FIVE_NOUGHTS_PATTERN: Pattern = Pattern.compile("00000")
         val STRAIGHT_FOUR_NOUGHTS_PATTERN: Pattern = Pattern.compile(" 0000 ")
-        val FOUR_NOUGHTS_PATTERN: Pattern = Pattern.compile("( 0000x)|(x0000 )|(^0000 )|( 0000$)")
+        val FOUR_NOUGHTS_PATTERN: Pattern = Pattern.compile("( 0000x)|(x0000 )|(^0000 )|( 0000$)|( 0000#)|(#0000 )")
         val THREE_NOUGHTS_PATTERN: Pattern = Pattern.compile(" 000 ")
         val BROKEN_THREE_NOUGHTS_PATTERN: Pattern = Pattern.compile("( 0 00 )|( 00 0 )")
         val TWO_NOUGHTS_PATTERN: Pattern = Pattern.compile(" 00 ")
@@ -17,7 +17,7 @@ class CombinationPatterns {
 
         val FIVE_CROSSES_PATTERN: Pattern = Pattern.compile("xxxxx")
         val STRAIGHT_FOUR_CROSSES_PATTERN: Pattern = Pattern.compile(" xxxx ")
-        val FOUR_CROSSES_PATTERN: Pattern = Pattern.compile("( xxxx0)|(0xxxx )|(^xxxx )|( xxxx$)")
+        val FOUR_CROSSES_PATTERN: Pattern = Pattern.compile("( xxxx0)|(0xxxx )|(^xxxx )|( xxxx$)|( 0000#)|(#0000 )")
         val THREE_CROSSES_PATTERN: Pattern = Pattern.compile(" xxx ")
         val BROKEN_THREE_CROSSES_PATTERN: Pattern = Pattern.compile("( x xx )|( xx x )")
         val TWO_CROSSES_PATTERN: Pattern = Pattern.compile(" xx ")

@@ -28,7 +28,7 @@ class MinimaxBasedAI(
 
         val hash = zobristHashing.hash(board)
         for (currentMove in possibleMoves) {
-            board.updateCellToPossibleValue(currentMove.i, currentMove.j, getCorrespondingCellType(player))
+            board.updateCellToPossibleValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
             var value: Int
             //                    int value = minimax.minimax(board, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             value = if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
@@ -38,7 +38,7 @@ class MinimaxBasedAI(
                 minimax.minimax(board, 0, maxDepth, false, Constants.LOSE_STRATEGY_SCORE, Constants.WIN_STRATEGY_SCORE, getRival(player), newHash)
                 //                logger.debug("score for move[{},{}]: [{}]", currentMove.getI(), currentMove.getJ(), value);
             }
-            board.updateCellValue(currentMove.i, currentMove.j, CellType.EMPTY)
+            board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
             if (value > bestValue) {
                 bestMoves.clear()
                 bestMoves.add(currentMove)

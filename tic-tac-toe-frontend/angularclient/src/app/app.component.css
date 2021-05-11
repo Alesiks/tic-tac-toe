@@ -31,3 +31,7 @@ td:hover {
 .lastPlayerMove {
   border: 5px solid rgb(0, 4, 255);
 }
+
+.winningSequence {
+  background-color:sandybrown;
+}

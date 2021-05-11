@@ -66,10 +66,10 @@ class CombinationsFinder(private val combinationPatterns: CombinationPatterns) {
 
     private fun getPossibleLinesForCombinations(board: Board, move: Move): List<String> {
         return Stream.of(
-                board.getHorizontalLine(move.i),
-                board.getVerticalLine(move.j),
-                board.getLeftToRightDiagonalLine(move.i, move.j),
-                board.getRightToLeftDiagonalLine(move.i, move.j)
+                board.getHorizontalLine(move.y),
+                board.getVerticalLine(move.x),
+                board.getLeftToRightDiagonalLine(move.y, move.x),
+                board.getRightToLeftDiagonalLine(move.y, move.x)
         ).collect(Collectors.toList())
     }
 }

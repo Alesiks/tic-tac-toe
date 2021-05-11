@@ -21,10 +21,10 @@ class ShallowSearchMovesFinder(
         val scoreToMovesMap = MultimapBuilder.treeKeys().arrayListValues().build<Int, Move>()
         for (currMove in moves) {
             val hashForCurrMove = zobristHashing.updateHash(boardHash, currMove)
-            board.updateCellValue(currMove.i, currMove.j, if (Player.CROSSES == currMove.player) CellType.CROSS else CellType.NOUGHT)
+            board.updateCellValue(currMove.y, currMove.x, if (Player.CROSSES == currMove.player) CellType.CROSS else CellType.NOUGHT)
             val currScore = evaluator.evaluate(board, currMove, hashForCurrMove)
             scoreToMovesMap.put(currScore, currMove)
-            board.updateCellValue(currMove.i, currMove.j, CellType.EMPTY)
+            board.updateCellValue(currMove.y, currMove.x, CellType.EMPTY)
         }
         return scoreToMovesMap.keySet()
                 .stream()

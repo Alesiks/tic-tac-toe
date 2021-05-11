@@ -2,9 +2,7 @@ package by.xxx.pupil.model
 
 import org.apache.commons.lang3.Validate
 import org.apache.logging.log4j.LogManager
-import java.util.*
-import java.util.stream.IntStream
-import kotlin.streams.asSequence
+import kotlin.math.min
 
 /**
  * height * width
@@ -18,23 +16,19 @@ class Board {
 
     val width: Int
     val height: Int
-    private val board: Array<Array<CellType?>>
+    private val board: Array<Array<CellType>>
 
     constructor(height: Int, width: Int) {
-        Validate.isTrue(height > 0, "height is less or equal than zero")
-        Validate.isTrue(width > 0, "width is less or equal than zero")
+        Validate.isTrue(height > 0, "height [$height] should be greater than zero")
+        Validate.isTrue(width > 0, "width [$width] should be greater than zero")
 
         this.height = height
         this.width = width
 
-        board = Array(height) { arrayOfNulls(width) }
-        for (i in board.indices) {
-            board[i] = arrayOfNulls(width)
-            Arrays.fill(board[i], CellType.EMPTY)
-        }
+        board = Array(height) { Array(width) { CellType.EMPTY} }
     }
 
-    constructor(board: Array<Array<CellType?>>) {
+    constructor(board: Array<Array<CellType>>) {
         Validate.notNull(board, "board is null")
         height = board.size
         for (i in 0 until board.size - 1) {
@@ -44,14 +38,14 @@ class Board {
         this.board = board
     }
 
-    fun getCellValue(i: Int, j: Int): CellType? {
+    fun getCellValue(i: Int, j: Int): CellType {
         return board[i][j]
     }
 
-    fun updateCellToPossibleValue(i: Int, j: Int, cellType: CellType?) {
+    fun updateCellToPossibleValue(i: Int, j: Int, cellType: CellType) {
         Validate.isTrue(i in 0 until height, "i coordinate is less than 0 or greater than possible height")
         Validate.isTrue(j in 0 until width, "j coordinate is less than 0 or greater than possible width")
-        Validate.isTrue(cellType != null && CellType.EMPTY !== cellType, "Cell is null or empty")
+        Validate.isTrue(CellType.EMPTY !== cellType, "Cell is null or empty")
 
         if (board[i][j] !== CellType.EMPTY) {
             logger.error("Cell [{}][{}] is not empty", i, j)
@@ -60,7 +54,7 @@ class Board {
         }
     }
 
-    fun updateCellValue(i: Int, j: Int, cellType: CellType?) {
+    fun updateCellValue(i: Int, j: Int, cellType: CellType) {
         Validate.isTrue(i in 0 until height, "i coordinate is less than 0 or greater than possible height")
         Validate.isTrue(j in 0 until width, "j coordinate is less than 0 or greater than possible width")
 
@@ -88,23 +82,22 @@ class Board {
         }
 
     fun getHorizontalLine(line: Int): String {
-        return board[line].map { v -> v!!.symbol }.joinToString("");
+        return board[line].map { v -> v.symbol }.joinToString("");
     }
 
     fun getVerticalLine(line: Int): String {
-        return IntStream.range(0, height)
-                .asSequence()
-                .map{j -> board[j][line]!!.symbol}
+        return (0 until height)
+                .map{j -> board[j][line].symbol}
                 .joinToString("");
     }
 
     fun getLeftToRightDiagonalLine(y: Int, x: Int): String {
-        val delta = Math.min(x, y)
+        val delta = min(x, y)
         var i = y - delta
         var j = x - delta
         val diagonal = StringBuilder()
         while (i < height && j < width) {
-            diagonal.append(board[i][j]!!.symbol)
+            diagonal.append(board[i][j].symbol)
             i++
             j++
         }
@@ -127,7 +120,7 @@ class Board {
             if (i < 0) {
                 i = i
             }
-            diagonal.append(board[i][j]!!.symbol)
+            diagonal.append(board[i][j].symbol)
             i++
             j--
         }

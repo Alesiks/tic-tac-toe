@@ -17,7 +17,7 @@ class ThreatMovesFinder(
         val moves = inRadiusMovesFinder.getMoves(board, player)
         val threatSpaceMoves: MutableList<Move> = ArrayList()
         for (move in moves) {
-            board.updateCellValue(move.i, move.j, if (Player.CROSSES == player) CellType.CROSS else CellType.NOUGHT)
+            board.updateCellValue(move.y, move.x, if (Player.CROSSES == player) CellType.CROSS else CellType.NOUGHT)
             val patternsList = combinationsFinder.getCombinations(board, move)
             if (patternsList.contains(GeneralCombination.STRAIGHT_FOUR) ||
                     patternsList.contains(GeneralCombination.FOUR) ||
@@ -25,7 +25,7 @@ class ThreatMovesFinder(
                     patternsList.contains(GeneralCombination.BROKEN_THREE)) {
                 threatSpaceMoves.add(move)
             }
-            board.updateCellValue(move.i, move.j, CellType.EMPTY)
+            board.updateCellValue(move.y, move.x, CellType.EMPTY)
         }
         return if (!threatSpaceMoves.isEmpty()) threatSpaceMoves else moves
     }

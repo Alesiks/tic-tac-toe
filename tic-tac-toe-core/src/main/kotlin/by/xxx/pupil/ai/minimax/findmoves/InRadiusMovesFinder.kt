@@ -38,7 +38,7 @@ class InRadiusMovesFinder(private val availabilityRadius: Int) : MovesFinder {
     }
 
     private fun isMovePossible(move: Move, board: Board): Boolean {
-        return move.i >= 0 && move.j >= 0 && move.i < board.height && move.j < board.width && isCellEmpty(board, move.i, move.j)
+        return move.y >= 0 && move.x >= 0 && move.y < board.height && move.x < board.width && isCellEmpty(board, move.y, move.x)
     }
 
     private fun addMove(move: Move, visited: MutableSet<Move>, movesBFSQueue: Deque<Move>, availableMoves: MutableList<Move>) {

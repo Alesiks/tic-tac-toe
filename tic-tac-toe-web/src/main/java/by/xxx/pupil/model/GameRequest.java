@@ -6,10 +6,10 @@ import java.util.Objects;
 public class GameRequest {
 
     private final char[][] board;
-    private final Cell playerMove;
+    private final WebCell playerMove;
     private final Integer difficultyLevel;
 
-    public GameRequest(char[][] board, Cell playerMove, Integer difficultyLevel) {
+    public GameRequest(char[][] board, WebCell playerMove, Integer difficultyLevel) {
         this.board = board;
         this.playerMove = playerMove;
         this.difficultyLevel = difficultyLevel;
@@ -19,7 +19,7 @@ public class GameRequest {
         return board;
     }
 
-    public Cell getPlayerMove() {
+    public WebCell getPlayerMove() {
         return playerMove;
     }
 

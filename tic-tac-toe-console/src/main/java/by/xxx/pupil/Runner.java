@@ -65,7 +65,7 @@ public class Runner implements ApplicationRunner {
             }
 
             Move aiMove = aiPlayer.nextMove(board, Player.NOUGHTS, difficulty);
-            board.updateCellValue(aiMove.getI(), aiMove.getJ(), CellType.NOUGHT);
+            board.updateCellValue(aiMove.getY(), aiMove.getX(), CellType.NOUGHT);
             printer.print(board);
 
             boolean noughtWin = winnerFinder.isMoveLeadToWin(board, aiMove);

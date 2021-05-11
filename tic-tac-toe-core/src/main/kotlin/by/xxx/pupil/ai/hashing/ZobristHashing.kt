@@ -43,9 +43,9 @@ class ZobristHashing(height: Int, width: Int) {
 
     fun updateHash(hash: Long, move: Move): Long {
         return if (Player.CROSSES == move.player) {
-            hash xor transpositionTable[move.i][move.j][0]
+            hash xor transpositionTable[move.y][move.x][0]
         } else {
-            hash xor transpositionTable[move.i][move.j][1]
+            hash xor transpositionTable[move.y][move.x][1]
         }
     }
 

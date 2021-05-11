@@ -8,10 +8,10 @@ public class GameResponse {
 
     private final GameStatus gameStatus;
     private final char[][] board;
-    private final Cell aiMove;
-    private final List<Cell> winningSequence;
+    private final WebCell aiMove;
+    private final List<WebCell> winningSequence;
 
-    public GameResponse(GameStatus gameStatus, char[][] board, Cell aiMove, List<Cell> winningSequence) {
+    public GameResponse(GameStatus gameStatus, char[][] board, WebCell aiMove, List<WebCell> winningSequence) {
         this.gameStatus = gameStatus;
         this.board = board;
         this.aiMove = aiMove;
@@ -22,7 +22,7 @@ public class GameResponse {
         return gameStatus;
     }
 
-    public Cell getAiMove() {
+    public WebCell getAiMove() {
         return aiMove;
     }
 
@@ -30,7 +30,7 @@ public class GameResponse {
         return board;
     }
 
-    public List<Cell> getWinningSequence() {
+    public List<WebCell> getWinningSequence() {
         return winningSequence;
     }
 

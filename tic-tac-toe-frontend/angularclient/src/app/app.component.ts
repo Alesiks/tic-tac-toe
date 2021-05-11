@@ -10,10 +10,20 @@ import {GameService} from './game.service';
 export class AppComponent {
   numbers = Array.from(Array(10)).map((x, i) => i );
 
+  isObstaclesChecked: boolean;
+  difficultyLevel: number;
   constructor(public gameService: GameService){}
 
   makeMove(row, column) {
     this.gameService.makeMove(row, column);
+  }
+
+  checkObstacles() {
+    this.gameService.enableObstacles(this.isObstaclesChecked)
+  }
+
+  onLevelSelect() {
+    this.gameService.setDifficultyLevel(this.difficultyLevel)
   }
 
 }

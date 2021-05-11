@@ -37,7 +37,7 @@ class Minimax(
             possibleMoves = possibleMoves.take(10);
 
             for (currentMove in possibleMoves) {
-                board.updateCellToPossibleValue(currentMove.i, currentMove.j, getCorrespondingCellType(player))
+                board.updateCellToPossibleValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
                 val newHash = zobristHashing.updateHash(currHash, currentMove)
                 var value: Int
                 value = if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
@@ -47,7 +47,7 @@ class Minimax(
                 } else {
                     minimax(board, currDepth + 1, maxDepth, false, alpha, beta, getRival(player), newHash)
                 }
-                board.updateCellValue(currentMove.i, currentMove.j, CellType.EMPTY)
+                board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
                 bestValue = Math.max(bestValue, value)
                 alpha = Math.max(alpha, bestValue)
                 if (beta <= alpha) {
@@ -60,7 +60,7 @@ class Minimax(
             possibleMoves = possibleMoves.take(10)
 
             for (currentMove in possibleMoves) {
-                board.updateCellToPossibleValue(currentMove.i, currentMove.j, getCorrespondingCellType(player))
+                board.updateCellToPossibleValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
                 val newHash = zobristHashing.updateHash(currHash, currentMove)
                 var value: Int
                 value = if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
@@ -70,7 +70,7 @@ class Minimax(
                 } else {
                     minimax(board, currDepth + 1, maxDepth, true, alpha, beta, getRival(player), newHash)
                 }
-                board.updateCellValue(currentMove.i, currentMove.j, CellType.EMPTY)
+                board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
                 bestValue = Math.min(bestValue, value)
                 beta = Math.min(beta, bestValue)
                 if (beta <= alpha) {

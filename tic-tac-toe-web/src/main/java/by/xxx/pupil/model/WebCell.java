@@ -2,12 +2,12 @@ package by.xxx.pupil.model;
 
 import java.util.Objects;
 
-public class Cell {
+public class WebCell {
 
     private final int y;
     private final int x;
 
-    public Cell(int y, int x) {
+    public WebCell(int y, int x) {
         this.y = y;
         this.x = x;
     }
@@ -24,9 +24,9 @@ public class Cell {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cell cell = (Cell) o;
-        return y == cell.y &&
-                x == cell.x;
+        WebCell webCell = (WebCell) o;
+        return y == webCell.y &&
+                x == webCell.x;
     }
 
     @Override
