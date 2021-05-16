@@ -4,8 +4,8 @@ import by.xxx.pupil.model.Board
 import by.xxx.pupil.model.CellType
 import by.xxx.pupil.model.Move
 import by.xxx.pupil.model.Player
-import java.util.*
 import kotlin.math.abs
+import kotlin.random.Random
 
 class ZobristHashing(height: Int, width: Int) {
 
@@ -17,11 +17,10 @@ class ZobristHashing(height: Int, width: Int) {
 
     init {
         transpositionTable = Array(height) { Array(width) { LongArray(NUMBER_OF_PLAYERS) } }
-        val rd = Random()
         for (i in 0 until height) {
             for (j in 0 until width) {
                 for (p in 0 until NUMBER_OF_PLAYERS) {
-                    transpositionTable[i][j][p] = abs(rd.nextLong())
+                    transpositionTable[i][j][p] = abs(Random.nextLong())
                 }
             }
         }

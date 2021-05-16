@@ -1,13 +1,18 @@
 package by.xxx.pupil.ai.minimax
 
 import by.xxx.pupil.Constants
-import by.xxx.pupil.winning.WinnerFinder
+import by.xxx.pupil.Constants.MINIMAX_DEPTH_PROPERTY
 import by.xxx.pupil.ai.AIPlayer
 import by.xxx.pupil.ai.hashing.ZobristHashing
 import by.xxx.pupil.ai.minimax.findmoves.MovesFinder
-import by.xxx.pupil.model.*
+import by.xxx.pupil.model.Board
+import by.xxx.pupil.model.CellType
+import by.xxx.pupil.model.Move
+import by.xxx.pupil.model.Player
+import by.xxx.pupil.model.getCorrespondingCellType
+import by.xxx.pupil.model.getRival
+import by.xxx.pupil.winning.WinnerFinder
 import org.apache.logging.log4j.LogManager
-import java.util.*
 
 class MinimaxBasedAI(
         private val movesFinder: MovesFinder,
@@ -18,12 +23,14 @@ class MinimaxBasedAI(
 
     private val logger = LogManager.getLogger(MinimaxBasedAI::class.java)
 
-    override fun nextMove(board: Board, player: Player, maxDepth: Int): Move {
+    override fun nextMove(board: Board, player: Player, properties: Map<String, Any>): Move {
+        val maxDepth: Int = properties[MINIMAX_DEPTH_PROPERTY] as Int
+
         val bestMoves: MutableList<Move> = ArrayList()
         var bestValue = Int.MIN_VALUE
         var possibleMoves = movesFinder.getMoves(board, player)
 
-        Collections.reverse(possibleMoves)
+        possibleMoves= possibleMoves.reversed()
         possibleMoves = possibleMoves.take(10);
 
         val hash = zobristHashing.hash(board)
@@ -47,7 +54,8 @@ class MinimaxBasedAI(
                 bestMoves.add(currentMove)
             }
         }
-        return bestMoves[Random().nextInt(bestMoves.size)]
+        return bestMoves[(0 until bestMoves.size).random()]
     }
+
 
 }

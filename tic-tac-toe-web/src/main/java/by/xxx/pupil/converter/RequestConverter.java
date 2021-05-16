@@ -6,6 +6,9 @@ import by.xxx.pupil.model.GameRequest;
 import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static by.xxx.pupil.model.BoardUtilsKt.resolveCellTypeFromSymbol;
 
 @Component
@@ -23,12 +26,17 @@ public class RequestConverter {
         return board;
     }
 
-    public int toMinimaxDepth(GameRequest request) {
+    public Map<String, Object> toGameProperties(GameRequest request) {
         Validate.isTrue(
                 request.getDifficultyLevel() > 0 && request.getDifficultyLevel() < 10,
                 "difficulty level is out of range"
         );
-        return request.getDifficultyLevel() != null ? request.getDifficultyLevel() : Constants.DEFAULT_MINIMAX_DEPTH_LIMIT;
+        int depth = request.getDifficultyLevel() != null ? request.getDifficultyLevel() : Constants.DEFAULT_MINIMAX_DEPTH_LIMIT;
+
+        Map<String, Object> props = new HashMap<>();
+        props.put(Constants.MINIMAX_DEPTH_PROPERTY, depth);
+
+        return props;
     }
 
 }

@@ -7,7 +7,6 @@ import by.xxx.pupil.model.Player;
 import by.xxx.pupil.winning.WinnerFinder;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WinnerFinderTest {

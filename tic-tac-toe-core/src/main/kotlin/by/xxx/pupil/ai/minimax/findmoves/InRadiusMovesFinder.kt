@@ -1,13 +1,17 @@
 package by.xxx.pupil.ai.minimax.findmoves
 
-import by.xxx.pupil.model.*
-import java.util.*
+import by.xxx.pupil.model.Board
+import by.xxx.pupil.model.CellType
+import by.xxx.pupil.model.Move
+import by.xxx.pupil.model.Player
+import by.xxx.pupil.model.isCellEmpty
+
 
 class InRadiusMovesFinder(private val availabilityRadius: Int) : MovesFinder {
 
     override fun getMoves(board: Board, player: Player): List<Move> {
         val visited: MutableSet<Move> = HashSet()
-        val movesBFSQueue: Deque<Move> = ArrayDeque()
+        val movesBFSQueue: MutableList<Move> = ArrayDeque()
         val availableMoves: MutableList<Move> = ArrayList()
         for (i in 0 until board.height) {
             for (j in 0 until board.width) {
@@ -41,7 +45,7 @@ class InRadiusMovesFinder(private val availabilityRadius: Int) : MovesFinder {
         return move.y >= 0 && move.x >= 0 && move.y < board.height && move.x < board.width && isCellEmpty(board, move.y, move.x)
     }
 
-    private fun addMove(move: Move, visited: MutableSet<Move>, movesBFSQueue: Deque<Move>, availableMoves: MutableList<Move>) {
+    private fun addMove(move: Move, visited: MutableSet<Move>, movesBFSQueue: MutableList<Move>, availableMoves: MutableList<Move>) {
         if (!visited.contains(move)) {
             visited.add(move)
             availableMoves.add(move)

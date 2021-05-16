@@ -52,7 +52,7 @@ public class GameController {
                     .collect(Collectors.toList());
             return new GameResponse(GameStatus.CROSS_WIN, request.getBoard(), null, winningSequence);
         } else {
-            Move aiMove = aiPlayer.nextMove(board, Player.NOUGHTS, requestConverter.toMinimaxDepth(request));
+            Move aiMove = aiPlayer.nextMove(board, Player.NOUGHTS, requestConverter.toGameProperties(request));
             char[][] boardCells = request.getBoard();
             boardCells[aiMove.getY()][aiMove.getX()] = CellType.NOUGHT.getSymbol();
             if (winnerFinder.isMoveLeadToWin(board, aiMove)) {

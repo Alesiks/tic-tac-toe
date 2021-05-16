@@ -2,7 +2,6 @@ package by.xxx.pupil.ai.hashing
 
 import by.xxx.pupil.model.Board
 import org.apache.logging.log4j.LogManager
-import java.util.*
 
 class InMemoryCache(private val zobristHashing: ZobristHashing) : ScoreCache {
 

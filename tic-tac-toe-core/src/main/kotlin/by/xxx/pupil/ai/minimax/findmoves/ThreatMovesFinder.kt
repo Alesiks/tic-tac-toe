@@ -6,7 +6,6 @@ import by.xxx.pupil.model.Board
 import by.xxx.pupil.model.CellType
 import by.xxx.pupil.model.Move
 import by.xxx.pupil.model.Player
-import java.util.*
 
 class ThreatMovesFinder(
         private val inRadiusMovesFinder: InRadiusMovesFinder,

@@ -18,6 +18,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Import(Cfg.class)
 @SpringBootApplication
@@ -64,7 +66,9 @@ public class Runner implements ApplicationRunner {
                 break;
             }
 
-            Move aiMove = aiPlayer.nextMove(board, Player.NOUGHTS, difficulty);
+            Map<String, Object> props = new HashMap<>();
+            props.put(Constants.MINIMAX_DEPTH_PROPERTY, difficulty);
+            Move aiMove = aiPlayer.nextMove(board, Player.NOUGHTS, props);
             board.updateCellValue(aiMove.getY(), aiMove.getX(), CellType.NOUGHT);
             printer.print(board);
 
