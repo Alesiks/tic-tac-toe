@@ -18,7 +18,7 @@ class Minimax(
 ) {
 
     /**
-     * @param board              - presents current game state
+     * @param board              - describes current game state
      * @param currDepth          - current level in game tree which is build using minimax algorithm
      * @param maxDepth           - max level in game tree, after reaching which the tree traverse stops
      * @param isMaximizingPlayer - is current player maximize score or minimize
@@ -28,7 +28,16 @@ class Minimax(
      * @param currHash           - Zobrist hash for current board state
      * @return min or max (depends on player type) value that minimax can achieve on that level
      */
-    fun minimax(board: Board, currDepth: Int, maxDepth: Int, isMaximizingPlayer: Boolean, alpha: Int, beta: Int, player: Player, currHash: Long): Int {
+    fun minimax(
+            board: Board,
+            currDepth: Int,
+            maxDepth: Int,
+            isMaximizingPlayer: Boolean,
+            alpha: Int,
+            beta: Int,
+            player: Player,
+            currHash: Long
+    ): Int {
         var alpha = alpha
         var beta = beta
         var bestValue: Int
