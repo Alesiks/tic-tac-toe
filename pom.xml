@@ -20,6 +20,7 @@
         <module>tic-tac-toe-core</module>
         <module>tic-tac-toe-web</module>
         <module>tic-tac-toe-console</module>
+        <module>tic-tac-toe-frontend</module>
     </modules>
 
     <properties>

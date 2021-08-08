@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angularclient": {
+    "tic-tac-toe-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angularclient",
+            "outputPath": "dist/tic-tac-toe-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -61,11 +61,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angularclient:build"
+            "browserTarget": "tic-tac-toe-frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angularclient:build:production"
+              "browserTarget": "tic-tac-toe-frontend:build:production"
             }
           }
         },
@@ -73,7 +73,7 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "options": {
-              "browserTarget": "angularclient:build"
+              "browserTarget": "tic-tac-toe-frontend:build"
             }
           },
           "test": {
@@ -110,17 +110,17 @@
             "builder": "@angular-devkit/build-angular:protractor",
             "options": {
               "protractorConfig": "e2e/protractor.conf.js",
-              "devServerTarget": "angularclient:serve"
+              "devServerTarget": "tic-tac-toe-frontend:serve"
             },
             "configurations": {
               "production": {
-                "devServerTarget": "angularclient:serve:production"
+                "devServerTarget": "tic-tac-toe-frontend:serve:production"
               }
             }
           }
         }
       }
     },
-    "defaultProject": "angularclient"
+    "defaultProject": "tic-tac-toe-frontend"
   }
 }
