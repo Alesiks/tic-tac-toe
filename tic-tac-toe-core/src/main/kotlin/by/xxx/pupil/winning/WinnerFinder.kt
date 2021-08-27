@@ -13,7 +13,7 @@ class WinnerFinder {
     private val WIN_SEQUENCE_SHIFT = WIN_SEQUENCE_LENGTH - 1;
 
     fun getWinSequenceForMove(board: Board, move: Move): List<Cell> {
-        val findWinFunctionsList: MutableList<(Board, Move) -> List<Cell>> = ArrayList();
+        val findWinFunctionsList: MutableList<(Board, Move) -> List<Cell>> = ArrayList()
         findWinFunctionsList.add(this::findWinHorizontally)
         findWinFunctionsList.add(this::findWinVertically)
         findWinFunctionsList.add(this::findWinLeftToRightDiagonally)
@@ -36,28 +36,50 @@ class WinnerFinder {
                 || findWinRightToLeftDiagonally(board, move).isNotEmpty();
     }
 
+    fun getDirections(board: Board, move: Move): List<List<Cell>> {
+        val directionsList: MutableList<List<Cell>> = ArrayList()
+        directionsList.add(getHorizontalDirection(board, move))
+        directionsList.add(getVerticalDirection(board, move))
+        directionsList.add(getLeftToRightDiagonalDirection(board, move))
+        directionsList.add(getRightToLeftDiagonalDirection(board, move))
+
+        return directionsList
+    }
+
     private fun findWinHorizontally(board: Board, move: Move): List<Cell> {
+        val possibleWinSequence = getHorizontalDirection(board, move)
+        return getWinningSequenceIfExists(possibleWinSequence)
+    }
+
+    private fun getHorizontalDirection(board: Board, move: Move): List<Cell> {
         val row = move.y
         val column = move.x
         val columnsRange = max(column - WIN_SEQUENCE_SHIFT, 0)..min(column + WIN_SEQUENCE_SHIFT, board.width - 1)
-        val possibleWinSequence = columnsRange
+        return columnsRange
                 .map { j: Int -> Cell(row, j, board.getCellValue(row, j)) }
                 .toList()
-
-        return getWinningSequenceIfExists(possibleWinSequence)
     }
 
     private fun findWinVertically(board: Board, move: Move): List<Cell> {
-        val row = move.y
-        val column = move.x
-        val rowsRange = max(row - WIN_SEQUENCE_SHIFT, 0)..min(row + WIN_SEQUENCE_SHIFT, board.height - 1)
-        val possibleWinSequence = rowsRange
-                .map { i: Int -> Cell(i, column, board.getCellValue(i, move.x)) }
-                .toList();
+        val possibleWinSequence = getVerticalDirection(board, move)
         return getWinningSequenceIfExists(possibleWinSequence)
     }
 
+    private fun getVerticalDirection(board: Board, move: Move): List<Cell> {
+        val row = move.y
+        val column = move.x
+        val rowsRange = max(row - WIN_SEQUENCE_SHIFT, 0)..min(row + WIN_SEQUENCE_SHIFT, board.height - 1)
+        return rowsRange
+                .map { i: Int -> Cell(i, column, board.getCellValue(i, move.x)) }
+                .toList();
+    }
+
     private fun findWinLeftToRightDiagonally(board: Board, move: Move): List<Cell> {
+        val  possibleWinSequence = getLeftToRightDiagonalDirection(board, move)
+        return getWinningSequenceIfExists(possibleWinSequence)
+    }
+
+    private fun getLeftToRightDiagonalDirection(board: Board, move: Move): List<Cell> {
         val minDelta =
                 if (move.y - WIN_SEQUENCE_SHIFT >= 0 && move.x - WIN_SEQUENCE_SHIFT >= 0)
                     WIN_SEQUENCE_SHIFT
@@ -72,18 +94,24 @@ class WinnerFinder {
         val endI = move.y + maxDelta
         val startJ = move.x - minDelta
         val endJ = move.x + maxDelta
-        val possibleWinSequence: MutableList<Cell> = ArrayList()
+        val diagonalDirection: MutableList<Cell> = ArrayList()
         var i = startI
         var j = startJ
         while (i <= endI && j <= endJ) {
-            possibleWinSequence.add(Cell(i, j, board.getCellValue(i, j)))
+            diagonalDirection.add(Cell(i, j, board.getCellValue(i, j)))
             i++
             j++
         }
-        return getWinningSequenceIfExists(possibleWinSequence)
+
+        return diagonalDirection
     }
 
     private fun findWinRightToLeftDiagonally(board: Board, move: Move): List<Cell> {
+        val  possibleWinSequence = getRightToLeftDiagonalDirection(board, move)
+        return getWinningSequenceIfExists(possibleWinSequence)
+    }
+
+    private fun getRightToLeftDiagonalDirection(board: Board, move: Move):List<Cell> {
         var delta =
                 if (move.y + WIN_SEQUENCE_SHIFT < board.height && move.x - WIN_SEQUENCE_SHIFT >= 0)
                     WIN_SEQUENCE_SHIFT
@@ -98,15 +126,16 @@ class WinnerFinder {
                     min(move.y, board.width - 1 - move.x)
         val startI = move.y - delta
         val startJ = move.x + delta
-        val possibleWinSequence: MutableList<Cell> = ArrayList()
+        val diagonalDirecion: MutableList<Cell> = ArrayList()
         var i = startI
         var j = startJ
         while (i <= endI && j >= endJ) {
-            possibleWinSequence.add(Cell(i, j, board.getCellValue(i, j)))
+            diagonalDirecion.add(Cell(i, j, board.getCellValue(i, j)))
             i++
             j--
         }
-        return getWinningSequenceIfExists(possibleWinSequence)
+
+        return diagonalDirecion
     }
 
     private fun getWinningSequenceIfExists(possibleWinSequence: List<Cell>): List<Cell> {

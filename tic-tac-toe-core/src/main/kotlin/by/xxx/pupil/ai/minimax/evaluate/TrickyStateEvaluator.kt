@@ -9,11 +9,11 @@ import by.xxx.pupil.model.Player
 import by.xxx.pupil.winning.WinnerFinder
 import org.apache.commons.lang3.StringUtils
 
-class TrickyEvaluator(
+class TrickyStateEvaluator(
         private val combinationsFinder: CombinationsFinder,
         private val scoreCache: ScoreCache,
         private val winnerFinder: WinnerFinder
-) : Evaluator {
+) : StateEvaluator {
 
     private val evaluationScores: Map<GeneralCombination, Int> = mapOf(
             GeneralCombination.FIVE to 10000000,

@@ -6,12 +6,13 @@ import by.xxx.pupil.ai.hashing.ScoreCache
 import by.xxx.pupil.ai.hashing.ZobristHashing
 import by.xxx.pupil.ai.minimax.Minimax
 import by.xxx.pupil.ai.minimax.MinimaxBasedAI
-import by.xxx.pupil.ai.minimax.evaluate.Evaluator
-import by.xxx.pupil.ai.minimax.evaluate.TrickyEvaluator
+import by.xxx.pupil.ai.minimax.evaluate.StateEvaluator
+import by.xxx.pupil.ai.minimax.evaluate.TrickyStateEvaluator
 import by.xxx.pupil.ai.minimax.findmoves.InRadiusMovesFinder
 import by.xxx.pupil.ai.minimax.findmoves.ShallowSearchMovesFinder
 import by.xxx.pupil.ai.combinations.CombinationPatterns
 import by.xxx.pupil.ai.combinations.CombinationsFinder
+import by.xxx.pupil.ai.minimax.findmoves.evaluate.MoveEvaluator
 import by.xxx.pupil.winning.WinnerFinder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -40,8 +41,8 @@ open class Cfg {
     }
 
     @Bean
-    open fun evaluator(): Evaluator {
-        return TrickyEvaluator(combinationsFinder(), scoreCache(), winnerFinder())
+    open fun evaluator(): StateEvaluator {
+        return TrickyStateEvaluator(combinationsFinder(), scoreCache(), winnerFinder())
     }
 
     @Bean
@@ -50,8 +51,13 @@ open class Cfg {
     }
 
     @Bean
+    open fun moveEvaluator(): MoveEvaluator {
+        return MoveEvaluator(winnerFinder())
+    }
+
+    @Bean
     open fun shallowSearchMovesFinder(): ShallowSearchMovesFinder {
-        return ShallowSearchMovesFinder(inRadiusMovesFinder(), evaluator(), zobristHashing())
+        return ShallowSearchMovesFinder(inRadiusMovesFinder(), moveEvaluator())
     }
 
     //    @Bean

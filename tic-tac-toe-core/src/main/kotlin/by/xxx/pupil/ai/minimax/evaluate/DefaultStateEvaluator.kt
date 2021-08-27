@@ -5,7 +5,7 @@ import by.xxx.pupil.model.Board
 import by.xxx.pupil.model.Move
 import by.xxx.pupil.model.Player
 
-class DefaultEvaluator(private val winnerFinder: WinnerFinder) : Evaluator {
+class DefaultStateEvaluator(private val winnerFinder: WinnerFinder) : StateEvaluator {
 
     override fun evaluate(board: Board, lastMove: Move): Int {
         return if (winnerFinder.isMoveLeadToWin(board, lastMove)) {

@@ -1,7 +1,7 @@
 package by.xxx.pupil.ai.minimax
 
 import by.xxx.pupil.ai.hashing.ZobristHashing
-import by.xxx.pupil.ai.minimax.evaluate.Evaluator
+import by.xxx.pupil.ai.minimax.evaluate.StateEvaluator
 import by.xxx.pupil.ai.minimax.findmoves.MovesFinder
 import by.xxx.pupil.model.Board
 import by.xxx.pupil.model.CellType
@@ -9,10 +9,12 @@ import by.xxx.pupil.model.Player
 import by.xxx.pupil.model.getCorrespondingCellType
 import by.xxx.pupil.model.getRival
 import by.xxx.pupil.winning.WinnerFinder
+import kotlin.math.max
+import kotlin.math.min
 
 class Minimax(
         private val movesFinder: MovesFinder,
-        private val evaluator: Evaluator,
+        private val evaluator: StateEvaluator,
         private val winnerFinder: WinnerFinder,
         private val zobristHashing: ZobristHashing
 ) {
@@ -60,8 +62,8 @@ class Minimax(
                     minimax(board, currDepth + 1, maxDepth, false, alpha, beta, getRival(player), newHash)
                 }
                 board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
-                bestValue = Math.max(bestValue, value)
-                alpha = Math.max(alpha, bestValue)
+                bestValue = max(bestValue, value)
+                alpha = max(alpha, bestValue)
                 if (beta <= alpha) {
                     break
                 }
@@ -69,6 +71,7 @@ class Minimax(
         } else {
             bestValue = Int.MAX_VALUE
             var possibleMoves = movesFinder.getMoves(board, player)
+            possibleMoves = possibleMoves.reversed()
             possibleMoves = possibleMoves.take(10)
 
             for (currentMove in possibleMoves) {
@@ -83,8 +86,8 @@ class Minimax(
                     minimax(board, currDepth + 1, maxDepth, true, alpha, beta, getRival(player), newHash)
                 }
                 board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
-                bestValue = Math.min(bestValue, value)
-                beta = Math.min(beta, bestValue)
+                bestValue = min(bestValue, value)
+                beta = min(beta, bestValue)
                 if (beta <= alpha) {
                     break
                 }
