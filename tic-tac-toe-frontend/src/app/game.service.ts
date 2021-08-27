@@ -8,7 +8,7 @@ import { constants } from './constants';
 
 @Injectable()
 export class GameService{
-    private gameUrl = 'http://localhost:8080/api/play';
+    private gameUrl = '/api/play';
 
     board: string[][];
     lastMove: CellType[][];
