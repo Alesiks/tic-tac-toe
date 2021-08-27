@@ -6,19 +6,19 @@
   <br><br>
   <label for="level">Choose your opponent:</label>
   <select name="level" id="level" [(ngModel)]="difficultyLevel" (change)="onLevelSelect()" [disabled]="gameService.difficultyLevelDisabled">
-    <option value="1">I have a little understanding in tic-tac-toe</option>
-    <option value="2" selected>Win me first</option>
-    <option value="3">I think a lot</option>
-  </select> 
+    <option value="1">1</option>
+    <option value="2" selected>2</option>
+    <option value="3">3</option>
+  </select>
 </div>
 
 <table>
   <tr *ngFor="let row of numbers">
     <td class="cell"
-      *ngFor="let column of numbers" 
-      (click)="makeMove(row, column)" 
-      [ngClass]="{lastAiMove:gameService.lastMove[row][column] == 'ai'}"
-      [ngClass]="{lastPlayerMove:gameService.lastMove[row][column] == 'player'}"
+      *ngFor="let column of numbers"
+      (click)="makeMove(row, column)"
+      [ngClass]="{lastAiMove:gameService.lastMove[row][column] == 'ai', aiCell:gameService.board[row][column] == '0'}"
+      [ngClass]="{lastPlayerMove:gameService.lastMove[row][column] == 'player', playerCell:gameService.board[row][column] == 'x'}"
       [ngClass]="{winningSequence:gameService.winningSequence[row][column]}"
       >{{gameService.board[row][column]}}</td>
   </tr>
