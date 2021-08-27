@@ -12,6 +12,7 @@ import by.xxx.pupil.ai.minimax.findmoves.InRadiusMovesFinder
 import by.xxx.pupil.ai.minimax.findmoves.ShallowSearchMovesFinder
 import by.xxx.pupil.ai.combinations.CombinationPatterns
 import by.xxx.pupil.ai.combinations.CombinationsFinder
+import by.xxx.pupil.ai.hashing.NoCache
 import by.xxx.pupil.ai.minimax.findmoves.evaluate.MoveEvaluator
 import by.xxx.pupil.winning.WinnerFinder
 import org.springframework.context.annotation.Bean
@@ -35,9 +36,14 @@ open class Cfg {
         return ZobristHashing(10, 10)
     }
 
+//    @Bean
+//    open fun scoreCache(): ScoreCache {
+//        return InMemoryCache(zobristHashing())
+//    }
+
     @Bean
     open fun scoreCache(): ScoreCache {
-        return InMemoryCache(zobristHashing())
+        return NoCache()
     }
 
     @Bean
