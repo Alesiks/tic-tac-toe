@@ -25,7 +25,7 @@ class Board {
         this.height = height
         this.width = width
 
-        board = Array(height) { Array(width) { CellType.EMPTY} }
+        board = Array(height) { Array(width) { CellType.EMPTY } }
     }
 
     constructor(board: Array<Array<CellType>>) {
@@ -87,7 +87,7 @@ class Board {
 
     fun getVerticalLine(line: Int): String {
         return (0 until height)
-                .map{j -> board[j][line].symbol}
+                .map { j -> board[j][line].symbol }
                 .joinToString("");
     }
 
@@ -126,4 +126,14 @@ class Board {
         }
         return diagonal.toString()
     }
+
+    override fun toString(): String {
+        var res = ""
+        for (i in 0 until height) {
+            res += board[i].map { cellType -> cellType.symbol }.toString()
+            res += "\n"
+        }
+        return res
+    }
+
 }

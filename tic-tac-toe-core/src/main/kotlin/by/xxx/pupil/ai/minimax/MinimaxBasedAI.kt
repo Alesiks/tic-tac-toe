@@ -21,9 +21,12 @@ class MinimaxBasedAI(
         private val zobristHashing: ZobristHashing
 ) : AIPlayer {
 
-    private val logger = LogManager.getLogger(MinimaxBasedAI::class.java)
+    private val logger = LogManager.getLogger(MinimaxBasedAI::class)
 
     override fun nextMove(board: Board, player: Player, properties: Map<String, Any>): Move {
+        val startTime = System.currentTimeMillis()
+        logger.info("Start thinking on move for position:\n$board")
+
         val maxDepth: Int = properties[MINIMAX_DEPTH_PROPERTY] as Int
 
         val bestMoves: MutableList<Move> = ArrayList()
@@ -39,11 +42,13 @@ class MinimaxBasedAI(
             var value: Int
             //                    int value = minimax.minimax(board, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             value = if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
+                board.updateCellValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
+                val time = System.currentTimeMillis() - startTime
+                logger.info("Make a move[$currentMove] in $time (ms), move lead to win!\nboard:\n$board")
                 return currentMove
             } else {
                 val newHash = zobristHashing.updateHash(hash, currentMove)
                 minimax.minimax(board, 0, maxDepth, false, Constants.LOSE_STRATEGY_SCORE, Constants.WIN_STRATEGY_SCORE, getRival(player), newHash)
-                //                logger.debug("score for move[{},{}]: [{}]", currentMove.getI(), currentMove.getJ(), value);
             }
             board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
             if (value > bestValue) {
@@ -54,7 +59,14 @@ class MinimaxBasedAI(
                 bestMoves.add(currentMove)
             }
         }
-        return bestMoves[(0 until bestMoves.size).random()]
+
+        val move = bestMoves[(0 until bestMoves.size).random()]
+        board.updateCellValue(move.y, move.x, getCorrespondingCellType(player))
+
+        val time = System.currentTimeMillis() - startTime
+        logger.info("Make a move[$move] in $time (ms) board:\n$board")
+
+        return move
     }
 
 

@@ -9,6 +9,7 @@ import by.xxx.pupil.model.Player
 import by.xxx.pupil.model.getCorrespondingCellType
 import by.xxx.pupil.model.getRival
 import by.xxx.pupil.winning.WinnerFinder
+import org.apache.logging.log4j.LogManager
 import kotlin.math.max
 import kotlin.math.min
 
@@ -18,6 +19,8 @@ class Minimax(
         private val winnerFinder: WinnerFinder,
         private val zobristHashing: ZobristHashing
 ) {
+
+    private val logger = LogManager.getLogger(Minimax::class)
 
     /**
      * @param board              - describes current game state
@@ -40,6 +43,8 @@ class Minimax(
             player: Player,
             currHash: Long
     ): Int {
+        logger.info("in minimax")
+
         var alpha = alpha
         var beta = beta
         var bestValue: Int
