@@ -43,8 +43,6 @@ class Minimax(
             player: Player,
             currHash: Long
     ): Int {
-        logger.info("in minimax")
-
         var alpha = alpha
         var beta = beta
         var bestValue: Int
