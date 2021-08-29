@@ -1,7 +1,9 @@
 package by.xxx.pupil
 
 import by.xxx.pupil.ai.AIPlayer
-import by.xxx.pupil.ai.hashing.InMemoryCache
+import by.xxx.pupil.ai.combinations.CombinationPatterns
+import by.xxx.pupil.ai.combinations.CombinationsFinder
+import by.xxx.pupil.ai.hashing.NoCache
 import by.xxx.pupil.ai.hashing.ScoreCache
 import by.xxx.pupil.ai.hashing.ZobristHashing
 import by.xxx.pupil.ai.minimax.Minimax
@@ -10,9 +12,6 @@ import by.xxx.pupil.ai.minimax.evaluate.StateEvaluator
 import by.xxx.pupil.ai.minimax.evaluate.TrickyStateEvaluator
 import by.xxx.pupil.ai.minimax.findmoves.InRadiusMovesFinder
 import by.xxx.pupil.ai.minimax.findmoves.ShallowSearchMovesFinder
-import by.xxx.pupil.ai.combinations.CombinationPatterns
-import by.xxx.pupil.ai.combinations.CombinationsFinder
-import by.xxx.pupil.ai.hashing.NoCache
 import by.xxx.pupil.ai.minimax.findmoves.evaluate.MoveEvaluator
 import by.xxx.pupil.winning.WinnerFinder
 import org.springframework.context.annotation.Bean
@@ -66,10 +65,6 @@ open class Cfg {
         return ShallowSearchMovesFinder(inRadiusMovesFinder(), moveEvaluator())
     }
 
-    //    @Bean
-    //    public MovesFinder threatMovesFinder() {
-    //        return new ThreatMovesFinder(inRadiusMovesFinder(), combinationsFinder());
-    //    }
     @Bean
     open fun winnerFinder(): WinnerFinder {
         return WinnerFinder()
