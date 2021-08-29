@@ -87,6 +87,8 @@ export class GameService{
                 this.difficultyLevel = 3;
             } else if(level == 3) {
                 this.difficultyLevel = 5;
+            }  else if(level == 4) {
+                this.difficultyLevel = 7;
             }
             console.log("difficulty level:" + this.difficultyLevel)
         }
@@ -95,8 +97,8 @@ export class GameService{
     private isMovePossible(y: number, x: number): boolean {
         if(y < 0 || y >= constants.DEFAULT_BOARD_HEIGHT
             || x < 0 || x >= constants.DEFAULT_BOARD_WIDTH
-            || this.result == 'Crosses win!'
-            || this.result == 'Noughts win!'
+            || this.result == 'You won!'
+            || this.result == 'You lost!'
             || this.result == 'It is a draw!') {
             return false;
         } else if(this.board[y][x] != ' ') {
@@ -117,9 +119,9 @@ export class GameService{
 
     private handleAiResponse(data: GameStateResponse) {
         if(data.gameStatus == 'CROSS_WIN') {
-            this.result = 'Crosses win!'
+            this.result = 'You won!'
         } else if(data.gameStatus == 'NOUGHT_WIN') {
-            this.result = 'Noughts win!'
+            this.result = 'You lost!'
         } else if(data.gameStatus == 'DRAW') {
             this.result = 'It is a draw!'
         }
