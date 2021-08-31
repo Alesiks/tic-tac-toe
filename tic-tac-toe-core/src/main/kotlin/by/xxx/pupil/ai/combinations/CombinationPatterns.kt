@@ -15,7 +15,7 @@ class CombinationPatterns {
 
         val FIVE_CROSSES_PATTERN = """xxxxx""".toRegex()
         val STRAIGHT_FOUR_CROSSES_PATTERN = """ xxxx """.toRegex()
-        val FOUR_CROSSES_PATTERN = """( xxxx0)|(0xxxx )|(^xxxx )|( xxxx$)|( 0000#)|(#0000 )""".toRegex()
+        val FOUR_CROSSES_PATTERN = """( xxxx0)|(0xxxx )|(^xxxx )|( xxxx$)|( xxxx#)|(#xxxx )""".toRegex()
         val THREE_CROSSES_PATTERN = """ xxx """.toRegex()
         val BROKEN_THREE_CROSSES_PATTERN = """( x xx )|( xx x )""".toRegex()
         val TWO_CROSSES_PATTERN = """ xx """.toRegex()

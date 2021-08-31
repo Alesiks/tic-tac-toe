@@ -12,8 +12,6 @@ import by.xxx.pupil.model.Player;
 import by.xxx.pupil.model.WebCell;
 import by.xxx.pupil.winning.WinnerFinder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +32,6 @@ public class GameController {
 
     @Autowired
     private RequestConverter requestConverter;
-
-    @GetMapping(value = "/hi", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String play() {
-        return "Hello world!";
-    }
 
     @PostMapping("/play")
     public GameResponse play(@RequestBody GameRequest request) {
