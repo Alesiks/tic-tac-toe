@@ -11,11 +11,12 @@ import kotlin.math.min
  * xxxx
  * xxxx
  */
-class Board {
+open class Board {
     private val logger = LogManager.getLogger(Board::class.java)
 
     val width: Int
     val height: Int
+
     private val board: Array<Array<CellType>>
 
     constructor(height: Int, width: Int) {
@@ -25,16 +26,16 @@ class Board {
         this.height = height
         this.width = width
 
-        board = Array(height) { Array(width) { CellType.EMPTY } }
+        this.board = Array(height) { Array(width) { CellType.EMPTY } }
     }
 
     constructor(board: Array<Array<CellType>>) {
         Validate.notNull(board, "board is null")
-        height = board.size
+        this.height = board.size
         for (i in 0 until board.size - 1) {
             Validate.isTrue(board[i].size == board[i + 1].size, "board is not rectangle")
         }
-        width = board[0].size
+        this.width = board[0].size
         this.board = board
     }
 
@@ -42,7 +43,7 @@ class Board {
         return board[i][j]
     }
 
-    fun updateCellToPossibleValue(i: Int, j: Int, cellType: CellType) {
+    open fun updateCellToPossibleValue(i: Int, j: Int, cellType: CellType) {
         Validate.isTrue(i in 0 until height, "i coordinate is less than 0 or greater than possible height")
         Validate.isTrue(j in 0 until width, "j coordinate is less than 0 or greater than possible width")
         Validate.isTrue(CellType.EMPTY !== cellType, "Cell is null or empty")
@@ -54,7 +55,7 @@ class Board {
         }
     }
 
-    fun updateCellValue(i: Int, j: Int, cellType: CellType) {
+    open fun updateCellValue(i: Int, j: Int, cellType: CellType) {
         Validate.isTrue(i in 0 until height, "i coordinate is less than 0 or greater than possible height")
         Validate.isTrue(j in 0 until width, "j coordinate is less than 0 or greater than possible width")
 

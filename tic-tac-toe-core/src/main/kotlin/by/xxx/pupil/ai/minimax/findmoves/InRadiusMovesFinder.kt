@@ -15,8 +15,8 @@ class InRadiusMovesFinder(private val availabilityRadius: Int) : MovesFinder {
         for (i in 0 until board.height) {
             for (j in 0 until board.width) {
                 if (board.getCellValue(i, j) === CellType.CROSS || board.getCellValue(i, j) === CellType.NOUGHT) {
-                    val allMoves = generateAllMoves(i, j, player)
-                    allMoves.stream()
+                    val moves = generateMoves(i, j, player)
+                    moves.stream()
                             .filter { m: Move -> isMovePossible(m, board) }
                             .forEach { m: Move -> addMove(m, visited, availableMoves) }
                 }
@@ -25,7 +25,7 @@ class InRadiusMovesFinder(private val availabilityRadius: Int) : MovesFinder {
         return availableMoves
     }
 
-    private fun generateAllMoves(y: Int, x: Int, player: Player): List<Move> {
+    private fun generateMoves(y: Int, x: Int, player: Player): List<Move> {
         val allMoves: MutableList<Move> = ArrayList()
         for (i in 0..availabilityRadius) {
             for (j in 0..availabilityRadius) {

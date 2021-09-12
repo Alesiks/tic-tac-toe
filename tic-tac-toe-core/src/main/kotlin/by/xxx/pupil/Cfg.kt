@@ -47,7 +47,7 @@ open class Cfg {
 
     @Bean
     open fun evaluator(): StateEvaluator {
-        return TrickyStateEvaluator(combinationsFinder(), scoreCache(), winnerFinder())
+        return TrickyStateEvaluator(combinationsFinder(), winnerFinder())
     }
 
     @Bean
@@ -62,7 +62,7 @@ open class Cfg {
 
     @Bean
     open fun shallowSearchMovesFinder(): ShallowSearchMovesFinder {
-        return ShallowSearchMovesFinder(inRadiusMovesFinder(), moveEvaluator())
+        return ShallowSearchMovesFinder(inRadiusMovesFinder(), moveEvaluator(), 10)
     }
 
     @Bean
@@ -72,11 +72,11 @@ open class Cfg {
 
     @Bean
     open fun minimax(): Minimax {
-        return Minimax(shallowSearchMovesFinder(), evaluator(), winnerFinder(), zobristHashing())
+        return Minimax(shallowSearchMovesFinder(), evaluator(), winnerFinder())
     }
 
     @Bean
     open fun aiPlayer(): AIPlayer {
-        return MinimaxBasedAI(shallowSearchMovesFinder(), winnerFinder(), minimax(), zobristHashing())
+        return MinimaxBasedAI(shallowSearchMovesFinder(), winnerFinder(), minimax())
     }
 }

@@ -2,7 +2,6 @@ package by.xxx.pupil.ai.minimax.evaluate
 
 import by.xxx.pupil.ai.combinations.CombinationsFinder
 import by.xxx.pupil.ai.combinations.GeneralCombination
-import by.xxx.pupil.ai.hashing.ScoreCache
 import by.xxx.pupil.model.Board
 import by.xxx.pupil.model.Move
 import by.xxx.pupil.model.Player
@@ -11,7 +10,6 @@ import org.apache.commons.lang3.StringUtils
 
 class TrickyStateEvaluator(
         private val combinationsFinder: CombinationsFinder,
-        private val scoreCache: ScoreCache,
         private val winnerFinder: WinnerFinder
 ) : StateEvaluator {
 
@@ -46,15 +44,6 @@ class TrickyStateEvaluator(
                 .sumBy { generalCombination -> evaluationScores.get(generalCombination)!! }
 
         return aiScore + personScore * (-1)
-    }
-
-    override fun evaluate(board: Board, lastMove: Move, hash: Long): Int {
-        var score = scoreCache.getScore(board)
-        if (score == null) {
-            score = evaluate(board, lastMove)
-            scoreCache.putScore(hash, score)
-        }
-        return score
     }
 
     companion object {

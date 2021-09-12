@@ -17,10 +17,6 @@ class DefaultStateEvaluator(private val winnerFinder: WinnerFinder) : StateEvalu
         } else DRAW_SCORE
     }
 
-    override fun evaluate(board: Board, lastMove: Move, hash: Long): Int {
-        return evaluate(board, lastMove)
-    }
-
     companion object {
         private const val AI_WIN_SCORE = 100
         private const val DRAW_SCORE = 0

@@ -1,9 +1,8 @@
 package by.xxx.pupil.ai.hashing
 
 import by.xxx.pupil.model.Board
+import by.xxx.pupil.model.Cell
 import by.xxx.pupil.model.CellType
-import by.xxx.pupil.model.Move
-import by.xxx.pupil.model.Player
 import kotlin.math.abs
 import kotlin.random.Random
 
@@ -12,14 +11,14 @@ class ZobristHashing(height: Int, width: Int) {
     private val transpositionTable: Array<Array<LongArray>>
 
     companion object {
-        private const val NUMBER_OF_PLAYERS = 2
+        private const val NON_EMPTY_CELL_TYPES_NUMBER = 3
     }
 
     init {
-        transpositionTable = Array(height) { Array(width) { LongArray(NUMBER_OF_PLAYERS) } }
+        transpositionTable = Array(height) { Array(width) { LongArray(NON_EMPTY_CELL_TYPES_NUMBER) } }
         for (i in 0 until height) {
             for (j in 0 until width) {
-                for (p in 0 until NUMBER_OF_PLAYERS) {
+                for (p in 0 until NON_EMPTY_CELL_TYPES_NUMBER) {
                     transpositionTable[i][j][p] = abs(Random.nextLong())
                 }
             }
@@ -30,21 +29,22 @@ class ZobristHashing(height: Int, width: Int) {
         var hash: Long = 0
         for (i in 0 until board.height) {
             for (j in 0 until board.width) {
-                when (board.getCellValue(i, j)) {
-                    CellType.CROSS -> hash = hash xor transpositionTable[i][j][0]
-                    CellType.NOUGHT -> hash = hash xor transpositionTable[i][j][1]
-                    else -> { }
-                }
+                hash = updateHash(hash, Cell(i, j, board.getCellValue(i, j)))
             }
         }
         return hash
     }
 
-    fun updateHash(hash: Long, move: Move): Long {
-        return if (Player.CROSSES == move.player) {
-            hash xor transpositionTable[move.y][move.x][0]
-        } else {
-            hash xor transpositionTable[move.y][move.x][1]
+    fun updateHash(currHash: Long, newCell: Cell, previousCell: Cell? = null): Long {
+        return when (newCell.cellType) {
+            CellType.CROSS -> currHash xor transpositionTable[newCell.y][newCell.x][0]
+            CellType.NOUGHT -> currHash xor transpositionTable[newCell.y][newCell.x][1]
+            CellType.OBSTACLE -> currHash xor transpositionTable[newCell.y][newCell.x][2]
+            CellType.EMPTY -> return if (previousCell != null) {
+                    updateHash(currHash, previousCell)
+                } else {
+                    return currHash
+                }
         }
     }
 

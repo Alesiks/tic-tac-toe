@@ -9,7 +9,8 @@ import java.util.stream.Collectors
 
 class ShallowSearchMovesFinder(
         private val baseMovesFinder: MovesFinder,
-        private val moveEvaluator: MoveEvaluator
+        private val moveEvaluator: MoveEvaluator,
+        private val movesNumber: Int
 ) : MovesFinder {
 
     override fun getMoves(board: Board, player: Player): List<Move> {
@@ -23,6 +24,8 @@ class ShallowSearchMovesFinder(
                 .stream()
                 .flatMap { k: Int? -> scoreToMovesMap[k].stream() }
                 .collect(Collectors.toList())
+                .reversed()
+                .subList(0, movesNumber)
     }
 
 }

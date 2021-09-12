@@ -1,17 +1,18 @@
 # tic-tac-toe
-Play here: https://game-five-in-a-row.herokuapp.com/
+tic-tac-toe, 5 in a row or gomoku game. 
 
-tic-tac-toe or 5 in a row game. 
+Play here: https://game-five-in-a-row.herokuapp.com/
 
 ## Modules
 
 - tic-tac-toe-core
+- tic-tac-toe-playground - module to test algorithms and to run them against each other 
 - tic-tac-core-console
 - tic-tac-toe-web
 - tic-tac-toe-frontend
 
 ## AI
-The AI algorithm is build on minimax algorithm and alpha-beta pruning.
+The AI is build on minimax algorithm and alpha-beta pruning.
 
 ## How to build project and play?
 There is one game mode: Person vs AI. <br>

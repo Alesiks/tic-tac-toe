@@ -1,6 +1,5 @@
 package by.xxx.pupil.ai.minimax
 
-import by.xxx.pupil.ai.hashing.ZobristHashing
 import by.xxx.pupil.ai.minimax.evaluate.StateEvaluator
 import by.xxx.pupil.ai.minimax.findmoves.MovesFinder
 import by.xxx.pupil.model.Board
@@ -9,19 +8,14 @@ import by.xxx.pupil.model.Player
 import by.xxx.pupil.model.getCorrespondingCellType
 import by.xxx.pupil.model.getRival
 import by.xxx.pupil.winning.WinnerFinder
-import org.apache.logging.log4j.LogManager
 import kotlin.math.max
 import kotlin.math.min
 
 class Minimax(
         private val movesFinder: MovesFinder,
         private val evaluator: StateEvaluator,
-        private val winnerFinder: WinnerFinder,
-        private val zobristHashing: ZobristHashing
+        private val winnerFinder: WinnerFinder
 ) {
-
-    private val logger = LogManager.getLogger(Minimax::class)
-
     /**
      * @param board              - describes current game state
      * @param currDepth          - current level in game tree which is build using minimax algorithm
@@ -40,29 +34,24 @@ class Minimax(
             isMaximizingPlayer: Boolean,
             alpha: Int,
             beta: Int,
-            player: Player,
-            currHash: Long
+            player: Player
     ): Int {
         var alpha = alpha
         var beta = beta
         var bestValue: Int
         if (isMaximizingPlayer) {
             bestValue = Int.MIN_VALUE
-            var possibleMoves = movesFinder.getMoves(board, player)
-
-            possibleMoves = possibleMoves.reversed()
-            possibleMoves = possibleMoves.take(10);
+            val possibleMoves = movesFinder.getMoves(board, player)
 
             for (currentMove in possibleMoves) {
                 board.updateCellToPossibleValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
-                val newHash = zobristHashing.updateHash(currHash, currentMove)
                 var value: Int
                 value = if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
                     evaluator.evaluate(board, currentMove)
                 } else if (currDepth + 1 > maxDepth) {
-                    evaluator.evaluate(board, currentMove, newHash)
+                    evaluator.evaluate(board, currentMove)
                 } else {
-                    minimax(board, currDepth + 1, maxDepth, false, alpha, beta, getRival(player), newHash)
+                    minimax(board, currDepth + 1, maxDepth, false, alpha, beta, getRival(player))
                 }
                 board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
                 bestValue = max(bestValue, value)
@@ -73,20 +62,17 @@ class Minimax(
             }
         } else {
             bestValue = Int.MAX_VALUE
-            var possibleMoves = movesFinder.getMoves(board, player)
-            possibleMoves = possibleMoves.reversed()
-            possibleMoves = possibleMoves.take(10)
+            val possibleMoves = movesFinder.getMoves(board, player)
 
             for (currentMove in possibleMoves) {
                 board.updateCellToPossibleValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
-                val newHash = zobristHashing.updateHash(currHash, currentMove)
                 var value: Int
                 value = if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
                     evaluator.evaluate(board, currentMove)
                 } else if (currDepth + 1 > maxDepth) {
-                    evaluator.evaluate(board, currentMove, newHash)
+                    evaluator.evaluate(board, currentMove)
                 } else {
-                    minimax(board, currDepth + 1, maxDepth, true, alpha, beta, getRival(player), newHash)
+                    minimax(board, currDepth + 1, maxDepth, true, alpha, beta, getRival(player))
                 }
                 board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
                 bestValue = min(bestValue, value)
