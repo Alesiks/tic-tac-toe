@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {GameService} from './game.service';
+import { constants } from './constants';
+
 
 @Component({
   selector: 'app-root',
@@ -8,8 +10,9 @@ import {GameService} from './game.service';
   providers: [GameService]
 })
 export class AppComponent {
-  numbers = Array.from(Array(10)).map((x, i) => i );
+  numbers = Array.from(Array(constants.DEFAULT_BOARD_WIDTH)).map((x, i) => i );
 
+  isBombsChecked: boolean;
   isObstaclesChecked: boolean;
   difficultyLevel: number;
   constructor(public gameService: GameService){}
@@ -20,6 +23,10 @@ export class AppComponent {
 
   checkObstacles() {
     this.gameService.enableObstacles(this.isObstaclesChecked)
+  }
+
+  checkBombs() {
+    this.gameService.enableBombs(this.isBombsChecked)
   }
 
   onLevelSelect() {

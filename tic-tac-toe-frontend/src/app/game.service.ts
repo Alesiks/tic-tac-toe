@@ -26,11 +26,11 @@ export class GameService{
         this.lastMove = []
         this.winningSequence = []
         this.gameStarted = false;
-        for(var i: number = 0; i < 10; i++) {
+        for(var i: number = 0; i < constants.DEFAULT_BOARD_HEIGHT; i++) {
             this.board[i] = [];
             this.lastMove[i] = [];
             this.winningSequence[i] = [];
-            for(var j: number = 0; j < 10; j++) {
+            for(var j: number = 0; j < constants.DEFAULT_BOARD_WIDTH; j++) {
                 this.board[i][j] = ' ';
                 this.lastMove[i][j] = CellType.Empty;
                 this.winningSequence[i][j] = false;
@@ -64,13 +64,30 @@ export class GameService{
 
     enableObstacles(isObstaclesEnabled: boolean) {
         if(isObstaclesEnabled && !this.gameStarted) {
-            let obstaclesCount = Math.floor(Math.random() * (constants.MAX_OBSTACLES_COUNT + 1));
+            let obstaclesCount = Math.floor(Math.random() * (constants.MAX_OBSTACLES_COUNT - constants.MIN_OBSTACLES_COUNT + 1)) + constants.MIN_OBSTACLES_COUNT;
             for (let i = 0; i < obstaclesCount; i++) {
                 let y = Math.floor(Math.random() * (constants.DEFAULT_BOARD_HEIGHT));
                 let x = Math.floor(Math.random() * (constants.DEFAULT_BOARD_WIDTH));
                 this.board[y][x] = '#';
             }
         } else if(!isObstaclesEnabled && !this.gameStarted) {
+            for(var i: number = 0; i < constants.DEFAULT_BOARD_HEIGHT; i++) {
+                for(var j: number = 0; j < constants.DEFAULT_BOARD_WIDTH; j++) {
+                    this.board[i][j] = ' ';
+                }
+            }
+        }
+    }
+
+    enableBombs(isBombsChecked: boolean) {
+        if(isBombsChecked && !this.gameStarted) {
+            let obstaclesCount = Math.floor(Math.random() * (constants.MAX_OBSTACLES_COUNT + 1));
+            for (let i = 0; i < obstaclesCount; i++) {
+                let y = Math.floor(Math.random() * (constants.DEFAULT_BOARD_HEIGHT));
+                let x = Math.floor(Math.random() * (constants.DEFAULT_BOARD_WIDTH));
+                this.board[y][x] = '#';
+            }
+        } else if(!isBombsChecked && !this.gameStarted) {
             for(var i: number = 0; i < constants.DEFAULT_BOARD_HEIGHT; i++) {
                 for(var j: number = 0; j < constants.DEFAULT_BOARD_WIDTH; j++) {
                     this.board[i][j] = ' ';
