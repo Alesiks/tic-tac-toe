@@ -6,6 +6,7 @@ import by.xxx.pupil.model.Move
 import by.xxx.pupil.model.Player
 import com.google.common.collect.MultimapBuilder
 import java.util.stream.Collectors
+import kotlin.math.min
 
 class ShallowSearchMovesFinder(
         private val baseMovesFinder: MovesFinder,
@@ -20,12 +21,12 @@ class ShallowSearchMovesFinder(
             val currScore = moveEvaluator.evaluate(board, currMove)
             scoreToMovesMap.put(currScore, currMove)
         }
-        return scoreToMovesMap.keySet()
+        val ratedMovesList = scoreToMovesMap.keySet()
                 .stream()
                 .flatMap { k: Int? -> scoreToMovesMap[k].stream() }
                 .collect(Collectors.toList())
                 .reversed()
-                .subList(0, movesNumber)
+        return ratedMovesList.subList(0, min(movesNumber, ratedMovesList.size))
     }
 
 }
