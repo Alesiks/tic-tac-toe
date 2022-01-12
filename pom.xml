@@ -25,8 +25,8 @@
     </modules>
 
     <properties>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
 
         <kotlin.version>1.4.21</kotlin.version>
 
@@ -115,7 +115,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <jvmTarget>1.8</jvmTarget>
+                        <jvmTarget>11</jvmTarget>
                     </configuration>
                 </plugin>
                 <plugin>

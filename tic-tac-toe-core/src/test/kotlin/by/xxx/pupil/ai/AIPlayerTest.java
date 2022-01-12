@@ -4,17 +4,16 @@ import by.xxx.pupil.model.Board;
 import by.xxx.pupil.model.CellType;
 import by.xxx.pupil.model.Move;
 import by.xxx.pupil.model.Player;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Test;
 
 import static java.util.Collections.emptyMap;
 
-@Ignore
 public class AIPlayerTest {
 
     private AIPlayer AIPlayer;
 
-    @Test
+
+//    @Test
     public void test() {
         CellType[][] cellTypes = {
                 {CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY, CellType.EMPTY},
