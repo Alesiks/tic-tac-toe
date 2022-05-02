@@ -6,8 +6,8 @@ import by.pupil.model.HashedBoard
 import by.pupil.model.Move
 
 class CachedStateEvaluator(
-        private val originStateEvaluator: StateEvaluator,
-        private val scoreCache: ScoreCache
+    private val originStateEvaluator: StateEvaluator,
+    private val scoreCache: ScoreCache
 ) : StateEvaluator {
 
     override fun evaluate(board: Board, lastMove: Move): Int {
@@ -17,10 +17,9 @@ class CachedStateEvaluator(
                 score = originStateEvaluator.evaluate(board, lastMove)
                 scoreCache.putScore(board, score)
             }
-            return score;
+            return score
         } else {
             return originStateEvaluator.evaluate(board, lastMove)
         }
     }
-
 }

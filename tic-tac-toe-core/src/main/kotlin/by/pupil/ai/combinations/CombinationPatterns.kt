@@ -5,7 +5,7 @@ class CombinationPatterns {
     val crossesPatternsToCombinations: Map<Regex, GeneralCombination>
 
     companion object {
-        val FIVE_NOUGHTS_PATTERN  = """00000""".toRegex()
+        val FIVE_NOUGHTS_PATTERN = """00000""".toRegex()
         val STRAIGHT_FOUR_NOUGHTS_PATTERN = """ 0000 """.toRegex()
         val FOUR_NOUGHTS_PATTERN = """( 0000x)|(x0000 )|(^0000 )|( 0000$)|( 0000#)|(#0000 )""".toRegex()
         val THREE_NOUGHTS_PATTERN = """ 000 """.toRegex()
@@ -24,23 +24,23 @@ class CombinationPatterns {
 
     init {
         noughtsPatternsToCombinations = hashMapOf(
-                FIVE_NOUGHTS_PATTERN to GeneralCombination.FIVE,
-                STRAIGHT_FOUR_NOUGHTS_PATTERN to GeneralCombination.STRAIGHT_FOUR,
-                FOUR_NOUGHTS_PATTERN to GeneralCombination.FOUR,
-                THREE_NOUGHTS_PATTERN to GeneralCombination.THREE,
-                BROKEN_THREE_NOUGHTS_PATTERN to GeneralCombination.BROKEN_THREE,
-                TWO_NOUGHTS_PATTERN to GeneralCombination.TWO,
-                ONE_NOUGHT_PATTERN to GeneralCombination.ONE
+            FIVE_NOUGHTS_PATTERN to GeneralCombination.FIVE,
+            STRAIGHT_FOUR_NOUGHTS_PATTERN to GeneralCombination.STRAIGHT_FOUR,
+            FOUR_NOUGHTS_PATTERN to GeneralCombination.FOUR,
+            THREE_NOUGHTS_PATTERN to GeneralCombination.THREE,
+            BROKEN_THREE_NOUGHTS_PATTERN to GeneralCombination.BROKEN_THREE,
+            TWO_NOUGHTS_PATTERN to GeneralCombination.TWO,
+            ONE_NOUGHT_PATTERN to GeneralCombination.ONE
         )
 
         crossesPatternsToCombinations = hashMapOf(
-                FIVE_CROSSES_PATTERN to GeneralCombination.FIVE,
-                STRAIGHT_FOUR_CROSSES_PATTERN to GeneralCombination.STRAIGHT_FOUR,
-                FOUR_CROSSES_PATTERN to GeneralCombination.FOUR,
-                THREE_CROSSES_PATTERN to GeneralCombination.THREE,
-                BROKEN_THREE_CROSSES_PATTERN to GeneralCombination.BROKEN_THREE,
-                TWO_CROSSES_PATTERN to GeneralCombination.TWO,
-                ONE_CROSS_PATTERN to GeneralCombination.ONE
+            FIVE_CROSSES_PATTERN to GeneralCombination.FIVE,
+            STRAIGHT_FOUR_CROSSES_PATTERN to GeneralCombination.STRAIGHT_FOUR,
+            FOUR_CROSSES_PATTERN to GeneralCombination.FOUR,
+            THREE_CROSSES_PATTERN to GeneralCombination.THREE,
+            BROKEN_THREE_CROSSES_PATTERN to GeneralCombination.BROKEN_THREE,
+            TWO_CROSSES_PATTERN to GeneralCombination.TWO,
+            ONE_CROSS_PATTERN to GeneralCombination.ONE
         )
     }
 }

@@ -3,17 +3,17 @@ package by.pupil
 import by.pupil.ai.AIPlayer
 import by.pupil.converter.RequestConverter
 import by.pupil.model.*
+import by.pupil.plugins.Koin
+import by.pupil.plugins.inject
 import by.pupil.winning.WinnerFinder
-import io.ktor.application.*
-import io.ktor.features.*
-import io.ktor.jackson.*
-import io.ktor.request.*
-import io.ktor.response.*
-import io.ktor.routing.*
+import io.ktor.serialization.jackson.*
+import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import org.koin.ktor.ext.Koin
-import org.koin.ktor.ext.inject
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import java.util.stream.Collectors
 
 fun main() {
@@ -22,14 +22,19 @@ fun main() {
             jackson()
         }
         install(Koin) {
-            modules(gameModule)
+            modules = arrayListOf(
+                webModule, minimaxModule, coreModule
+            )
         }
 
-        val requestConverter by inject<RequestConverter>()
-        val winnerFinder by inject<WinnerFinder>()
-        val aiPlayer by inject<AIPlayer>()
+        val requestConverter: RequestConverter by inject()
+        val winnerFinder: WinnerFinder by inject()
+        val aiPlayer: AIPlayer by inject()
 
         routing {
+            get("/api/health") {
+                call.respond(WebCell(1, 1))
+            }
             get("/api/hello") {
                 call.respondText("Hello, world!")
             }

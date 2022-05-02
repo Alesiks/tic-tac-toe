@@ -12,5 +12,4 @@ interface AIPlayer {
      * @param properties - additional properties needed for your algorithm
      */
     fun nextMove(board: Board, player: Player, properties: Map<String, Any>): Move
-
 }

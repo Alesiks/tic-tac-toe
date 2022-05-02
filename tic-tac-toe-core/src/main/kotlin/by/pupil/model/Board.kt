@@ -1,7 +1,7 @@
 package by.pupil.model
 
+import mu.KotlinLogging
 import org.apache.commons.lang3.Validate
-import org.apache.logging.log4j.LogManager
 import kotlin.math.min
 
 /**
@@ -12,7 +12,7 @@ import kotlin.math.min
  * xxxx
  */
 open class Board {
-    private val logger = LogManager.getLogger(Board::class.java)
+    val logger = KotlinLogging.logger {}
 
     val width: Int
     val height: Int

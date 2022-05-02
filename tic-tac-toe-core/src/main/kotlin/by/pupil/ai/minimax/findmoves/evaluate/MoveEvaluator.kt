@@ -22,15 +22,15 @@ class MoveEvaluator(private val winnerFinder: WinnerFinder) {
         return score
     }
 
-    private fun evaluateDirection(direction: List<Cell>, player: Player):Int {
+    private fun evaluateDirection(direction: List<Cell>, player: Player): Int {
         var score = 0
-        for(i in 0..direction.size - 5) {
+        for (i in 0..direction.size - 5) {
             var you = 0
             var enemy = 0
-            for(j in 0..4) {
+            for (j in 0..4) {
                 if (direction[i + j].cellType == getCorrespondingCellType(player)) {
                     you++
-                } else if(direction[i + j].cellType == getCorrespondingCellType(getRival(player))) {
+                } else if (direction[i + j].cellType == getCorrespondingCellType(getRival(player))) {
                     enemy++
                 }
             }
@@ -52,13 +52,13 @@ class MoveEvaluator(private val winnerFinder: WinnerFinder) {
             -3 -> 1800
             -4 -> 100000
             17 -> 0
-            else ->  throw RuntimeException("unknown seq value to evaluate move: $seq")
+            else -> throw RuntimeException("unknown seq value to evaluate move: $seq")
         }
     }
 
     private fun getSeq(y: Int, e: Int): Int {
         if (y + e == 0) {
-            return 0;
+            return 0
         }
         if (y != 0 && e == 0) {
             return y
@@ -71,5 +71,4 @@ class MoveEvaluator(private val winnerFinder: WinnerFinder) {
         }
         return 0
     }
-
 }

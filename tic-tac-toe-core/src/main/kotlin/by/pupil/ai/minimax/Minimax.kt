@@ -12,9 +12,9 @@ import kotlin.math.max
 import kotlin.math.min
 
 class Minimax(
-        private val movesFinder: MovesFinder,
-        private val evaluator: StateEvaluator,
-        private val winnerFinder: WinnerFinder
+    private val movesFinder: MovesFinder,
+    private val evaluator: StateEvaluator,
+    private val winnerFinder: WinnerFinder
 ) {
     /**
      * @param board              - describes current game state
@@ -28,13 +28,13 @@ class Minimax(
      * @return min or max (depends on player type) value that minimax can achieve on that level
      */
     fun minimax(
-            board: Board,
-            currDepth: Int,
-            maxDepth: Int,
-            isMaximizingPlayer: Boolean,
-            alpha: Int,
-            beta: Int,
-            player: Player
+        board: Board,
+        currDepth: Int,
+        maxDepth: Int,
+        isMaximizingPlayer: Boolean,
+        alpha: Int,
+        beta: Int,
+        player: Player
     ): Int {
         var alpha = alpha
         var beta = beta

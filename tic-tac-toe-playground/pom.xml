@@ -16,7 +16,7 @@
         <dependency>
             <groupId>by.pupil</groupId>
             <artifactId>tic-tac-toe-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
     </dependencies>

@@ -11,15 +11,14 @@ import by.pupil.model.Player
 import by.pupil.model.getCorrespondingCellType
 import by.pupil.model.getRival
 import by.pupil.winning.WinnerFinder
-import org.apache.logging.log4j.LogManager
+import mu.KotlinLogging
 
 class MinimaxBasedAI(
-        private val movesFinder: MovesFinder,
-        private val winnerFinder: WinnerFinder,
-        private val minimax: Minimax
+    private val movesFinder: MovesFinder,
+    private val winnerFinder: WinnerFinder,
+    private val minimax: Minimax
 ) : AIPlayer {
-
-    private val logger = LogManager.getLogger(MinimaxBasedAI::class)
+    val logger = KotlinLogging.logger {}
 
     override fun nextMove(board: Board, player: Player, properties: Map<String, Any>): Move {
         val startTime = System.currentTimeMillis()
@@ -41,7 +40,15 @@ class MinimaxBasedAI(
                 logger.info("Make a move[$currentMove] in $time (ms), move lead to win!\nboard:\n$board")
                 return currentMove
             } else {
-                minimax.minimax(board, 0, maxDepth, false, Constants.LOSE_STRATEGY_SCORE, Constants.WIN_STRATEGY_SCORE, getRival(player))
+                minimax.minimax(
+                    board,
+                    0,
+                    maxDepth,
+                    false,
+                    Constants.LOSE_STRATEGY_SCORE,
+                    Constants.WIN_STRATEGY_SCORE,
+                    getRival(player)
+                )
             }
             board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
             if (value > bestValue) {
@@ -61,6 +68,4 @@ class MinimaxBasedAI(
 
         return move
     }
-
-
 }

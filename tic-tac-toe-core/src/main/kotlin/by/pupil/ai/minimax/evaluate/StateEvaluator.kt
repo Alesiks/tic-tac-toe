@@ -6,5 +6,4 @@ import by.pupil.model.Move
 interface StateEvaluator {
 
     fun evaluate(board: Board, lastMove: Move): Int
-
 }

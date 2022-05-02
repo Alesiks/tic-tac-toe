@@ -9,8 +9,8 @@ data class GameRequest(val board: Array<Array<Char>>, val playerMove: WebCell, v
         if (o == null || javaClass != o.javaClass) return false
         val that = o as GameRequest
         return difficultyLevel == that.difficultyLevel &&
-                board.contentEquals(that.board) &&
-                playerMove == that.playerMove
+            board.contentEquals(that.board) &&
+            playerMove == that.playerMove
     }
 
     override fun hashCode(): Int {

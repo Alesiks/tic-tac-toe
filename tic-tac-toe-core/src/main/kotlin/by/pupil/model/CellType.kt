@@ -6,5 +6,4 @@ enum class CellType(val symbol: Char) {
     NOUGHT('0'),
     EMPTY(' '),
     OBSTACLE('#');
-
 }

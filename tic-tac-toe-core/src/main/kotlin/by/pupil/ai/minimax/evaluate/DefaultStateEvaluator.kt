@@ -1,9 +1,9 @@
 package by.pupil.ai.minimax.evaluate
 
-import by.pupil.winning.WinnerFinder
 import by.pupil.model.Board
 import by.pupil.model.Move
 import by.pupil.model.Player
+import by.pupil.winning.WinnerFinder
 
 class DefaultStateEvaluator(private val winnerFinder: WinnerFinder) : StateEvaluator {
 
@@ -22,5 +22,4 @@ class DefaultStateEvaluator(private val winnerFinder: WinnerFinder) : StateEvalu
         private const val DRAW_SCORE = 0
         private const val PERSON_WIN_SCORE = -100
     }
-
 }

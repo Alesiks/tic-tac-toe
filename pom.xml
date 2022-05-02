@@ -9,13 +9,6 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.7.RELEASE</version>
-        <relativePath/>
-    </parent>
-
     <modules>
         <module>tic-tac-toe-core</module>
         <module>tic-tac-toe-web</module>
@@ -30,10 +23,13 @@
 
         <kotlin.version>1.6.0</kotlin.version>
 
+        <koin.version>3.1.6</koin.version>
+        <ktor.version>2.0.0</ktor.version>
+
         <apache.commons-lang3.version>3.11</apache.commons-lang3.version>
         <guava.version>30.1-jre</guava.version>
-        <ktor.version>1.6.4</ktor.version>
-        <logback.version>1.2.10</logback.version>
+
+        <logback.version>1.2.11</logback.version>
     </properties>
 
     <dependencyManagement>
@@ -63,52 +59,47 @@
             </dependency>
 
             <dependency>
-                <groupId>io.ktor</groupId>
-                <artifactId>ktor-server-core</artifactId>
-                <version>${ktor.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.ktor</groupId>
-                <artifactId>ktor-server-netty</artifactId>
-                <version>${ktor.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.ktor</groupId>
-                <artifactId>ktor-serialization</artifactId>
-                <version>${ktor.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.ktor</groupId>
-                <artifactId>ktor-jackson</artifactId>
-                <version>${ktor.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.insert-koin</groupId>
-                <artifactId>koin-core</artifactId>
-                <version>3.2.0-beta-1</version>
+                <artifactId>koin-core-jvm</artifactId>
+                <version>${koin.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.insert-koin</groupId>
                 <artifactId>koin-ktor</artifactId>
-                <version>3.2.0-beta-1</version>
+                <version>${koin.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-server-core-jvm</artifactId>
+                <version>${ktor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-server-netty-jvm</artifactId>
+                <version>${ktor.version}</version>
+            </dependency>
 
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-server-content-negotiation-jvm</artifactId>
+                <version>${ktor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.ktor</groupId>
+                <artifactId>ktor-serialization-jackson-jvm</artifactId>
+                <version>${ktor.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.microutils</groupId>
+                <artifactId>kotlin-logging-jvm</artifactId>
+                <version>2.0.11</version>
+            </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <version>2.3.7.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>2.3.7.RELEASE</version>
             </dependency>
 
             <dependency>
@@ -121,17 +112,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${apache.commons-lang3.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>2.14.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>2.14.0</version>
             </dependency>
 
         </dependencies>
@@ -192,10 +172,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
                 </plugin>
 
             </plugins>

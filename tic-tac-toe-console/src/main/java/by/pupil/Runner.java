@@ -1,45 +1,28 @@
 package by.pupil;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import by.pupil.ai.AIPlayer;
 import by.pupil.model.Board;
 import by.pupil.model.CellType;
 import by.pupil.model.Move;
 import by.pupil.model.Player;
 import by.pupil.winning.WinnerFinder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.Banner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+public class Runner {
 
-@Import(Cfg.class)
-@SpringBootApplication
-public class Runner implements ApplicationRunner {
-
-    @Autowired
     private WinnerFinder winnerFinder;
 
-    @Autowired
     private AIPlayer aiPlayer;
 
-    public static void main(String[] args) throws IOException {
-        SpringApplication app = new SpringApplication(Runner.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.run(args);
+    public static void main(String[] args) {
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run() throws Exception {
         Board board = new Board(10, 10);
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));

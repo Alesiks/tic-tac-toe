@@ -41,11 +41,10 @@ class ZobristHashing(height: Int, width: Int) {
             CellType.NOUGHT -> currHash xor transpositionTable[newCell.y][newCell.x][1]
             CellType.OBSTACLE -> currHash xor transpositionTable[newCell.y][newCell.x][2]
             CellType.EMPTY -> return if (previousCell != null) {
-                    updateHash(currHash, previousCell)
-                } else {
-                    return currHash
-                }
+                updateHash(currHash, previousCell)
+            } else {
+                return currHash
+            }
         }
     }
-
 }
