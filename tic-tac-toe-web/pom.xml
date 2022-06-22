@@ -21,6 +21,11 @@
         </dependency>
         <dependency>
             <groupId>by.pupil</groupId>
+            <artifactId>tic-tac-toe-repository</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>by.pupil</groupId>
             <artifactId>tic-tac-toe-frontend</artifactId>
             <version>${project.version}</version>
             <type>jar</type>
