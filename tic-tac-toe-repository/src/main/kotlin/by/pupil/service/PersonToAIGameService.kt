@@ -6,7 +6,7 @@ import by.pupil.query.GamesRepository
 import java.time.LocalDateTime
 
 class PersonToAIGameService(
-    private val gamesRepository: GamesRepository,
+    private val repository: GamesRepository,
 ) {
 
     fun startUserWithAIGame(userId: Int, minimaxDifficultyLevel: Int): Int {
@@ -18,10 +18,10 @@ class PersonToAIGameService(
             null
         )
 
-        return gamesRepository.savePersonToAIGame(personToAiGame)
+        return repository.savePersonToAIGame(personToAiGame)
     }
 
     fun finishUserWithAIGame(gameId: Int, gameStatus: GameStatus) {
-        gamesRepository.updateAIGame(gameId, LocalDateTime.now(), gameStatus)
+        repository.updateAIGame(gameId, LocalDateTime.now(), gameStatus)
     }
 }

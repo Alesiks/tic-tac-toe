@@ -1,42 +1,32 @@
-package by.pupil.converter;
+package by.pupil.converter
 
-import by.pupil.Constants;
-import by.pupil.model.Board;
-import by.pupil.Constants;
-import by.pupil.model.Board;
-import by.pupil.model.GameRequest;
-import org.apache.commons.lang3.Validate;
+import by.pupil.Constants
+import by.pupil.model.resolveCellTypeFromSymbol
+import by.pupil.model.GameRequest
+import by.pupil.model.Board
+import org.apache.commons.lang3.Validate
+import java.util.HashMap
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static by.pupil.model.BoardUtilsKt.resolveCellTypeFromSymbol;
-
-public class RequestConverter {
-
-    public Board toBoard(GameRequest request) {
-        Character[][] boardCells = request.getBoard();
-        Board board = new Board(boardCells.length, boardCells[0].length);
-        for (int i = 0; i < boardCells.length; i++) {
-            for (int j = 0; j < boardCells[i].length; j++) {
-                board.updateCellValue(i, j, resolveCellTypeFromSymbol(boardCells[i][j]));
+class RequestConverter {
+    fun toBoard(request: GameRequest): Board {
+        val boardCells = request.board
+        val board = Board(boardCells.size, boardCells[0].size)
+        for (i in boardCells.indices) {
+            for (j in boardCells[i].indices) {
+                board.updateCellValue(i, j, resolveCellTypeFromSymbol(boardCells[i][j]))
             }
         }
-
-        return board;
+        return board
     }
 
-    public Map<String, Object> toGameProperties(GameRequest request) {
+    fun toGameProperties(request: GameRequest): Map<String, Any> {
         Validate.isTrue(
-                request.getDifficultyLevel() > 0 && request.getDifficultyLevel() < 10,
-                "difficulty level is out of range"
-        );
-        int depth = request.getDifficultyLevel() != 0 ? request.getDifficultyLevel() : Constants.DEFAULT_MINIMAX_DEPTH_LIMIT;
-
-        Map<String, Object> props = new HashMap<>();
-        props.put(Constants.MINIMAX_DEPTH_PROPERTY, depth);
-
-        return props;
+            request.difficultyLevel > 0 && request.difficultyLevel < 10,
+            "difficulty level is out of range"
+        )
+        val depth = if (request.difficultyLevel != 0) request.difficultyLevel else Constants.DEFAULT_MINIMAX_DEPTH_LIMIT
+        val props: MutableMap<String, Any> = HashMap()
+        props[Constants.MINIMAX_DEPTH_PROPERTY] = depth
+        return props
     }
-
 }

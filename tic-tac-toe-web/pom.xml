@@ -67,6 +67,10 @@
             <groupId>io.ktor</groupId>
             <artifactId>ktor-server-netty-jvm</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.ktor</groupId>
+            <artifactId>ktor-server-websockets-jvm</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>io.ktor</groupId>

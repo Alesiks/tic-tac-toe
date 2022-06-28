@@ -1,5 +1,5 @@
 # tic-tac-toe
-tic-tac-toe, 5 in a row or gomoku game. 
+This is a custom implementation of a 5 in a row (or gomoku) game. 
 
 Play here: https://game-five-in-a-row.herokuapp.com/
 
@@ -9,6 +9,7 @@ Play here: https://game-five-in-a-row.herokuapp.com/
 - tic-tac-toe-playground - module to test algorithms and to run them against each other 
 - tic-tac-core-console
 - tic-tac-toe-web
+- tic-tac-toe-repository
 - tic-tac-toe-frontend
 
 ## AI
