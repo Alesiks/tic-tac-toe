@@ -1,29 +1,18 @@
-# tic-tac-toe
-This is a custom implementation of a 5 in a row (or gomoku) game. 
+# Tic-Tac-Toe
+This is an implementation with minor improvements of a popular board game "Five in a row"(or "Gomoku", or tic-tac-toe an enlarged board). Where you play against AI. 
 
-Play here: https://game-five-in-a-row.herokuapp.com/
+Try it here: https://game-five-in-a-row.herokuapp.com/ (Maybe it will be necessary to wait a bit before game starts)
 
-## Modules
+![tic-tac-toe.png.png](tic-tac-toe.png)
 
-- tic-tac-toe-core
-- tic-tac-toe-playground - module to test algorithms and to run them against each other 
-- tic-tac-core-console
-- tic-tac-toe-web
-- tic-tac-toe-repository
-- tic-tac-toe-frontend
+## How to play?
+The aim of the game is to form a sequence of 5 (or more) noughts or crosses in a row (vertically, horizontally or diagonally).
 
-## AI
-The AI is build on minimax algorithm and alpha-beta pruning.
+Two players make actions one by one (placing cross or nought in any free cell on a board). 
+The player who creates such sequence first wins the game.
 
-## How to build project and play?
-There is one game mode: Person vs AI. <br>
+## AI algorithm
+The AI is created with minimax algorithm and alpha-beta pruning.
 
-## Thoughts about AI
-
-### possible combinations on a board:
-straight four: -xxxx- <br>
-four: 0xxxx- || -xxxx0 <br>
-three: -xxx- <br>
-broken three: -x-xx- || -xx-x- <br>
-
-### minimax
+##  Bugs, improvements
+Just create an issue for any reason.
