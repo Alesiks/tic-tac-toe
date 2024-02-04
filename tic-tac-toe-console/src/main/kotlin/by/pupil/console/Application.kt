@@ -13,6 +13,7 @@ import org.koin.core.context.startKoin
 import org.koin.java.KoinJavaComponent.inject
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.lang.RuntimeException
 import java.util.*
 
 fun main() {
@@ -20,7 +21,7 @@ fun main() {
         modules(minimaxModule, coreModule)
     }
 
-    val winnerFinder : WinnerFinder by inject(clazz = WinnerFinder::class.java)
+    val winnerFinder: WinnerFinder by inject(clazz = WinnerFinder::class.java)
     val aiPlayer: AIPlayer by inject(clazz = AIPlayer::class.java)
 
     val board = Board(10, 10)
@@ -31,23 +32,17 @@ fun main() {
     val difficulty = bufferedReader.readLine().replace("\\s+$".toRegex(), "").toInt()
     printer.print(board)
     while (true) {
-        println("Make your step, enter two numbers (y x)")
-        val line = bufferedReader.readLine().replace("\\s+$".toRegex(), "").split(" ".toRegex())
-            .dropLastWhile { it.isEmpty() }
-            .toTypedArray()
-        val parsedToInt = Arrays.stream(line).mapToInt { s: String -> s.toInt() }.toArray()
-        val h = parsedToInt[0]
-        val w = parsedToInt[1]
-        board.updateCellValue(h - 1, w - 1, CellType.CROSS)
+        val move = makeAMove(bufferedReader, board)
+
         printer.print(board)
-        val crossWin = winnerFinder!!.isMoveLeadToWin(board, Move(h - 1, w - 1, Player.CROSSES))
+        val crossWin = winnerFinder.isMoveLeadToWin(board, move!!)
         if (crossWin) {
             println("Crosses win!")
             break
         }
         val props: MutableMap<String, Any> = HashMap()
         props[Constants.MINIMAX_DEPTH_PROPERTY] = difficulty
-        val aiMove = aiPlayer!!.nextMove(board, Player.NOUGHTS, props)
+        val aiMove = aiPlayer.nextMove(board, Player.NOUGHTS, props)
         board.updateCellValue(aiMove.y, aiMove.x, CellType.NOUGHT)
         printer.print(board)
         val noughtWin = winnerFinder.isMoveLeadToWin(board, aiMove)
@@ -57,4 +52,26 @@ fun main() {
         }
     }
 
+}
+
+private fun makeAMove(bufferedReader: BufferedReader, board: Board): Move? {
+    println("Make your step, enter two numbers (y x), values must be in range [1..10]")
+    var validMove = false
+    var move: Move? = null
+    while (!validMove) {
+        try {
+            val line = bufferedReader.readLine().replace("\\s+$".toRegex(), "").split(" ".toRegex())
+                .dropLastWhile { it.isEmpty() }
+                .toTypedArray()
+            val parsedToInt = Arrays.stream(line).mapToInt { s: String -> s.toInt() }.toArray()
+            val h = parsedToInt[0]
+            val w = parsedToInt[1]
+            board.updateCellValue(h - 1, w - 1, CellType.CROSS)
+            move = Move(h - 1, w - 1, Player.CROSSES)
+            validMove = true
+        } catch (ex: RuntimeException) {
+            println("Possibly your input is not correct, try one more time")
+        }
+    }
+    return move
 }
