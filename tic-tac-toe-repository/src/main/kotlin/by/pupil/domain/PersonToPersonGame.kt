@@ -12,5 +12,5 @@ data class PersonToPersonGame(
     val boardState: String,
     val gameResult: GameStatus,
     val lastMoveDateTime: LocalDateTime,
-    val nextMovePlayer: MarkType
+    val nextMovePlayer: MarkType,
 )

@@ -34,15 +34,16 @@ class GameRepositorySpec : FunSpec({
     }
 
     test("save person to AI game") {
-        val gameId = gamesRepository.savePersonToAIGame(
-            PersonToAIGame(
-                12,
-                "minimax_2",
-                GameStatus.GAME_CONTINUES,
-                LocalDateTime.of(1977, Month.MAY, 4, 12, 30, 0),
-                null
+        val gameId =
+            gamesRepository.savePersonToAIGame(
+                PersonToAIGame(
+                    12,
+                    "minimax_2",
+                    GameStatus.GAME_CONTINUES,
+                    LocalDateTime.of(1977, Month.MAY, 4, 12, 30, 0),
+                    null,
+                ),
             )
-        )
 
         val actualGame = gamesRepository.getPersonToAIGameById(gameId)
         actualGame.playerId shouldBe 12

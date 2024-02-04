@@ -7,7 +7,6 @@ import kotlin.math.abs
 import kotlin.random.Random
 
 class ZobristHashing(height: Int, width: Int) {
-
     private val transpositionTable: Array<Array<LongArray>>
 
     companion object {
@@ -35,7 +34,11 @@ class ZobristHashing(height: Int, width: Int) {
         return hash
     }
 
-    fun updateHash(currHash: Long, newCell: Cell, previousCell: Cell? = null): Long {
+    fun updateHash(
+        currHash: Long,
+        newCell: Cell,
+        previousCell: Cell? = null,
+    ): Long {
         return when (newCell.cellType) {
             CellType.CROSS -> currHash xor transpositionTable[newCell.y][newCell.x][0]
             CellType.NOUGHT -> currHash xor transpositionTable[newCell.y][newCell.x][1]

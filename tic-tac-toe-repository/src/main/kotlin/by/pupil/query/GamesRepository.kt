@@ -8,14 +8,16 @@ import by.pupil.model.GameStatus
 import by.pupil.model.PersonToAiGames
 import by.pupil.model.PersonToPersonGames
 import by.pupil.model.Users
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
 
 class GamesRepository(private val dbSettings: DbSettings) {
-
     fun init() {
         transaction(dbSettings.db) {
             SchemaUtils.create(Users, PersonToPersonGames, PersonToAiGames)
@@ -40,7 +42,10 @@ class GamesRepository(private val dbSettings: DbSettings) {
         }
     }
 
-    fun updateLastUserActivityUser(id: Int, dateTime: LocalDateTime) {
+    fun updateLastUserActivityUser(
+        id: Int,
+        dateTime: LocalDateTime,
+    ) {
         transaction(dbSettings.db) {
             Users.update({ Users.id eq id }) {
                 it[lastActivityDateTime] = dateTime
@@ -85,14 +90,18 @@ class GamesRepository(private val dbSettings: DbSettings) {
                     it[PersonToAiGames.aiAlgorithm],
                     GameStatus.valueOf(it[PersonToAiGames.gameResult]),
                     it[PersonToAiGames.gameStartDate],
-                    it[PersonToAiGames.gameEndDate]
+                    it[PersonToAiGames.gameEndDate],
                 )
             }
                 .first()
         }
     }
 
-    fun updateAIGame(id: Int, endDate: LocalDateTime, result: GameStatus) {
+    fun updateAIGame(
+        id: Int,
+        endDate: LocalDateTime,
+        result: GameStatus,
+    ) {
         transaction(dbSettings.db) {
             PersonToAiGames.update({ PersonToAiGames.id eq id }) {
                 it[gameEndDate] = endDate

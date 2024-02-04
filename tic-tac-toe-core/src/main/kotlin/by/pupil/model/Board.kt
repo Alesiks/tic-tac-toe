@@ -39,11 +39,18 @@ open class Board {
         this.board = board
     }
 
-    fun getCellValue(i: Int, j: Int): CellType {
+    fun getCellValue(
+        i: Int,
+        j: Int,
+    ): CellType {
         return board[i][j]
     }
 
-    open fun updateCellToPossibleValue(i: Int, j: Int, cellType: CellType) {
+    open fun updateCellToPossibleValue(
+        i: Int,
+        j: Int,
+        cellType: CellType,
+    ) {
         Validate.isTrue(i in 0 until height, "i coordinate is less than 0 or greater than possible height")
         Validate.isTrue(j in 0 until width, "j coordinate is less than 0 or greater than possible width")
         Validate.isTrue(CellType.EMPTY !== cellType, "Cell is null or empty")
@@ -55,7 +62,11 @@ open class Board {
         }
     }
 
-    open fun updateCellValue(i: Int, j: Int, cellType: CellType) {
+    open fun updateCellValue(
+        i: Int,
+        j: Int,
+        cellType: CellType,
+    ) {
         Validate.isTrue(i in 0 until height, "i coordinate is less than 0 or greater than possible height")
         Validate.isTrue(j in 0 until width, "j coordinate is less than 0 or greater than possible width")
 
@@ -83,16 +94,19 @@ open class Board {
         }
 
     fun getHorizontalLine(line: Int): String {
-        return board[line].map { v -> v.symbol }.joinToString("");
+        return board[line].map { v -> v.symbol }.joinToString("")
     }
 
     fun getVerticalLine(line: Int): String {
         return (0 until height)
-                .map { j -> board[j][line].symbol }
-                .joinToString("");
+            .map { j -> board[j][line].symbol }
+            .joinToString("")
     }
 
-    fun getLeftToRightDiagonalLine(y: Int, x: Int): String {
+    fun getLeftToRightDiagonalLine(
+        y: Int,
+        x: Int,
+    ): String {
         val delta = min(x, y)
         var i = y - delta
         var j = x - delta
@@ -105,7 +119,10 @@ open class Board {
         return diagonal.toString()
     }
 
-    fun getRightToLeftDiagonalLine(y: Int, x: Int): String {
+    fun getRightToLeftDiagonalLine(
+        y: Int,
+        x: Int,
+    ): String {
         var i: Int
         var j: Int
         if (y < width - 1 - x) {
@@ -136,5 +153,4 @@ open class Board {
         }
         return res
     }
-
 }

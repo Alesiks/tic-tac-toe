@@ -23,24 +23,26 @@ class CombinationPatterns {
     }
 
     init {
-        noughtsPatternsToCombinations = hashMapOf(
-            FIVE_NOUGHTS_PATTERN to GeneralCombination.FIVE,
-            STRAIGHT_FOUR_NOUGHTS_PATTERN to GeneralCombination.STRAIGHT_FOUR,
-            FOUR_NOUGHTS_PATTERN to GeneralCombination.FOUR,
-            THREE_NOUGHTS_PATTERN to GeneralCombination.THREE,
-            BROKEN_THREE_NOUGHTS_PATTERN to GeneralCombination.BROKEN_THREE,
-            TWO_NOUGHTS_PATTERN to GeneralCombination.TWO,
-            ONE_NOUGHT_PATTERN to GeneralCombination.ONE
-        )
+        noughtsPatternsToCombinations =
+            hashMapOf(
+                FIVE_NOUGHTS_PATTERN to GeneralCombination.FIVE,
+                STRAIGHT_FOUR_NOUGHTS_PATTERN to GeneralCombination.STRAIGHT_FOUR,
+                FOUR_NOUGHTS_PATTERN to GeneralCombination.FOUR,
+                THREE_NOUGHTS_PATTERN to GeneralCombination.THREE,
+                BROKEN_THREE_NOUGHTS_PATTERN to GeneralCombination.BROKEN_THREE,
+                TWO_NOUGHTS_PATTERN to GeneralCombination.TWO,
+                ONE_NOUGHT_PATTERN to GeneralCombination.ONE,
+            )
 
-        crossesPatternsToCombinations = hashMapOf(
-            FIVE_CROSSES_PATTERN to GeneralCombination.FIVE,
-            STRAIGHT_FOUR_CROSSES_PATTERN to GeneralCombination.STRAIGHT_FOUR,
-            FOUR_CROSSES_PATTERN to GeneralCombination.FOUR,
-            THREE_CROSSES_PATTERN to GeneralCombination.THREE,
-            BROKEN_THREE_CROSSES_PATTERN to GeneralCombination.BROKEN_THREE,
-            TWO_CROSSES_PATTERN to GeneralCombination.TWO,
-            ONE_CROSS_PATTERN to GeneralCombination.ONE
-        )
+        crossesPatternsToCombinations =
+            hashMapOf(
+                FIVE_CROSSES_PATTERN to GeneralCombination.FIVE,
+                STRAIGHT_FOUR_CROSSES_PATTERN to GeneralCombination.STRAIGHT_FOUR,
+                FOUR_CROSSES_PATTERN to GeneralCombination.FOUR,
+                THREE_CROSSES_PATTERN to GeneralCombination.THREE,
+                BROKEN_THREE_CROSSES_PATTERN to GeneralCombination.BROKEN_THREE,
+                TWO_CROSSES_PATTERN to GeneralCombination.TWO,
+                ONE_CROSS_PATTERN to GeneralCombination.ONE,
+            )
     }
 }

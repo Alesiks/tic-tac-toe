@@ -16,11 +16,15 @@ import mu.KotlinLogging
 class MinimaxBasedAI(
     private val movesFinder: MovesFinder,
     private val winnerFinder: WinnerFinder,
-    private val minimax: Minimax
+    private val minimax: Minimax,
 ) : AIPlayer {
     val logger = KotlinLogging.logger {}
 
-    override fun nextMove(board: Board, player: Player, properties: Map<String, Any>): Move {
+    override fun nextMove(
+        board: Board,
+        player: Player,
+        properties: Map<String, Any>,
+    ): Move {
         val startTime = System.currentTimeMillis()
         logger.info("Start thinking on move for position:\n$board")
 
@@ -34,22 +38,23 @@ class MinimaxBasedAI(
             board.updateCellToPossibleValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
             var value: Int
             //                    int value = minimax.minimax(board, 0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
-            value = if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
-                board.updateCellValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
-                val time = System.currentTimeMillis() - startTime
-                logger.info("Make a move[$currentMove] in $time (ms), move lead to win!\nboard:\n$board")
-                return currentMove
-            } else {
-                minimax.minimax(
-                    board,
-                    0,
-                    maxDepth,
-                    false,
-                    Constants.LOSE_STRATEGY_SCORE,
-                    Constants.WIN_STRATEGY_SCORE,
-                    getRival(player)
-                )
-            }
+            value =
+                if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
+                    board.updateCellValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
+                    val time = System.currentTimeMillis() - startTime
+                    logger.info("Make a move[$currentMove] in $time (ms), move lead to win!\nboard:\n$board")
+                    return currentMove
+                } else {
+                    minimax.minimax(
+                        board,
+                        0,
+                        maxDepth,
+                        false,
+                        Constants.LOSE_STRATEGY_SCORE,
+                        Constants.WIN_STRATEGY_SCORE,
+                        getRival(player),
+                    )
+                }
             board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
             if (value > bestValue) {
                 bestMoves.clear()

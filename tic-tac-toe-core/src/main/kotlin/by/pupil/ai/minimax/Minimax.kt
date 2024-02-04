@@ -14,7 +14,7 @@ import kotlin.math.min
 class Minimax(
     private val movesFinder: MovesFinder,
     private val evaluator: StateEvaluator,
-    private val winnerFinder: WinnerFinder
+    private val winnerFinder: WinnerFinder,
 ) {
     /**
      * @param board              - describes current game state
@@ -34,7 +34,7 @@ class Minimax(
         isMaximizingPlayer: Boolean,
         alpha: Int,
         beta: Int,
-        player: Player
+        player: Player,
     ): Int {
         var alpha = alpha
         var beta = beta
@@ -46,13 +46,14 @@ class Minimax(
             for (currentMove in possibleMoves) {
                 board.updateCellToPossibleValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
                 var value: Int
-                value = if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
-                    evaluator.evaluate(board, currentMove)
-                } else if (currDepth + 1 > maxDepth) {
-                    evaluator.evaluate(board, currentMove)
-                } else {
-                    minimax(board, currDepth + 1, maxDepth, false, alpha, beta, getRival(player))
-                }
+                value =
+                    if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
+                        evaluator.evaluate(board, currentMove)
+                    } else if (currDepth + 1 > maxDepth) {
+                        evaluator.evaluate(board, currentMove)
+                    } else {
+                        minimax(board, currDepth + 1, maxDepth, false, alpha, beta, getRival(player))
+                    }
                 board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
                 bestValue = max(bestValue, value)
                 alpha = max(alpha, bestValue)
@@ -67,13 +68,14 @@ class Minimax(
             for (currentMove in possibleMoves) {
                 board.updateCellToPossibleValue(currentMove.y, currentMove.x, getCorrespondingCellType(player))
                 var value: Int
-                value = if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
-                    evaluator.evaluate(board, currentMove)
-                } else if (currDepth + 1 > maxDepth) {
-                    evaluator.evaluate(board, currentMove)
-                } else {
-                    minimax(board, currDepth + 1, maxDepth, true, alpha, beta, getRival(player))
-                }
+                value =
+                    if (winnerFinder.isMoveLeadToWin(board, currentMove)) {
+                        evaluator.evaluate(board, currentMove)
+                    } else if (currDepth + 1 > maxDepth) {
+                        evaluator.evaluate(board, currentMove)
+                    } else {
+                        minimax(board, currDepth + 1, maxDepth, true, alpha, beta, getRival(player))
+                    }
                 board.updateCellValue(currentMove.y, currentMove.x, CellType.EMPTY)
                 bestValue = min(bestValue, value)
                 beta = min(beta, bestValue)

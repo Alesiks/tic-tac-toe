@@ -5,5 +5,8 @@ import by.pupil.model.Move
 import by.pupil.model.Player
 
 interface MovesFinder {
-    fun getMoves(board: Board, player: Player): List<Move>
+    fun getMoves(
+        board: Board,
+        player: Player,
+    ): List<Move>
 }

@@ -6,8 +6,9 @@ import by.pupil.service.PersonToAIGameService
 import by.pupil.service.PersonToPersonGameService
 import org.koin.dsl.module
 
-val repositoryModule = module(createdAtStart = true) {
-    single { GamesRepository(DbSettings) }
-    single { PersonToAIGameService(repository = get()) }
-    single { PersonToPersonGameService(repository = get()) }
-}
+val repositoryModule =
+    module(createdAtStart = true) {
+        single { GamesRepository(DbSettings) }
+        single { PersonToAIGameService(repository = get()) }
+        single { PersonToPersonGameService(repository = get()) }
+    }

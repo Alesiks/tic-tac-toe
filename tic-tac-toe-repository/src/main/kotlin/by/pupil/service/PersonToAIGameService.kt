@@ -8,20 +8,26 @@ import java.time.LocalDateTime
 class PersonToAIGameService(
     private val repository: GamesRepository,
 ) {
-
-    fun startUserWithAIGame(userId: Int, minimaxDifficultyLevel: Int): Int {
-        val personToAiGame = PersonToAIGame(
-            userId,
-            "minimax_$minimaxDifficultyLevel",
-            GameStatus.GAME_CONTINUES,
-            LocalDateTime.now(),
-            null
-        )
+    fun startUserWithAIGame(
+        userId: Int,
+        minimaxDifficultyLevel: Int,
+    ): Int {
+        val personToAiGame =
+            PersonToAIGame(
+                userId,
+                "minimax_$minimaxDifficultyLevel",
+                GameStatus.GAME_CONTINUES,
+                LocalDateTime.now(),
+                null,
+            )
 
         return repository.savePersonToAIGame(personToAiGame)
     }
 
-    fun finishUserWithAIGame(gameId: Int, gameStatus: GameStatus) {
+    fun finishUserWithAIGame(
+        gameId: Int,
+        gameStatus: GameStatus,
+    ) {
         repository.updateAIGame(gameId, LocalDateTime.now(), gameStatus)
     }
 }

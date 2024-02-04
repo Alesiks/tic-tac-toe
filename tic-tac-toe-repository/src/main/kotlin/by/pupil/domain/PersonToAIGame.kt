@@ -8,5 +8,5 @@ data class PersonToAIGame(
     val aiAlgorithm: String,
     val gameResult: GameStatus,
     val gameStartDate: LocalDateTime,
-    val gameEndDate: LocalDateTime?
+    val gameEndDate: LocalDateTime?,
 )

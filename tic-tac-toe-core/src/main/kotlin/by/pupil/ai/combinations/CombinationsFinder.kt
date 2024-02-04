@@ -1,7 +1,6 @@
 package by.pupil.ai.combinations
 
 class CombinationsFinder(private val combinationPatterns: CombinationPatterns) {
-
     fun findNoughtsCombinations(line: String): List<GeneralCombination?> {
         return combinationPatterns.noughtsPatternsToCombinations.keys
             .asSequence()

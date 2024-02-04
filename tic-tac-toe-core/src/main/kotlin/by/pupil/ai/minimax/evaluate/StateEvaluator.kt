@@ -4,6 +4,8 @@ import by.pupil.model.Board
 import by.pupil.model.Move
 
 interface StateEvaluator {
-
-    fun evaluate(board: Board, lastMove: Move): Int
+    fun evaluate(
+        board: Board,
+        lastMove: Move,
+    ): Int
 }

@@ -9,24 +9,26 @@ import java.util.stream.Collectors
 import kotlin.math.min
 
 class ShallowSearchMovesFinder(
-        private val baseMovesFinder: MovesFinder,
-        private val moveEvaluator: MoveEvaluator,
-        private val movesNumber: Int
+    private val baseMovesFinder: MovesFinder,
+    private val moveEvaluator: MoveEvaluator,
+    private val movesNumber: Int,
 ) : MovesFinder {
-
-    override fun getMoves(board: Board, player: Player): List<Move> {
+    override fun getMoves(
+        board: Board,
+        player: Player,
+    ): List<Move> {
         val moves = baseMovesFinder.getMoves(board, player)
         val scoreToMovesMap = MultimapBuilder.treeKeys().arrayListValues().build<Int, Move>()
         for (currMove in moves) {
             val currScore = moveEvaluator.evaluate(board, currMove)
             scoreToMovesMap.put(currScore, currMove)
         }
-        val ratedMovesList = scoreToMovesMap.keySet()
+        val ratedMovesList =
+            scoreToMovesMap.keySet()
                 .stream()
                 .flatMap { k: Int? -> scoreToMovesMap[k].stream() }
                 .collect(Collectors.toList())
                 .reversed()
         return ratedMovesList.subList(0, min(movesNumber, ratedMovesList.size))
     }
-
 }

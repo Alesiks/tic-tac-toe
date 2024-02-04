@@ -10,8 +10,10 @@ import by.pupil.winning.WinnerFinder
 import java.lang.RuntimeException
 
 class MoveEvaluator(private val winnerFinder: WinnerFinder) {
-
-    fun evaluate(board: Board, lastMove: Move): Int {
+    fun evaluate(
+        board: Board,
+        lastMove: Move,
+    ): Int {
         val directions = winnerFinder.getDirections(board, lastMove)
 
         var score = 0
@@ -22,7 +24,10 @@ class MoveEvaluator(private val winnerFinder: WinnerFinder) {
         return score
     }
 
-    private fun evaluateDirection(direction: List<Cell>, player: Player): Int {
+    private fun evaluateDirection(
+        direction: List<Cell>,
+        player: Player,
+    ): Int {
         var score = 0
         for (i in 0..direction.size - 5) {
             var you = 0
@@ -56,7 +61,10 @@ class MoveEvaluator(private val winnerFinder: WinnerFinder) {
         }
     }
 
-    private fun getSeq(y: Int, e: Int): Int {
+    private fun getSeq(
+        y: Int,
+        e: Int,
+    ): Int {
         if (y + e == 0) {
             return 0
         }

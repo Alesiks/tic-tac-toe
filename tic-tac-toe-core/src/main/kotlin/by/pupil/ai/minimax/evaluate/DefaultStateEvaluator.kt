@@ -6,15 +6,19 @@ import by.pupil.model.Player
 import by.pupil.winning.WinnerFinder
 
 class DefaultStateEvaluator(private val winnerFinder: WinnerFinder) : StateEvaluator {
-
-    override fun evaluate(board: Board, lastMove: Move): Int {
+    override fun evaluate(
+        board: Board,
+        lastMove: Move,
+    ): Int {
         return if (winnerFinder.isMoveLeadToWin(board, lastMove)) {
             if (Player.CROSSES == lastMove.player) {
                 PERSON_WIN_SCORE
             } else {
                 AI_WIN_SCORE
             }
-        } else DRAW_SCORE
+        } else {
+            DRAW_SCORE
+        }
     }
 
     companion object {
