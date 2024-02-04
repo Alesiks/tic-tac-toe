@@ -13,8 +13,7 @@ import org.koin.core.context.startKoin
 import org.koin.java.KoinJavaComponent.inject
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.lang.RuntimeException
-import java.util.*
+import java.util.Arrays
 
 fun main() {
     startKoin {
@@ -51,18 +50,21 @@ fun main() {
             break
         }
     }
-
 }
 
-private fun makeAMove(bufferedReader: BufferedReader, board: Board): Move? {
+private fun makeAMove(
+    bufferedReader: BufferedReader,
+    board: Board,
+): Move? {
     println("Make your step, enter two numbers (y x), values must be in range [1..10]")
     var validMove = false
     var move: Move? = null
     while (!validMove) {
         try {
-            val line = bufferedReader.readLine().replace("\\s+$".toRegex(), "").split(" ".toRegex())
-                .dropLastWhile { it.isEmpty() }
-                .toTypedArray()
+            val line =
+                bufferedReader.readLine().replace("\\s+$".toRegex(), "").split(" ".toRegex())
+                    .dropLastWhile { it.isEmpty() }
+                    .toTypedArray()
             val parsedToInt = Arrays.stream(line).mapToInt { s: String -> s.toInt() }.toArray()
             val h = parsedToInt[0]
             val w = parsedToInt[1]

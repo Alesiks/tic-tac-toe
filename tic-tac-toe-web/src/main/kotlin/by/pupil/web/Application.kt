@@ -3,25 +3,35 @@ package by.pupil.web
 import by.pupil.ai.AIPlayer
 import by.pupil.coreModule
 import by.pupil.minimaxModule
-import by.pupil.web.converter.RequestConverter
-import by.pupil.model.*
+import by.pupil.model.Board
+import by.pupil.model.Cell
+import by.pupil.model.CellType
+import by.pupil.model.GameStatus
+import by.pupil.model.Move
+import by.pupil.model.Player
 import by.pupil.repositoryModule
 import by.pupil.service.PersonToAIGameService
+import by.pupil.web.converter.RequestConverter
 import by.pupil.web.model.GameRequest
 import by.pupil.web.model.GameResponse
 import by.pupil.web.model.WebCell
 import by.pupil.winning.WinnerFinder
-import io.ktor.http.*
-import io.ktor.serialization.jackson.*
-import io.ktor.server.application.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.plugins.cors.routing.*
-import io.ktor.server.request.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import io.ktor.server.websocket.*
+import io.ktor.http.HttpHeaders
+import io.ktor.serialization.jackson.jackson
+import io.ktor.server.application.call
+import io.ktor.server.application.install
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.cors.routing.CORS
+import io.ktor.server.request.receive
+import io.ktor.server.response.respond
+import io.ktor.server.routing.get
+import io.ktor.server.routing.post
+import io.ktor.server.routing.routing
+import io.ktor.server.websocket.WebSockets
+import io.ktor.server.websocket.pingPeriod
+import io.ktor.server.websocket.timeout
 import org.koin.java.KoinJavaComponent.inject
 import org.koin.ktor.plugin.Koin
 import java.time.Duration
@@ -37,7 +47,7 @@ fun main() {
                 webModule,
                 minimaxModule,
                 coreModule,
-                repositoryModule
+                repositoryModule,
             )
         }
         install(CORS) {
@@ -67,10 +77,11 @@ fun main() {
 
                 val res: GameResponse =
                     if (winnerFinder.isMoveLeadToWin(board, playerMove)) {
-                        val winningSequence = winnerFinder.getWinSequenceForMove(board, playerMove)
-                            .stream()
-                            .map { (y, x): Cell -> WebCell(y, x) }
-                            .collect(Collectors.toList())
+                        val winningSequence =
+                            winnerFinder.getWinSequenceForMove(board, playerMove)
+                                .stream()
+                                .map { (y, x): Cell -> WebCell(y, x) }
+                                .collect(Collectors.toList())
                         GameResponse(GameStatus.CROSS_WIN, request.board, null, winningSequence)
                     } else {
                         val aiMove =
@@ -78,21 +89,22 @@ fun main() {
                         val boardCells: Array<Array<Char>> = request.board
                         boardCells[aiMove.y][aiMove.x] = CellType.NOUGHT.symbol
                         if (winnerFinder.isMoveLeadToWin(board, aiMove)) {
-                            val winningSequence = winnerFinder.getWinSequenceForMove(board, aiMove).stream()
-                                .map { (y, x): Cell -> WebCell(y, x) }
-                                .collect(Collectors.toList())
+                            val winningSequence =
+                                winnerFinder.getWinSequenceForMove(board, aiMove).stream()
+                                    .map { (y, x): Cell -> WebCell(y, x) }
+                                    .collect(Collectors.toList())
                             GameResponse(
                                 GameStatus.NOUGHT_WIN,
                                 boardCells,
                                 WebCell(aiMove.y, aiMove.x),
-                                winningSequence
+                                winningSequence,
                             )
                         } else {
                             GameResponse(
                                 GameStatus.GAME_CONTINUES,
                                 boardCells,
                                 WebCell(aiMove.y, aiMove.x),
-                                null
+                                null,
                             )
                         }
                     }

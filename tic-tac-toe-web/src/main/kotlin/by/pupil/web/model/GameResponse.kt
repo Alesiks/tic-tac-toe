@@ -1,15 +1,15 @@
 package by.pupil.web.model
 
 import by.pupil.model.GameStatus
-import java.util.*
+import java.util.Arrays
+import java.util.Objects
 
 data class GameResponse(
     val gameStatus: GameStatus,
     val board: Array<Array<Char>>,
     val aiMove: WebCell?,
-    val winningSequence: List<WebCell>?
+    val winningSequence: List<WebCell>?,
 ) {
-
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
         if (o == null || javaClass != o.javaClass) return false

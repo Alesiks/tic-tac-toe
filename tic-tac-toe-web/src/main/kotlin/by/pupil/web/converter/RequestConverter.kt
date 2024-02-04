@@ -1,9 +1,9 @@
 package by.pupil.web.converter
 
 import by.pupil.Constants
+import by.pupil.model.Board
 import by.pupil.model.resolveCellTypeFromSymbol
 import by.pupil.web.model.GameRequest
-import by.pupil.model.Board
 import org.apache.commons.lang3.Validate
 import java.util.HashMap
 
@@ -22,7 +22,7 @@ class RequestConverter {
     fun toGameProperties(request: GameRequest): Map<String, Any> {
         Validate.isTrue(
             request.difficultyLevel > 0 && request.difficultyLevel < 10,
-            "difficulty level is out of range"
+            "difficulty level is out of range",
         )
         val depth = if (request.difficultyLevel != 0) request.difficultyLevel else Constants.DEFAULT_MINIMAX_DEPTH_LIMIT
         val props: MutableMap<String, Any> = HashMap()

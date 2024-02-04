@@ -1,9 +1,9 @@
 package by.pupil.web.model
 
-import java.util.*
+import java.util.Arrays
+import java.util.Objects
 
 data class GameRequest(val board: Array<Array<Char>>, val playerMove: WebCell, val difficultyLevel: Int) {
-
     override fun equals(o: Any?): Boolean {
         if (this === o) return true
         if (o == null || javaClass != o.javaClass) return false
