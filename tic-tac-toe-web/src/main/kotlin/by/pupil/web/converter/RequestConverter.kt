@@ -1,8 +1,8 @@
-package by.pupil.converter
+package by.pupil.web.converter
 
 import by.pupil.Constants
 import by.pupil.model.resolveCellTypeFromSymbol
-import by.pupil.model.GameRequest
+import by.pupil.web.model.GameRequest
 import by.pupil.model.Board
 import org.apache.commons.lang3.Validate
 import java.util.HashMap

@@ -1,5 +1,5 @@
 # Tic-Tac-Toe
-This is an implementation with minor improvements of a popular board game "Five in a row"(or "Gomoku", or tic-tac-toe an enlarged board). Where you play against AI. 
+This is custom implementation with minor improvements of a popular board game "Five in a row"(or "Gomoku", or tic-tac-toe an enlarged board). Where you play against AI. 
 
 Try it here: https://game-five-in-a-row.herokuapp.com/ (Maybe it will be necessary to wait a bit before game starts)
 
@@ -28,8 +28,17 @@ There are two game modes: console and web.
 2. Web mode.
    1. Enter root directory `cd tic-tac-toe`
    2. Build whole application `mvnw clean package`
-   3. Run web app
-   
+   3. Start ui
+      ```
+      cd tic-tac-toe-frontend
+      ng serve --open
+      ```
+   4. Start backend api
+      ```
+      cd tic-tac-toe-web/target
+      java -jar tic-tac-toe-web-0.1.0-jar-with-dependencies.jar
+      ```
+   5. Enjoy the game! To make it more interesting you can add obstacles on a board by selecting obstacles checkbox on ui.
 ## AI algorithm
 The AI is created with minimax algorithm and alpha-beta pruning.
 
@@ -39,8 +48,8 @@ Repository contains multiple modules where main module with all game logic is `t
 `tic-tac-toe-console` and `tic-tac-toe-web` can be considered as different clients for core module which allow to play through different interfaces.
 
 `tic-tac-toe-frontend` contains web ui written with Angular.
-`tic-tac-toe-repository` is a development for future to allow play the game with another person.
 
+`tic-tac-toe-repository` is a development for future to allow play the game with another person.
 
 ##  Bugs, improvements
 Just create an issue or PR for any reason.

@@ -24,12 +24,6 @@
             <artifactId>tic-tac-toe-repository</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>by.pupil</groupId>
-            <artifactId>tic-tac-toe-frontend</artifactId>
-            <version>${project.version}</version>
-            <type>jar</type>
-        </dependency>
 
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -99,31 +93,6 @@
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.2</version>
-                <executions>
-                    <execution>
-                        <id>merge</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>by.pupil</groupId>
-                                    <artifactId>tic-tac-toe-frontend</artifactId>
-                                    <type>jar</type>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
@@ -159,7 +128,7 @@
                         <configuration>
                             <archive>
                                 <manifest>
-                                    <mainClass>by.pupil.ApplicationKt</mainClass>
+                                    <mainClass>by.pupil.web.ApplicationKt</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

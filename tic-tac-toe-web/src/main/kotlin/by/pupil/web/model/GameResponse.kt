@@ -1,5 +1,6 @@
-package by.pupil.model
+package by.pupil.web.model
 
+import by.pupil.model.GameStatus
 import java.util.*
 
 data class GameResponse(

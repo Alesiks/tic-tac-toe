@@ -8,7 +8,7 @@ import { constants } from './constants';
 
 @Injectable()
 export class GameService{
-    private gameUrl = '/api/play';
+    private gameUrl = 'http://localhost:8080/api/play';
 
     board: string[][];
     lastMove: CellType[][];
@@ -48,7 +48,13 @@ export class GameService{
             this.makePlayerMove(y, x);
 
             const requestBody = new GameStateRequest(this.board, {y: y, x: x}, this.difficultyLevel);
-            const httpOptions = {}
+            const httpHeaders = new HttpHeaders({
+                'Content-Type': 'application/json',
+            });
+
+            const httpOptions = {
+                headers: httpHeaders
+            }
 
             if(this.currentGameState.lastAiMove != null) {
                 this.lastMove[this.currentGameState.lastAiMove.y][this.currentGameState.lastAiMove.x] = CellType.Empty

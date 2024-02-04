@@ -1,10 +1,17 @@
-package by.pupil
+package by.pupil.web
 
 import by.pupil.ai.AIPlayer
-import by.pupil.converter.RequestConverter
+import by.pupil.coreModule
+import by.pupil.minimaxModule
+import by.pupil.web.converter.RequestConverter
 import by.pupil.model.*
+import by.pupil.repositoryModule
 import by.pupil.service.PersonToAIGameService
+import by.pupil.web.model.GameRequest
+import by.pupil.web.model.GameResponse
+import by.pupil.web.model.WebCell
 import by.pupil.winning.WinnerFinder
+import io.ktor.http.*
 import io.ktor.serialization.jackson.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -34,6 +41,8 @@ fun main() {
             )
         }
         install(CORS) {
+            allowHost("localhost:4200")
+            allowHeader(HttpHeaders.ContentType)
         }
         install(WebSockets) {
             pingPeriod = Duration.ofSeconds(15)
@@ -55,11 +64,6 @@ fun main() {
                 val request = call.receive<GameRequest>()
                 val board: Board = requestConverter.toBoard(request)
                 val playerMove = Move(request.playerMove.y, request.playerMove.x, Player.CROSSES)
-
-//                personToAIGameService.startUserWithAIGame(
-//                    1,
-//                    request.difficultyLevel
-//                )
 
                 val res: GameResponse =
                     if (winnerFinder.isMoveLeadToWin(board, playerMove)) {

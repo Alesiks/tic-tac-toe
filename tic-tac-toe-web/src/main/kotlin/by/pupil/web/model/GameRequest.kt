@@ -1,4 +1,4 @@
-package by.pupil.model
+package by.pupil.web.model
 
 import java.util.*
 
